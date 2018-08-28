@@ -1,0 +1,146 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "cordova-plugin-screen-orientation",
+        "scope": null,
+        "escapedName": "cordova-plugin-screen-orientation",
+        "name": "cordova-plugin-screen-orientation",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/Users/lirui/Desktop/rzgt-app/node_modules"
+    ]
+  ],
+  "_cnpm_publish_time": 1514690814907,
+  "_from": "cordova-plugin-screen-orientation@latest",
+  "_hasShrinkwrap": false,
+  "_id": "cordova-plugin-screen-orientation@3.0.1",
+  "_inCache": true,
+  "_location": "/cordova-plugin-screen-orientation",
+  "_nodeVersion": "8.2.1",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-screen-orientation-3.0.1.tgz_1514690814786_0.7268188530579209"
+  },
+  "_npmUser": {
+    "name": "macdonst",
+    "email": "simon.macdonald@gmail.com"
+  },
+  "_npmVersion": "4.6.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "cordova-plugin-screen-orientation",
+    "scope": null,
+    "escapedName": "cordova-plugin-screen-orientation",
+    "name": "cordova-plugin-screen-orientation",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "http://registry.npm.taobao.org/cordova-plugin-screen-orientation/download/cordova-plugin-screen-orientation-3.0.1.tgz",
+  "_shasum": "75a357ce2938081e8f61d4605394b6d77463c1f8",
+  "_shrinkwrap": null,
+  "_spec": "cordova-plugin-screen-orientation",
+  "_where": "/Users/lirui/Desktop/rzgt-app/node_modules",
+  "author": {
+    "name": "gbenvenuti"
+  },
+  "bugs": {
+    "url": "https://issues.apache.org/jira/browse/CB"
+  },
+  "cordova": {
+    "id": "cordova-plugin-screen-orientation",
+    "platforms": [
+      "android",
+      "ios",
+      "windows"
+    ]
+  },
+  "dependencies": {},
+  "description": "Adds Screen Orientation API lock and unlock functions to the global screen object in android, iOS and windows-uwp.",
+  "devDependencies": {
+    "jshint": "^2.9.4"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "75a357ce2938081e8f61d4605394b6d77463c1f8",
+    "size": 12796,
+    "noattachment": false,
+    "tarball": "http://registry.npm.taobao.org/cordova-plugin-screen-orientation/download/cordova-plugin-screen-orientation-3.0.1.tgz"
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "4.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-screen-orientation#readme",
+  "keywords": [
+    "cordova",
+    "device",
+    "ecosystem:cordova",
+    "screen",
+    "orientation",
+    "portrait",
+    "landscape"
+  ],
+  "license": "Apache-2.0",
+  "maintainers": [
+    {
+      "name": "bowserj",
+      "email": "bowserj@apache.org"
+    },
+    {
+      "name": "filmaj",
+      "email": "maj.fil@gmail.com"
+    },
+    {
+      "name": "gbenvenuti",
+      "email": "grant.benvenuti@gmail.com"
+    },
+    {
+      "name": "jcesarmobile",
+      "email": "jcesarmobile@gmail.com"
+    },
+    {
+      "name": "macdonst",
+      "email": "simon.macdonald@gmail.com"
+    },
+    {
+      "name": "purplecabbage",
+      "email": "purplecabbage@gmail.com"
+    },
+    {
+      "name": "shazron",
+      "email": "shazron@gmail.com"
+    },
+    {
+      "name": "stevegill",
+      "email": "stevengill97@gmail.com"
+    },
+    {
+      "name": "tony--",
+      "email": "tony.homer@intel.com"
+    }
+  ],
+  "name": "cordova-plugin-screen-orientation",
+  "optionalDependencies": {},
+  "publish_time": 1514690814907,
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apache/cordova-plugin-screen-orientation.git"
+  },
+  "scripts": {
+    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src && node node_modules/jshint/bin/jshint demo/www",
+    "test": "npm run jshint"
+  },
+  "version": "3.0.1"
+}
