@@ -108,8 +108,8 @@
                 window.open(response.downurl)
               } else {
                 //app下载
-                that.InappDownload(response.downurl, response.fileext, filename);
               }
+              that.InappDownload(response.downurl, response.fileext, filename);
             } else if (type === 'view') {//预览
               if (that.is_weixin()) {
                 //微信预览

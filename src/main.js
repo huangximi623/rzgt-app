@@ -65,8 +65,9 @@ Vue.config.productionTip = false;
 /* router全局守卫 */
 router.beforeEach((to, from, next) => {
   const list = [
-    'login', 'home', 'contact', 'personal', 'search', 'contactDetails',
+    'login', 'home', 'erp', 'contact', 'personal', 'search', 'contactDetails',
     'administrativeExamination', 'administrativeExaminationDetail',
+    'salesApproval','salesApprovalDetail',
     'documents', 'documentDetail',
     'documentRead', 'documentReadDetail',
     'meetingManager', 'meetingManagerDetails',
@@ -222,12 +223,16 @@ $(function () {
 
 //返回定位
 let routerLocation = function (location) {
-  if (location === '/tab/contact' || location === '/tab/personal') {
+  if (location === '/tab/contact' || location === '/tab/personal' || location === '/tab/erp') {
     router.push({path: '/tab/home'})
   } else if (location === '/administrativeExamination' || location === '/documents' || location === '/documentRead' || location === '/meetingManager' || location === '/taskManagement' || location === '/receptionManager' || location === '/informationPublish' || location === '/schedule' || location === '/documentCenter') {
     router.push({path: '/tab/home'})
   } else if (location === '/administrativeExaminationDetail') {
     router.push({path: '/administrativeExamination', query: {page: 'administrativeExaminationDetail'}});
+  } else if (location === '/salesApproval') {
+    router.push({path: '/tab/erp', query: {page: 'salesApproval'}});
+  } else if (location === '/salesApprovalDetail') {
+    router.push({path: '/salesApproval', query: {page: 'salesApprovalDetail'}});
   } else if (location === '/documentDetail') {
     router.push({path: '/documents', query: {page: 'documentDetail'}});
   } else if (location === '/documentReadDetail') {
@@ -272,6 +277,8 @@ let routerLocation = function (location) {
       router.push({path: '/meetingManagerDetails', query: {page: 'toReadList'}})
     } else if (router.currentRoute.query.buttonTitle === '接待管理') {
       router.push({path: '/receptionManagerDetails', query: {page: 'toReadList'}})
+    } else if (router.currentRoute.query.buttonTitle === '销售审批') {
+      router.push({path: '/salesApprovalDetail', query: {page: 'toReadList'}})
     }
   } else if (location === '/toNextList' || location === '/toReadList') {
     if (router.currentRoute.query.buttonTitle === '行政审批') {
@@ -282,6 +289,8 @@ let routerLocation = function (location) {
       router.push({path: '/meetingManagerDetails', query: {page: 'toReadList'}})
     } else if (router.currentRoute.query.buttonTitle === '接待管理') {
       router.push({path: '/receptionManagerDetails', query: {page: 'toReadList'}})
+    } else if (router.currentRoute.query.buttonTitle === '销售审批') {
+      router.push({path: '/salesApprovalDetail', query: {page: 'toReadList'}})
     }
   } else if (location === '/informationPublishDetails') {
     if (router.currentRoute.query.page === 'home') {

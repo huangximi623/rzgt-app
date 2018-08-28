@@ -2,6 +2,8 @@
   <div id="foot-guide">
     <ul>
       <li v-for="(button,index) in navButtons" @click="clickListener(index)">
+        <div class="newMessageState" v-if="button.newMessages == 'new'">
+        </div>
         <router-link :to="button.toPath">
           <img class="foot-img" :src="button.imgPath"/>
           <span :style="{color:button.color}">{{ button.name }}</span>
@@ -12,6 +14,8 @@
 </template>
 
 <script>
+  import interfaceService from '../../service/interfaceService.js'
+
   export default {
     name: 'footGuide',
     data() {
@@ -22,19 +26,29 @@
             name: '工作台',
             color: '#929292',
             toPath: '/tab/home',
-            imgPath: require('../../assets/main/home_unchecked@1x.png')
+            imgPath: require('../../assets/main/home_unchecked@1x.png'),
+            newMessages: ''
+          },
+          {
+            name: 'ERP',
+            toPath: '/tab/erp',
+            color: '#929292',
+            imgPath: require('../../assets/main/erp_unchecked@1x.png'),
+            newMessages: ''
           },
           {
             name: '通讯录',
             toPath: '/tab/contact',
             color: '#929292',
-            imgPath: require('../../assets/main/application_unchecked@1x.png')
+            imgPath: require('../../assets/main/application_unchecked@1x.png'),
+            newMessages: ''
           },
           {
             name: '我的',
             toPath: '/tab/personal',
             color: '#929292',
-            imgPath: require('../../assets/main/personal_unchecked@1x.png')
+            imgPath: require('../../assets/main/personal_unchecked@1x.png'),
+            newMessages: ''
           }
         ]
       }
@@ -50,15 +64,37 @@
             imgPath = require('../../assets/tab/message_checked@1x.png')
             break*/
           case 1:
-            imgPath = require('../../assets/main/application_checked@1x.png')
+            imgPath = require('../../assets/main/erp_checked@1x.png')
             break
           case 2:
+            imgPath = require('../../assets/main/application_checked@1x.png')
+            break
+          case 3:
             imgPath = require('../../assets/main/personal_checked@1x.png')
             break
         }
         this.navButtons[index].imgPath = imgPath
         this.navButtons[index].color = '#1e8fe1'
         this.activeIndex = index
+      },
+      //获取行政审批、公文管理、公文阅知的待办数量
+      getErpDaiban(type) {
+        let that = this;
+        that.showIndicator("加载中...");
+        interfaceService.queryErpData(type)
+          .then(function (response) {
+              that.hideIndicator();
+              for (let i = 0; i < response.length; i++) {
+                let index = response[i].count;
+                if(index > 0){
+                  that.navButtons[1].newMessages = 'new';
+                  break;
+                }
+              }
+            }, function (error) {
+              that.hideIndicator();
+            }
+          );
       }
     },
     watch: {
@@ -73,9 +109,12 @@
               imgPath = require('../../assets/tab/message_unchecked@1x.png')
               break*/
             case 1:
-              imgPath = require('../../assets/main/application_unchecked@1x.png')
+              imgPath = require('../../assets/main/erp_unchecked@1x.png')
               break
             case 2:
+              imgPath = require('../../assets/main/application_unchecked@1x.png')
+              break
+            case 3:
               imgPath = require('../../assets/main/personal_unchecked@1x.png')
               break
           }
@@ -85,36 +124,44 @@
       }
     },
     created: function () {
-      if (this.$route.path === '/tab/contact') {
-        this.navButtons[1].imgPath = require('../../assets/main/application_checked@1x.png')
+      if (this.$route.path === '/tab/erp') {
+        this.navButtons[1].imgPath = require('../../assets/main/erp_checked@1x.png')
         this.navButtons[1].color = '#1e8fe1'
         this.activeIndex = 1
-      } else if (this.$route.path === '/tab/personal') {
-        this.navButtons[2].imgPath = require('../../assets/main/personal_checked@1x.png')
+      } else if (this.$route.path === '/tab/contact') {
+        this.navButtons[2].imgPath = require('../../assets/main/application_checked@1x.png')
         this.navButtons[2].color = '#1e8fe1'
         this.activeIndex = 2
+      } else if (this.$route.path === '/tab/personal') {
+        this.navButtons[3].imgPath = require('../../assets/main/personal_checked@1x.png')
+        this.navButtons[3].color = '#1e8fe1'
+        this.activeIndex = 3
       } else {
         this.navButtons[0].imgPath = require('../../assets/main/home_checked@1x.png')
         this.navButtons[0].color = '#1e8fe1'
         this.activeIndex = 0
       }
+      // this.getErpDaiban("ERP");
     },
     beforeUpdate(){
-      if (this.$route.path === '/tab/contact') {
-        this.navButtons[1].imgPath = require('../../assets/main/application_checked@1x.png')
+      if (this.$route.path === '/tab/erp') {
+        this.navButtons[1].imgPath = require('../../assets/main/erp_checked@1x.png')
         this.navButtons[1].color = '#1e8fe1'
         this.activeIndex = 1
-      } else if (this.$route.path === '/tab/personal') {
-        this.navButtons[2].imgPath = require('../../assets/main/personal_checked@1x.png')
+      } else if (this.$route.path === '/tab/contact') {
+        this.navButtons[2].imgPath = require('../../assets/main/application_checked@1x.png')
         this.navButtons[2].color = '#1e8fe1'
         this.activeIndex = 2
+      } else if (this.$route.path === '/tab/personal') {
+        this.navButtons[3].imgPath = require('../../assets/main/personal_checked@1x.png')
+        this.navButtons[3].color = '#1e8fe1'
+        this.activeIndex = 3
       } else {
         this.navButtons[0].imgPath = require('../../assets/main/home_checked@1x.png')
         this.navButtons[0].color = '#1e8fe1'
         this.activeIndex = 0
       }
     }
-
 
   }
 </script>
@@ -145,7 +192,8 @@
   }
 
   #foot-guide ul li {
-    width: 33.33333333%;
+/*    width: 33.33333333%;*/
+    width: 25%;
     float: left;
     height: 55px;
     text-align: center;
@@ -172,4 +220,18 @@
     width: 20px;
     height: 20px;
   }
+
+  .newMessageState {
+    position: absolute;
+    border: 1px solid red;
+    background: red;
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    top: 5px;
+    right: 16px;
+    animation: mymove 0.5s;
+    -webkit-animation: mymove 0.5s; /*Safari and Chrome*/
+  }
+
 </style>

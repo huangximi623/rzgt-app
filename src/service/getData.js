@@ -21,6 +21,29 @@ export const postApiData = (params) => {
     data: params
   })
 };
+
+//获取ERP数据
+export const postErpApiData = (params) => {
+  return fetch({
+    url: config.erpApiURL,
+    method: 'POST',
+    withCredentials: true,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+      // 'crossDomain': true,
+      // 'X-Requested-With': 'XMLHttpRequest'
+    },
+    //发送请求前，将request payload转换成form data
+    transformRequest: [function (obj) {
+      let str = [];
+      for (let p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+      return str.join("&");
+    }],
+    data: params
+  })
+};
+
 //登陆与获取版本
 export const loginApi = (apiName, params) => {
   return fetchLogin({

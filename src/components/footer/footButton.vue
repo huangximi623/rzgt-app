@@ -85,6 +85,9 @@
             case '接待管理':
               that.showAlertAndUrl(response.message, '/receptionManager');
               break;
+            case '销售审批':
+              that.showAlertAndUrl(response.message, '/salesApproval');
+              break;
             default:
               break;
           }

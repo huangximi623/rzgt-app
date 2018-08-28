@@ -231,6 +231,8 @@
           this.$router.push({path: '/meetingManagerDetails', query: {page: 'toReadList'}})
         } else if (this.$route.query.buttonTitle === '接待管理') {
           this.$router.push({path: '/receptionManagerDetails', query: {page: 'toReadList'}})
+        } else if (this.$route.query.buttonTitle === '销售审批') {
+          this.$router.push({path: '/salesApprovalDetail', query: {page: 'toReadList'}})
         }
       },
       //获取顶层组织

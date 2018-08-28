@@ -1,4 +1,4 @@
-import {loginApi, loginOutApi, postApiData, weChatloginApi} from "./getData";
+import {loginApi, loginOutApi, postApiData, postErpApiData, weChatloginApi} from "./getData";
 import interfaceData from '../service/interfaceData.js'
 
 let interfaceService = {
@@ -12,8 +12,8 @@ let interfaceService = {
     document.cookie = c_name + "=" + escape(value) +
       ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString())
   },
-
 //获取cookie
+
   getCookie: function (c_name) {
     let c_start;
     if (document.cookie.length > 0) {
@@ -105,6 +105,31 @@ let interfaceService = {
       param: ''
     };
     return postApiData(paramsPost);
+  },
+
+
+  /*
+ ==========================================
+                ERP审批模块
+ ==========================================
+ */
+  //销售审批待办数量
+  queryErpData: function (type) {
+    let apiName = '';
+    switch (type) {
+      case 'ERP':
+        apiName = interfaceData.getERPDaiban;
+        break;
+      default:
+        break;
+    }
+    let url = apiName + this.getCookie("Token");
+    let paramsPost = {
+      url: url,
+      method: 'get',
+      param: ''
+    };
+    return postErpApiData(paramsPost);
   },
 
 
@@ -656,6 +681,9 @@ let interfaceService = {
         break;
       case '接待管理':
         url = interfaceData.getJDMangeCaoZuoApi;
+        break;
+      case '销售审批':
+        url = interfaceData.getERPCaoZuoApi;
         break;
       default:
         break;

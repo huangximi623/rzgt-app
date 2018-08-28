@@ -3,6 +3,15 @@ let interfaceData = {
   loginOutApi: '/SignOut',//登出
   versionApi: '/GetVersion',//版本
 
+  //销售审批模块
+  getERPDaiban: '/service/user/getERPDaiban/', //ERP审批待办数量、销售审批待办数量
+  //销售审批待办列表
+  //销售审批已办列表
+  //销售审批流程
+  //销售审批详情
+  //操作
+
+
   //主页数据显示
   getOADaibanApi: '/service/user/getOADaiban/',//行政审批待办数量
   getJDTaskCountApi: '/service/JDManage/getJDTaskCount/',//接待管理待办数量
@@ -13,9 +22,9 @@ let interfaceData = {
   getPictureNewsApi:'/service/IW/getPictureNews/',//轮播图获取
 
   //通讯录
-  getABGroupUserApi: '/service/user/getABGroupUser/',//通讯录
   queryABUserApi: '/service/user/queryABUser/',//查询员工
 
+  getABGroupUserApi: '/service/user/getABGroupUser/',//通讯录
   //组织结构
   getTopGroupApi: '/service/user/getTopGroup/',//顶层组织
   getGroupAndUserApi: '/service/user/getGroupAndUser',//子组织
@@ -103,6 +112,7 @@ let interfaceData = {
   getCWCRCaoZuoApi: '/service/CWCR/caozuo', //公文审批
   getMeetingCaoZuoApi: '/service/Meeting/caozuo', //会议管理
   getJDMangeCaoZuoApi: '/service/JDManage/caozuo', //接待管理
+  getERPCaoZuoApi: '/service/ERP/caozuo', //销售审批
 
   //附件获取
   getAttachmentAllUrlsApi: '/service/CWCR/getAttachmentAllUrls'

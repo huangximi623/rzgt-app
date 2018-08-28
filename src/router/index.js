@@ -10,6 +10,7 @@ const login = r => require.ensure([], () => r(require('../page/login/login')), '
 /* 主页面 START */
 const tab = r => require.ensure([], () => r(require('../page/tab/tab')), 'tab');
 const home = r => require.ensure([], () => r(require('../page/tab/home')), 'home');
+const erp = r => require.ensure([], () => r(require('../page/tab/erp')), 'erp');
 const contact = r => require.ensure([], () => r(require('../page/tab/contact')), 'contact');
 const personal = r => require.ensure([], () => r(require('../page/tab/personal')), 'personal');
 /* 主页面 END */
@@ -61,6 +62,9 @@ const toReadList = r => require.ensure([], () => r(require('../page/caozuo/toRea
 const toNextList = r => require.ensure([], () => r(require('../page/caozuo/toNextList')), 'toNextList');
 /*版本更新信息*/
 const versionUpdateInfo = r => require.ensure([], () => r(require('../page/versionUpdateInfo/versionUpdateInfo')), 'versionUpdateInfo');
+/* ERP审批 - 销售审批*/
+const salesApproval = r => require.ensure([], () => r(require('../page/erpApproval/salesApproval')), 'salesApproval');
+const salesApprovalDetail = r => require.ensure([], () => r(require('../page/erpApproval/salesApprovalDetail')), 'salesApprovalDetail');
 
 Vue.use(Router);
 
@@ -196,6 +200,18 @@ export default new Router({
       path: '/administrativeExaminationDetail',
       name: 'administrativeExaminationDetail',
       component: administrativeExaminationDetail,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/salesApproval',
+      name: 'salesApproval',
+      component: salesApproval,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/salesApprovalDetail',
+      name: 'salesApprovalDetail',
+      component: salesApprovalDetail,
       meta: {keepAlive: true}
     },
     {
@@ -359,6 +375,12 @@ export default new Router({
           path: 'home',
           name: 'home',
           component: home/*,
+          meta: {keepAlive: true}*/
+        },
+        {
+          path: 'erp',
+          name: 'erp',
+          component: erp/*,
           meta: {keepAlive: true}*/
         },
         {

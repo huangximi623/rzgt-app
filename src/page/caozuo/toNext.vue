@@ -137,6 +137,9 @@
                 case '接待管理':
                   that.showAlertAndUrl(response.message, '/receptionManager');
                   break;
+                case '销售审批':
+                  that.showAlertAndUrl(response.message, '/salesApproval');
+                  break;
                 default:
                   break;
               }
@@ -222,6 +225,8 @@
           this.$router.push({path: '/meetingManagerDetails', query: {page: 'toReadList'}})
         } else if (this.buttonTitle === '接待管理') {
           this.$router.push({path: '/receptionManagerDetails', query: {page: 'toReadList'}})
+        } else if (this.buttonTitle === '销售审批') {
+          this.$router.push({path: '/salesApprovalDetail', query: {page: 'toReadList'}})
         }
       },
       btn_cancel() {
