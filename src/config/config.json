@@ -1,5 +1,5 @@
 {
-  "baseURL": "https://moa.rizhaosteel.com:8092",
+  "baseURL": "https://jhmoa.rizhaosteel.com:8093",
   "apiURL": "/GetOaData",
   "erpApiURL": "/GetErpData",
   "currentVersion":"2.3.0",
