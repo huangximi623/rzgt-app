@@ -64,7 +64,9 @@
           comment: "",
           nextUser: [],
           nextOrg: [],
-          nextTran: ''
+          nextTran: '',
+          instanceId: '',//销售审批
+          fromId: ''//销售审批
         }
       }
     },
@@ -79,7 +81,14 @@
         this.nextTran = this.$route.query.buttonInfo ? this.$route.query.buttonInfo : '';
         this.params.caozuo = this.$route.query.caozuo ? this.$route.query.caozuo : '';
         this.params.taskId = this.$route.query.taskId ? this.$route.query.taskId : '';
-        this.params.userId = interfaceService.getCookie("Token");
+        this.params.instanceId = this.$route.query.taskId ? this.$route.query.taskId : '';
+        // this.params.userId = interfaceService.getCookie("Token");
+
+        if(this.buttonTitle === '销售审批'){
+          this.params.userId = interfaceService.getCookie("UserId");
+        }else{
+          this.params.userId = interfaceService.getCookie("Token");
+        }
 
         if (this.buttonTitle === '公文审批') {
           delete this.params.receiveGuid;//删除receiveGuid参数
@@ -99,6 +108,7 @@
           this.showAlert("审批意见不能为空！")
         } else {
           this.params.comment = this.comments;
+          that.params.fromId = 'JKA06';
           if (this.nextTran.length > 0) {
             //遍历nextTran，将选中值对应的transitionName赋值给nextTran参数
             for (let i = 0; i < this.nextTran.length; i++) {

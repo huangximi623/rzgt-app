@@ -90,8 +90,6 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
     </platform>
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
-    <engine name="ios" spec="^4.3.1" />
-    <engine name="android" spec="^6.3.0" />
     <plugin name="cordova-plugin-device" spec="^2.0.1" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
@@ -104,4 +102,5 @@
     <plugin name="cordova-plugin-themeablebrowser" spec="^0.2.17" />
     <plugin name="cordova-open" spec="^1.0.12" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
+    <engine name="android" spec="~6.3.0" />
 </widget>

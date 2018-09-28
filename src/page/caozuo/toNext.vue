@@ -39,10 +39,16 @@
 
       <div>
         <mt-cell title="审批意见"></mt-cell>
-        <div>
+        <div v-if="buttonTitle == '销售审批'">
           <mt-radio class="approvalComments"
             v-model="comments"
-            :options="['同意', '不同意', '已阅']">
+            :options="['同意']">
+          </mt-radio>
+        </div>
+        <div v-else>
+          <mt-radio class="approvalComments"
+                    v-model="comments"
+                    :options="['同意', '不同意', '已阅']">
           </mt-radio>
         </div>
         <div>
@@ -57,10 +63,16 @@
       </div>
       <my-picker ref="myPickerNext" :selectData="doNext"></my-picker>
     </mt-popup>
-    <div class="caozuo">
-      <mt-button type="primary" size="large" class="caozuo-btn" plain @click.native="toNext(buttonTitle,params)">流转
+
+    <div v-if="buttonTitle == '销售审批'" class="caozuo">
+      <mt-button type="primary" size="large" class="caozuo-btn" plain @click.native="toNext(buttonTitle,params)">核准
       </mt-button>
     </div>
+    <div v-else class="caozuo">
+      <mt-button type="primary" size="large" class="caozuo-btn" plain @click.native="toNext(buttonTitle,params)">流转
+      </mt-button>
+    </div>>
+
   </div>
 </template>
 
@@ -90,7 +102,9 @@
           comment: "",
           nextUser: [],
           nextOrg: [],
-          nextTran: ''
+          nextTran: '',
+          instanceId: '',//销售审批
+          fromId: ''//销售审批
         },
         tKind: ''
       }
@@ -121,6 +135,7 @@
               }
             }
             that.params.comment = this.comments;
+            that.params.fromId = 'JKA05';
             that.showIndicator("加载中...");
             interfaceService.queryAdminRead(type, params).then(function (response) {
               that.hideIndicator();
@@ -197,6 +212,7 @@
 
           this.params.caozuo = this.$route.query.caozuo ? this.$route.query.caozuo : '';
           this.params.taskId = this.$route.query.taskId ? this.$route.query.taskId : '';
+          this.params.instanceId = this.$route.query.taskId ? this.$route.query.taskId : '';//销售审批用合同单号
           if (this.buttonTitle === '公文审批') {
             delete this.params.receiveGuid;//删除receiveGuid参数
             this.params.fileGuid = this.$route.query.fileGuid ? this.$route.query.fileGuid : '';//增加fileGuid参数
@@ -207,7 +223,11 @@
             delete this.params.fileGuid;//删除fileGuid参数
             delete this.params.receiveGuid;//删除receiveGuid参数
           }
-          this.params.userId = interfaceService.getCookie("Token");
+          if(this.buttonTitle === '销售审批'){
+            this.params.userId = interfaceService.getCookie("UserId");
+          }else{
+            this.params.userId = interfaceService.getCookie("Token");
+          }
         } else {//从流转列表页面跳入
           //清空
           // this.params.nextUser = [];
@@ -249,6 +269,7 @@
         for (let i = 0; i < this.nextTran.length; i++) {
           if (this.selectNext === this.nextTran[i].transitionName) {
             this.params.nextTran = this.nextTran[i].transitionLabel;
+            console.log(this.nextTran[i].tKind)
             if (this.nextTran[i].tKind) {
               this.showTransfer = true;
               if (this.nextTran[i].tKind === 'U') {

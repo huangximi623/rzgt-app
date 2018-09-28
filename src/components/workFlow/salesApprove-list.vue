@@ -10,12 +10,12 @@
           <div class="list-item">
             <div class="item-content">
               <!--<span class="item-content-t">{{submit}}</span>-->
-              <span class="item-content-c">{{staterName}}</span>
+              <span class="item-content-c">{{sender}}</span>
             </div>
             <div class="item-content">
               <!--<span class="item-content-t">{{timeKey}}</span>-->
-              <span class="item-content-c" v-if="typeFlag == 'todo' && reciverTime">{{reciverTime.replace('T',' ')}}</span>
-              <span class="item-content-c" v-if="typeFlag != 'todo' && startTime">{{startTime.replace('T',' ')}}</span>
+              <span class="item-content-c" v-if="typeFlag == 'todo' && createDate">{{createDate.replace('T',' ')}}</span>
+              <span class="item-content-c" v-if="typeFlag != 'todo' && createDate">{{createDate.replace('T',' ')}}</span>
             </div>
           </div>
           <div class="salesApprove-list-select">
@@ -31,39 +31,24 @@
 <script>
   export default {
     props: {
-      className: {type: String},
-      endTime: {type: String},
-      endTimeStr: {type: String},
-      extra: {type: String},
-      form: {type: String},
-      formFlow: {type: String},
-      platCommonSchema: {type: String},
-      platSchema: {type: String},
-      processCname: {type: String},
-      processId: {type: String},
-      processName: {type: String},
-      processNum: {type: String},
-      processState: {type: String},
-      projectCommonSchema: {type: String},
-      projectSchema: {type: String},
-      pubState: {type: String},
-      reciverTime: {type: String},
-      startDept: {type: String},
-      startTime: {type: String},
-      stater: {type: String},
-      staterName: {type: String},
-      taskId: {type: String},
-      tenantId: {type: String},
+      instanceId: {type: String},
+      sender: {type: String},
       title: {type: String},
-      transitionTag: {type: String},
-      eiMetadata: {type: Object},
-      typeFlag: {type: String}
+      createDate: {type: String},
+      typeFlag: {type: String},
+      listflag:{type: String}
+    },
+    data(){
+      return{
+       /* listflag:'',*/
+      }
     },
     methods: {
       goLand() {
+        console.log(this.listflag);
         this.$router.push({
           path: '/salesApprovalDetail',
-          query: {type: this.typeFlag, processId: this.processId, taskId: this.taskId}
+          query: {type: this.typeFlag, instanceId: this.instanceId,listflag:this.listflag }
         })
       }
     }

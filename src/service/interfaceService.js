@@ -114,24 +114,68 @@ let interfaceService = {
  ==========================================
  */
   //销售审批待办数量
-  queryErpData: function (type) {
+  queryErpData: function (type,params) {
     let apiName = '';
     switch (type) {
       case 'ERP':
-        apiName = interfaceData.getERPDaiban;
+        apiName = interfaceData.getERPDaibanApi;
         break;
       default:
         break;
     }
-    let url = apiName + this.getCookie("Token");
+    let url = apiName;
     let paramsPost = {
       url: url,
-      method: 'get',
-      param: ''
+      method: 'post',
+      param: params
     };
     return postErpApiData(paramsPost);
   },
 
+  querySalesList: function (type, params) {
+    let apiName = '';
+    switch (type) {
+      case '待办':
+        apiName = interfaceData.getSaleDbListApi;
+        break;
+      case '已办':
+        apiName = interfaceData.getSaleYbListApi;
+        break;
+      default:
+        break;
+    }
+    // let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
+    let url = apiName;
+    let paramsPost = {
+      url: url,
+      method: 'post',
+      param: JSON.stringify(params)
+    };
+    return postErpApiData(paramsPost);
+  },
+
+  //销售审批流程
+  querySalesProcess: function (params) {
+    console.log("请求意见参数"+params)
+    let url = interfaceData.getSaleCommentDetailApi;
+    let paramsPost = {
+      url: url,
+      method: 'post',
+      param: JSON.stringify(params)
+    };
+    return postErpApiData(paramsPost);
+  },
+  //销售审批详情
+  querySalesDetails: function (params) {
+    let url = '';
+    url = interfaceData.getSaleTaskDetailApi;
+    let paramsPost = {
+      url: url,
+      method: 'post',
+      param: JSON.stringify(params)
+    };
+    return postErpApiData(paramsPost);
+  },
 
   /*
   ==========================================
@@ -693,7 +737,12 @@ let interfaceService = {
       method: 'post',
       param: JSON.stringify(params)
     };
-    return postApiData(paramsPost);
+    if(type == '销售审批'){
+      return postErpApiData(paramsPost);
+    }else{
+      return postApiData(paramsPost);
+    }
+
   },
 
   /*

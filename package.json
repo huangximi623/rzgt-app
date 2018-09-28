@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "cordova-android": "^6.3.0",
-    "cordova-ios": "^4.3.1",
     "cordova-open": "^1.0.12",
     "cordova-plugin-device": "^2.0.1",
     "cordova-plugin-file": "^5.0.0",
@@ -111,8 +110,7 @@
       "cordova-plugin-x-socialsharing": {}
     },
     "platforms": [
-      "android",
-      "ios"
+      "android"
     ]
   }
 }

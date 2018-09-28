@@ -4,13 +4,11 @@ let interfaceData = {
   versionApi: '/GetVersion',//版本
 
   //销售审批模块
-  getERPDaiban: '/service/user/getERPDaiban/', //ERP审批待办数量、销售审批待办数量
-  //销售审批待办列表
-  //销售审批已办列表
-  //销售审批流程
-  //销售审批详情
-  //操作
-
+  getERPDaibanApi: '/service/getERPDaiban/',//销售审批待办数量
+  getSaleDbListApi: '/service/getSaleDbList/',//销售审批待办列表
+  getSaleYbListApi: '/service/getSaleYbList/',//销售审批已办列表
+  getSaleTaskDetailApi: '/service/getSaleTaskDetail/',//销售审批详情
+  getSaleCommentDetailApi: '/service/getSaleCommentDetail/',//销售审批流程记录
 
   //主页数据显示
   getOADaibanApi: '/service/user/getOADaiban/',//行政审批待办数量

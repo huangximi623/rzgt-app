@@ -27,6 +27,7 @@
     <body-content class="body-content">
       <div class="person-list" v-if="!searchShowOrHide">
         <check-list
+          :max="isMax"
           align="right"
           v-model="value"
           :options="option">
@@ -42,9 +43,11 @@
     </body-content>
 
     <div class="footer-button">
-      <div class="btn-active select-current" @click="selectCurrentAll()">选择当前节点全部</div>
-      <div class="btn-active confirm" @click="confirmSelected()">确定</div>
-      <div class="btn-active clear-all" @click="clearAll()">清除已选</div>
+      <div v-if="!isSalesApproval" class="btn-active select-current" @click="selectCurrentAll()">选择当前节点全部</div>
+      <div v-if="isSalesApproval" class="btn-active confirm-sale" @click="confirmSelected()">确定</div>
+      <div v-else class="btn-active confirm" @click="confirmSelected()">确定</div>
+      <div v-if="isSalesApproval" class="btn-active clear-all-sale" @click="clearAll()">清除已选</div>
+      <div v-else class="btn-active clear-all" @click="clearAll()">清除已选</div>
     </div>
 
   </div>
@@ -60,13 +63,15 @@
     name: 'toNextList',
     data() {
       return {
-        title: '流转',
+        title: '',
         searchShowOrHide: false,
         searchVal: '',//搜索值
         searchValue: [],
         searchOption: [],
         option: [],//用于存放当前节点的person
-        value: [] //用于存放选中的person
+        value: [], //用于存放选中的person
+        isSalesApproval: false,
+        isMax:''
       }
     },
     components: {HeaderSimple, BodyContent, CheckList},
@@ -79,7 +84,12 @@
           this.searchOption = [];
         } else {
           this.searchShowOrHide = false;
-          this.title = '流转';
+          // this.title = '流转';
+          if(this.$route.query.buttonTitle === '销售审批'){
+            this.title = '核准';
+          }else{
+            this.title = '流转';
+          }
         }
       },
       search(searchVal) {
@@ -109,6 +119,7 @@
         if (this.searchShowOrHide) {
           //全选搜索列表的人员
           for (let i = 0; i < this.option.length; i++) {
+            // alert(111111);
             if (!this.isInArray(this.searchValue, this.option[i].value.userid)) {
               this.searchValue.push(this.option[i].value);
             }
@@ -116,7 +127,10 @@
         } else {
           //全选当前页面的全部人员
           for (let i = 0; i < this.option.length; i++) {
+            // alert(22222);
+            // alert(this.value);
             if (!this.isInArray(this.value, this.option[i].value.userid)) {
+              // alert(this.option[i].value);
               this.value.push(this.option[i].value);
             }
           }
@@ -166,6 +180,16 @@
         this.searchVal = '';//搜索值
         this.searchShowOrHide = false;
         this.searchOption = [];
+        this.isSalesApproval = false;
+        this.title = this.$route.query.buttonTitle;
+        if(this.$route.query.buttonTitle === '销售审批'){
+          this.title = '核准';
+          this.isMax = '1';
+          this.isSalesApproval = true;
+        }else{
+          this.title = '流转';
+          this.isMax = this.$route.query.listUser.length;
+        }
         //赋值
         for (let i = 0; i < this.$route.query.listUser.length; i++) {
           if (this.$route.query.tKind === 'U') {
@@ -190,6 +214,7 @@
     },
     watch: {},
     activated() {
+      // alert(this.isMax);
       if (this.$route.query.page === 'toRead') {
         this.init();
         if (this.$route.query.deleteAll === 'deleteAll') {
@@ -307,9 +332,21 @@
         color: #1e8fe1;
         /*background-color: #26a2ff;*/
       }
+      .confirm-sale {
+        float: left;
+        width: 50%;
+        color: #1e8fe1;
+        /*background-color: #26a2ff;*/
+      }
       .clear-all {
         float: right;
         width: 30%;
+        color: #ef4f4f;
+        /*background-color: #ef4f4f;*/
+      }
+      .clear-all-sale {
+        float: right;
+        width: 50%;
         color: #ef4f4f;
         /*background-color: #ef4f4f;*/
       }

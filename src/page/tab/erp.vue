@@ -25,7 +25,8 @@
     name: 'erp',
     data() {
       return {
-        title: 'ERP'
+        title: 'ERP',
+        paramsErpDaiban:{}
       }
     },
     components: {HeaderSimple, BodyContent, ErpContent},
@@ -33,15 +34,22 @@
       //获取ERP页面数据
       getErpData() {
         let that = this;
-        //获取行政审批、公文审批、公文阅知待办数量
-        interfaceService.queryErpData('ERP')
-        .then(function (wfResp) {
+        //获取ERP待办数量
+        that.paramsErpDaiban = {
+          "fromId":"JKA01",
+          "test":"Y",
+          // "userId":"R002019",
+          "userId":interfaceService.getCookie("UserId")
+        };
+        var obj = JSON.stringify(that.paramsErpDaiban);
+        interfaceService.queryErpData('ERP',obj)
+        .then(function (saleResp) {
           that.hideIndicator();
-          //行政审批、公文管理、公文阅知
-          for (let i = 0; i < wfResp.length; i++) {
-            let wfindex = that.getIndex(that.$refs.contentGuide.contentList, wfResp[i].label);
-            that.$refs.contentGuide.contentList[wfindex].newMessages = wfResp[i].count;
-          }
+          //销售待办数量
+          // for (let i = 0; i < saleResp.length; i++) {
+            // let wfindex = that.getIndex(that.$refs.contentGuide.contentList, wfResp[i].label);
+            that.$refs.contentGuide.contentList[0].newMessages = saleResp.data.value;
+          // }
         }, function (error) {
           that.hideIndicator();
           that.showAlert("数据加载失败");

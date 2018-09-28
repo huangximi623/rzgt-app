@@ -33,6 +33,18 @@
     },
     "cordova-plugin-themeablebrowser": {
       "PACKAGE_NAME": "com.rizhaosteel.mobileApp"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.rizhaosteel.mobileApp"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "com.rizhaosteel.mobileApp"
+    },
+    "ionic-plugin-keyboard": {
+      "PACKAGE_NAME": "com.rizhaosteel.mobileApp"
+    },
+    "phonegap-plugin-barcodescanner": {
+      "PACKAGE_NAME": "com.rizhaosteel.mobileApp"
     }
   },
   "dependent_plugins": {

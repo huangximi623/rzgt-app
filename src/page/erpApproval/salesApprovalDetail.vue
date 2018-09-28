@@ -10,26 +10,24 @@
       <div class="right-button" slot="right"></div>
     </header-simple>
     <body-content class="body-content"
-                  :class="administrativeInfo.caozuo && administrativeInfo.caozuo.length>0 ? 'haveFootButton-heigth' : 'noFootButton-heigth' ">
+                  :class="salesApprovalInfo.caozuo && salesApprovalInfo.caozuo.length>0 ? 'haveFootButton-heigth' : 'noFootButton-heigth' ">
       <!--表单区-->
-      <div class="procedureRecord" v-if="administrativeInfo.detail">
+      <div class="procedureRecord" v-if="salesApprovalInfo.detail">
         <span><label class="margin-left-5">表单详情区</label></span>
       </div>
-      <mt-cell v-for="(item,index) in administrativeInfo.detail" :key="index" :title="item.key"
+      <mt-cell v-for="(item,index) in salesApprovalInfo.detail" :key="index" :title="item.label"
                :value="item.value.replace(/<br>/g,'')"></mt-cell>
-      <div v-if="administrativeInfo.detailZB" :class="administrativeInfo.detailZB.length>0?'detailZB':''">
-        <mt-cell v-for="(item,index) in administrativeInfo.detailZB" :key="index"
+      <div v-if="salesApprovalInfo.detailZB" :class="salesApprovalInfo.detailZB.length>0?'detailZB':''">
+        <mt-cell v-for="(item,index) in salesApprovalInfo.detailZB" :key="index"
                  :title="item.key"
                  :value="item.value"></mt-cell>
       </div>
       <process-record :history="history"></process-record>
-      <!--附件区-->
-      <attachments-area :attachmentsInfo="administrativeInfo" :detailsPage="'行政审批'"></attachments-area>
     </body-content>
-
-    <foot-button :footButton="administrativeInfo.caozuo" :buttonTitle="buttonTitle"
-                 :taskId="paramsDetail.taskId"></foot-button>
-
+    <div v-if="typeFlag == 'todo'">
+      <foot-button :footButton="salesApprovalInfo.caozuo" :buttonTitle="buttonTitle"
+                   :taskId="paramsDetail.instanceId"></foot-button>
+    </div>
   </div>
 </template>
 
@@ -49,43 +47,65 @@
         title: '详细信息',
         buttonTitle: '销售审批',
         showAllRecord: false,
-        administrativeInfo: {
+        salesApprovalInfo: {
           caozuo: []
         },
+        typeFlag: '',
         history: [],
         paramsDetail: {
-          "processId": "",
-          "taskId": ""
-        }
+          fromId: "",
+          test: "Y",
+          userId:"",
+          instanceId: "",
+          from: '0',
+          limit: '10'
+        },
+        paramsProcess: {
+          fromId: "JKA04",
+          test: "Y",
+          userId: "",
+          instanceId: "",
+          from: '0',
+          limit: '10'
+        },
       }
     },
     components: {HeaderSimple, BodyContent, ProcessRecord, AttachmentsArea, FootButton},
     methods: {
       goBack() {
-        this.$router.push({path: '/salesApproval', query: {page: 'salesApprovalDetail'}})
+        this.$router.push({path: '/salesApproval', query: {page: 'salesApprovalDetail',listflag:this.xqflag}})
       },
       init() {
-        this.paramsDetail.processId = this.$route.query.processId ? this.$route.query.processId : '';
-        this.paramsDetail.taskId = this.$route.query.taskId ? this.$route.query.taskId : '';
+        this.paramsDetail.instanceId = this.$route.query.instanceId ? this.$route.query.instanceId : '';//R180418002
+        this.paramsProcess.instanceId = this.$route.query.instanceId ? this.$route.query.instanceId : '';//"R180516001"
+        this.typeFlag = this.$route.query.type ? this.$route.query.type : '';
+        this.paramsDetail.userId=interfaceService.getCookie("UserId");
+        if(this.$route.query.listflag=='YB'){
+          this.paramsDetail.fromId='JKA08'
+        }else{
+          this.paramsDetail.fromId='JKA03'
+        }
+
+        //console.log("本次请求的fromid"+this.paramsDetail.fromId);
       },
 
       //获取审批流程和表单详情
-      getProcessAndDetails(type, params) {
+      getProcessAndDetails(type) {
         let that = this;
         that.history = [];
-        that.administrativeInfo = {
+        that.salesApprovalInfo = {
           caozuo: []
         };
         that.showIndicator('加载中...');//显示加载提示;
         //同时执行多个请求
         axios.all([
-          interfaceService.queryAdminProcess(params),
-          interfaceService.queryAdminDetails(type, params)
+          interfaceService.querySalesProcess(that.paramsProcess),
+          interfaceService.querySalesDetails(that.paramsDetail),
         ])
           .then(axios.spread(function (processResp, detailsResp) {
             that.hideIndicator();
-            that.history = processResp;
-            that.administrativeInfo = detailsResp;
+            that.history = processResp.data;
+            that.salesApprovalInfo = detailsResp.data;
           }), function (error) {
             that.hideIndicator();
             that.showAlert("数据加载失败");
@@ -94,6 +114,7 @@
     },
     activated() {
       //微信登陆
+
       if (this.is_weixin()) {
         let that = this;
         that.showIndicator('加载中...');//显示加载提示;
@@ -107,7 +128,7 @@
             }
             if (that.$route.query.page !== 'toReadList') {
               that.init();
-              that.getProcessAndDetails(that.$route.query.type, that.paramsDetail);
+              that.getProcessAndDetails(that.$route.query.type);
             }
           }, function (error) {
             that.hideIndicator();
@@ -116,7 +137,10 @@
       } else {
         if (this.$route.query.page !== 'toReadList') {
           this.init();
-          this.getProcessAndDetails(this.$route.query.type, this.paramsDetail);
+          this.getProcessAndDetails(this.$route.query.type);
+          this.paramsDetail.userId=interfaceService.getCookie("UserId");
+          this.paramsProcess.userId=interfaceService.getCookie("UserId");
+
         }
       }
     }

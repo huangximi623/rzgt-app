@@ -21,6 +21,7 @@
     data() {
       return {
         activeIndex: 0,
+        paramsErpDaiban:{},
         navButtons: [
           {
             name: '工作台',
@@ -77,19 +78,25 @@
         this.navButtons[index].color = '#1e8fe1'
         this.activeIndex = index
       },
-      //获取行政审批、公文管理、公文阅知的待办数量
-      getErpDaiban(type) {
+      //获取销售待办数量
+      getErpDaiban() {
         let that = this;
+        //获取ERP待办数量
+        // alert(interfaceService.getCookie("UserId"));
+        that.paramsErpDaiban = {
+          "fromId":"JKA01",
+          "test":"Y",
+          // "userId":"R002019"
+          "userId":interfaceService.getCookie("UserId")
+        };
+        var obj = JSON.stringify(that.paramsErpDaiban);
         that.showIndicator("加载中...");
-        interfaceService.queryErpData(type)
+        interfaceService.queryErpData('ERP',obj)
           .then(function (response) {
-              that.hideIndicator();
-              for (let i = 0; i < response.length; i++) {
-                let index = response[i].count;
-                if(index > 0){
-                  that.navButtons[1].newMessages = 'new';
-                  break;
-                }
+            that.hideIndicator();
+            let index = response.data.value;
+              if(index > 0){
+                that.navButtons[1].newMessages = 'new';
               }
             }, function (error) {
               that.hideIndicator();
@@ -141,7 +148,7 @@
         this.navButtons[0].color = '#1e8fe1'
         this.activeIndex = 0
       }
-      // this.getErpDaiban("ERP");
+      this.getErpDaiban();
     },
     beforeUpdate(){
       if (this.$route.path === '/tab/erp') {

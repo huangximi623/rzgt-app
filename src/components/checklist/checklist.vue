@@ -1,6 +1,6 @@
 <template>
-  <div @change="$emit('change', currentValue)" class="mint-checklist"
-       :class="{ 'is-limit': max <= currentValue.length }">
+  <div @change="$emit('change', currentValue)" class="mint-checklist">
+<!--       :class="{ 'is-limit': max <= currentValue.length }">-->
     <label class="mint-checklist-title" v-text="title"></label>
     <mt-cell v-for="(option,index) in options" :key="index">
       <label class="mint-checklist-label my-checkbox-label" slot="title">
@@ -72,6 +72,7 @@
     computed: {
       limit() {
         return this.max < this.currentValue.length;
+        // return this.currentValue.length < this.max;
       }
     },
 
@@ -85,6 +86,7 @@
         this.$emit('input', val);
       }
     }
+
   };
 </script>
 

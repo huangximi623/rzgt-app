@@ -1,5 +1,5 @@
 {
-  "baseURL": "https://jhmoa.rizhaosteel.com:8093",
+  "baseURL": "http://10.1.194.42:7005",
   "apiURL": "/GetOaData",
   "erpApiURL": "/GetErpData",
   "currentVersion":"2.3.0",

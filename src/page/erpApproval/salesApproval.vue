@@ -21,73 +21,31 @@
       </div>
       <mt-loadmore v-else class="list-selector" :top-method="loadTop" :bottom-method="loadBottom"
                    :bottom-all-loaded="allLoaded"
-                   :auto-fill="false" ref="loadmore_admin">
+                   :auto-fill="false" ref="loadmore_sale">
         <!-- tab-container -->
         <mt-tab-container v-model="selected">
           <mt-tab-container-item id="1">
             <div id="todo">
-              <salesApprove-list v-for='(item,index) in dealtInfo'
-                                   :key="index"
-                                   :className='item.class'
-                                   :endTime='item.endTime'
-                                   :endTimeStr='item.endTimeStr'
-                                   :extra='item.extra'
-                                   :form='item.form'
-                                   :formFlow='item.formFlow'
-                                   :platCommonSchema='item.platCommonSchema'
-                                   :platSchema='item.platSchema'
-                                   :processCname='item.processCname'
-                                   :processId='item.processId'
-                                   :processName='item.processName'
-                                   :processNum='item.processNum'
-                                   :processState='item.processState'
-                                   :projectCommonSchema='item.projectCommonSchema'
-                                   :projectSchema='item.projectSchema'
-                                   :pubState='item.pubState'
-                                   :reciverTime='item.reciverTime'
-                                   :startDept='item.startDept'
-                                   :startTime='item.startTime'
-                                   :stater='item.stater'
-                                   :staterName='item.staterName'
-                                   :taskId='item.taskId'
-                                   :tenantId='item.tenantId'
-                                   :title='item.title'
-                                   :transitionTag='item.transitionTag'
-                                   :eiMetadata='item.eiMetadata'
-                                   :typeFlag="'todo'">
+              <salesApprove-list :listflag="listId"
+                                   v-for='(item,index) in dealtInfo'
+                                  :key="index"
+                                  :instanceId='item.INSTANCEID'
+                                  :title='item.TITLE'
+                                  :sender='item.SENDER'
+                                  :createDate='item.CREATEDATE'
+                                  :typeFlag="'todo'">
               </salesApprove-list>
             </div>
           </mt-tab-container-item>
           <mt-tab-container-item id="2">
             <div id="done">
-              <salesApprove-list v-for='(item,index) in dealtInfo'
+              <salesApprove-list :listflag="listId"
+                                    v-for='(item,index) in dealtInfo'
                                    :key="index"
-                                   :className='item.class'
-                                   :endTime='item.endTime'
-                                   :endTimeStr='item.endTimeStr'
-                                   :extra='item.extra'
-                                   :form='item.form'
-                                   :formFlow='item.formFlow'
-                                   :platCommonSchema='item.platCommonSchema'
-                                   :platSchema='item.platSchema'
-                                   :processCname='item.processCname'
-                                   :processId='item.processId'
-                                   :processName='item.processName'
-                                   :processNum='item.processNum'
-                                   :processState='item.processState'
-                                   :projectCommonSchema='item.projectCommonSchema'
-                                   :projectSchema='item.projectSchema'
-                                   :pubState='item.pubState'
-                                   :reciverTime='item.reciverTime'
-                                   :startDept='item.startDept'
-                                   :startTime='item.startTime'
-                                   :stater='item.stater'
-                                   :staterName='item.staterName'
-                                   :taskId='item.taskId'
-                                   :tenantId='item.tenantId'
-                                   :title='item.title'
-                                   :transitionTag='item.transitionTag'
-                                   :eiMetadata='item.eiMetadata'
+                                   :instanceId='item.INSTANCEID'
+                                   :sender='item.SENDER'
+                                   :title='item.TITLE'
+                                   :createDate='item.FINISHDATE'
                                    :typeFlag="'done'">
               </salesApprove-list>
             </div>
@@ -113,7 +71,11 @@
         showFlag: false,
         allLoaded: false,
         dealtInfo: [],
+        listId:"",
         params: {
+          "fromId":"JKA02",
+          "test":"Y",
+          "userId":"",
           "from": "0",
           "limit": "10"
         }
@@ -124,19 +86,20 @@
       goBack() {
         this.$router.push({path: '/tab/erp'})
       },
-      //获取行政审批列表
-      getAdministrativeExaminationList(type, params) {
+      //获取销售审批列表
+      getSalesApprovalList(type, params) {
         let that = this;
         that.dealtInfo = [];
 //        that.showIndicator('加载中...');
-        interfaceService.queryAdminList(type, params).then(function (response) {
+//         alert(params.from);
+        interfaceService.querySalesList(type, params).then(function (response) {
           that.hideIndicator();
-          that.dealtInfo = response;
-          if(response.length === 0){
+          that.dealtInfo = response.data;
+          if(response.data.length === 0){
             that.showFlag = true;
           }else{
             //如果请求返回数量小于limit，则默认加载全部，不允许再上拉加载
-            if (response.length < that.params.limit) {
+            if (response.data.length < that.params.limit) {
               that.allLoaded = true;
               that.showToast("已加载全部！")
             }
@@ -152,14 +115,14 @@
       loadmore(type, params) {
         let that = this;
 //        that.showIndicator('加载中...');
-        interfaceService.queryAdminList(type, params).then(function (response) {
-          if (response) {
+        interfaceService.querySalesList(type, params).then(function (response) {
+          if (response.data) {
             that.hideIndicator();
-            for (let i = 0; i < response.length; i++) {
-              that.dealtInfo.push(response[i]);
+            for (let i = 0; i < response.data.length; i++) {
+              that.dealtInfo.push(response.data[i]);
             }
             //如果请求返回数量小于limit，则默认加载全部，不允许再上拉加载
-            if (response.length < that.params.limit) {
+            if (response.data.length < that.params.limit) {
               that.allLoaded = true;
               that.showToast("已加载全部！")
             }
@@ -174,34 +137,27 @@
         let self = this;
         this.allLoaded = false;
         this.showFlag = false;
-        this.params = {
-          "from": "0",
-          "limit": "10"
-        };
         setTimeout(() => {
           if (self.selected === '1') {
-            self.getAdministrativeExaminationList('待办', self.params);
+            self.getSalesApprovalList('待办', self.params);
           } else if (self.selected === '2') {
-            self.getAdministrativeExaminationList('已办', self.params);
-          } /*else if (self.selected === '3') {
-            self.getAdministrativeExaminationList('办结', self.params);
-          }*/
-          self.$refs.loadmore_admin.onTopLoaded();
+            self.getSalesApprovalList('已办', self.params);
+          }
+          self.$refs.loadmore_sale.onTopLoaded();
         }, 1500)
       },
       // 上拉加载更多
       loadBottom() {
         let self = this;
+        // alert(111111111111);
         this.params.from = (Number(this.params.limit) + Number(this.params.from)).toString();
         setTimeout(() => {
           if (self.selected === '1') {
             self.loadmore('待办', self.params);
           } else if (self.selected === '2') {
             self.loadmore('已办', self.params);
-          } /*else if (self.selected === '3') {
-            self.loadmore('办结', self.params);
-          }*/
-          self.$refs.loadmore_admin.onBottomLoaded();
+          }
+          self.$refs.loadmore_sale.onBottomLoaded();
         }, 1500);
       }
     },
@@ -210,39 +166,37 @@
         // this.dealtInfo = [];
         this.allLoaded = false;
         this.showFlag = false;
-        this.params = {
-          "from": "0",
-          "limit": "10"
-        };
+        this.params.from = '0';
+        this.params.limit = '10';
         switch (newval) {
           case '1':
             this.showIndicator('加载中...');
-            this.getAdministrativeExaminationList('待办', this.params);
+            // this.getAdministrativeExaminationList('待办', this.params);
+            this.params.fromId = 'JKA02';
+            this.getSalesApprovalList('待办', this.params);
+            this.listId='DB'
             break;
           case '2':
             this.showIndicator('加载中...');
-            this.getAdministrativeExaminationList('已办', this.params);
+            this.params.fromId = 'JKA07';
+            this.getSalesApprovalList('已办', this.params);
+            this.listId='YB';
             break;
-/*          case '3':
-            this.showIndicator('加载中...');
-            this.getAdministrativeExaminationList('办结', this.params);
-            break;*/
           default:
             break;
         }
       }
     },
     activated() {
-      if (this.$route.query.page !== 'administrativeExaminationDetail' || this.is_weixin()) {
+      if (this.$route.query.page !== 'salesApprovalDetail' || this.is_weixin()) {
         this.selected = '1';
-        this.params = {
-          "from": "0",
-          "limit": "10"
-        };
+        this.params.from = '0';
+        this.params.limit = '10';
         this.allLoaded = false;
         this.showFlag = false;
+        this.params.userId=interfaceService.getCookie("UserId")
         this.showIndicator('加载中...');
-        this.getAdministrativeExaminationList('待办', this.params);
+        this.getSalesApprovalList('待办', this.params);
       }
     }
   }
