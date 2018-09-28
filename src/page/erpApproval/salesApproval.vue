@@ -194,7 +194,7 @@
         this.params.limit = '10';
         this.allLoaded = false;
         this.showFlag = false;
-        this.params.userId=interfaceService.getCookie("UserId")
+        this.params.userId = interfaceService.getCookie("UserId")
         this.showIndicator('加载中...');
         this.getSalesApprovalList('待办', this.params);
       }

@@ -85,9 +85,9 @@
         }else{
           this.paramsDetail.fromId='JKA03'
         }
-
         //console.log("本次请求的fromid"+this.paramsDetail.fromId);
       },
+
 
       //获取审批流程和表单详情
       getProcessAndDetails(type) {
@@ -138,8 +138,8 @@
         if (this.$route.query.page !== 'toReadList') {
           this.init();
           this.getProcessAndDetails(this.$route.query.type);
-          this.paramsDetail.userId=interfaceService.getCookie("UserId");
-          this.paramsProcess.userId=interfaceService.getCookie("UserId");
+          this.paramsDetail.userId = interfaceService.getCookie("UserId");
+          this.paramsProcess.userId = interfaceService.getCookie("UserId");
 
         }
       }
