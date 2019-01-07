@@ -26,8 +26,7 @@
         <mt-tab-container v-model="selected">
           <mt-tab-container-item id="1">
             <div id="todo">
-              <salesApprove-list :listflag="listId"
-                                   v-for='(item,index) in dealtInfo'
+              <salesApprove-list v-for='(item,index) in dealtInfo'
                                   :key="index"
                                   :instanceId='item.INSTANCEID'
                                   :title='item.TITLE'
@@ -39,8 +38,7 @@
           </mt-tab-container-item>
           <mt-tab-container-item id="2">
             <div id="done">
-              <salesApprove-list :listflag="listId"
-                                    v-for='(item,index) in dealtInfo'
+              <salesApprove-list v-for='(item,index) in dealtInfo'
                                    :key="index"
                                    :instanceId='item.INSTANCEID'
                                    :sender='item.SENDER'
@@ -71,7 +69,6 @@
         showFlag: false,
         allLoaded: false,
         dealtInfo: [],
-        listId:"",
         params: {
           "fromId":"JKA02",
           "test":"Y",
@@ -84,7 +81,7 @@
     components: {HeaderSimple, BodyContent, SalesApproveList},
     methods: {
       goBack() {
-        this.$router.push({path: '/tab/erp'})
+        this.$router.push({path: '/erp'})
       },
       //获取销售审批列表
       getSalesApprovalList(type, params) {
@@ -165,22 +162,19 @@
       selected(newval, oldval) {
         // this.dealtInfo = [];
         this.allLoaded = false;
-        this.showFlag = false;
+        this.showFlag = true;
         this.params.from = '0';
         this.params.limit = '10';
         switch (newval) {
           case '1':
-            this.showIndicator('加载中...');
-            // this.getAdministrativeExaminationList('待办', this.params);
+            // this.showIndicator('加载中...');
             this.params.fromId = 'JKA02';
-            this.getSalesApprovalList('待办', this.params);
-            this.listId='DB'
+            // this.getSalesApprovalList('待办', this.params);
             break;
           case '2':
-            this.showIndicator('加载中...');
+            // this.showIndicator('加载中...');
             this.params.fromId = 'JKA07';
-            this.getSalesApprovalList('已办', this.params);
-            this.listId='YB';
+            // this.getSalesApprovalList('已办', this.params);
             break;
           default:
             break;
@@ -193,10 +187,10 @@
         this.params.from = '0';
         this.params.limit = '10';
         this.allLoaded = false;
-        this.showFlag = false;
-        this.params.userId = interfaceService.getCookie("UserId")
-        this.showIndicator('加载中...');
-        this.getSalesApprovalList('待办', this.params);
+        this.showFlag = true;
+        this.params.userId = interfaceService.getCookie("UserId");
+        // this.showIndicator('加载中...');
+        // this.getSalesApprovalList('待办', this.params);
       }
     }
   }

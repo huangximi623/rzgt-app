@@ -82,7 +82,7 @@
       loginOut() {
         let that = this;
         that.showIndicator("正在退出...");
-        interfaceService.LoginOut()
+/*        interfaceService.LoginOut()
           .then(function (response) {
             that.hideIndicator();
             interfaceService.clearCookie('RememberMe');//清空RememberMe
@@ -97,14 +97,24 @@
           }, function (error) {
             that.hideIndicator();
             that.showAlert("退出登陆失败！");
-          });
+          });*/
+        that.hideIndicator();
+        interfaceService.clearCookie('RememberMe');//清空RememberMe
+        interfaceService.clearCookie('SeriesId');//清空SeriesId
+        interfaceService.clearCookie('Token');//清空Token
+
+        window.localStorage.removeItem("RememberMe");//清空RememberMe
+        window.localStorage.removeItem("SeriesId");//清空SeriesId
+        window.localStorage.removeItem("Token");//清空Token
+
+        that.$router.push({path: '/login'});
       },
       //获取详情
       goContactDetails() {
         this.$router.push({path: '/contactDetails', query: {page: 'personal', item: this.personInfo[0]}})
       },
-      //在线升级
       updateToLatest() {
+        //在线升级
         let that = this;
         that.showIndicator("更新中...");
         interfaceService.getLatestVersion()

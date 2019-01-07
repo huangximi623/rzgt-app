@@ -36,7 +36,6 @@
       title: {type: String},
       createDate: {type: String},
       typeFlag: {type: String},
-      listflag:{type: String}
     },
     data(){
       return{
@@ -45,10 +44,10 @@
     },
     methods: {
       goLand() {
-        console.log(this.listflag);
+        // console.log(this.listflag);
         this.$router.push({
           path: '/salesApprovalDetail',
-          query: {type: this.typeFlag, instanceId: this.instanceId,listflag:this.listflag }
+          query: {type: this.typeFlag, instanceId: this.instanceId}
         })
       }
     }

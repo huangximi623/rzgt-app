@@ -18,10 +18,10 @@
     beforeUpdate() {
       if (this.$route.path === '/tab/contact') {
         this.$refs.footGuide.activeIndex = 1
-      } else if (this.$route.path === '/tab/erp') {
+      } /*else if (this.$route.path === '/tab/erp') {
         this.$refs.footGuide.activeIndex = 2
-      } else if(this.$route.path === '/tab/personal'){
-        this.$refs.footGuide.activeIndex = 3
+      }*/ else if(this.$route.path === '/tab/personal'){
+        this.$refs.footGuide.activeIndex = 2
       } else {
         this.$refs.footGuide.activeIndex = 0
       }
