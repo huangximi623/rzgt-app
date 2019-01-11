@@ -15,9 +15,10 @@
           <img v-if="personInfo.picture" slot="icon" :src="personInfo.picture" :onerror="personImg" width="60" height="auto">
           <img v-else slot="icon" src="../../assets/main/personal_checked@2x.png" width="60" height="60">
           <a class="call-number" @click="showActionSheet()"
-             v-if="(personInfo.directtel || personInfo.shorttel) && personInfo.label!=UserId">
+             v-if="(personInfo.DirectTelIsshow==0|| personInfo.ShortTelIsshow==0) && personInfo.label!=UserId">
             <i class="fa fa-phone fa-2x call-up"></i>
           </a>
+          <!--长号，和小号的屏蔽flag都是1,的情况下 v-if判断的值是两个假相与，就没有必要显示拨号的图标了-->
         </mt-cell>
       </div>
       <mt-cell v-for="(item,index) in personInfo.detail" :key="index" :title="item.key" :value="item.value"></mt-cell>
@@ -59,11 +60,14 @@
       callDirectTel() {
         window.location.href = 'tel:' + this.personInfo.directtel;
       },
+      callNoqx(){
+        alert("您无此用户联络权限");
+      },
       init() {
         this.personInfo = this.$route.query.item;
         this.UserId = interfaceService.getCookie('UserId');
         //初始化电话数组
-        if (!this.personInfo.shorttel) {
+        if (!this.personInfo.shorttel&&this.personInfo.DirectTelIsshow==0) {//没有短号存储，再判断是否屏蔽长号flag,0为没有屏蔽
           this.actions = [{
             name: this.personInfo.directtel,
             method: this.callDirectTel
@@ -73,13 +77,21 @@
             name: this.personInfo.shorttel,
             method: this.callShortTel
           }];
-        } else {
+        }else if(this.personInfo.DirectTelIsshow==0&&this.personInfo.ShortTelIsshow==0 ){//，长号和短号都存储，只有屏蔽flag都为0是展示全号和小号
           this.actions = [{
             name: this.personInfo.shorttel,
             method: this.callShortTel
           }, {
             name: this.personInfo.directtel,
             method: this.callDirectTel
+          }];
+        }
+        else {
+         /* console.log("长号的屏蔽值"+this.personInfo.DirectTelIsshow)
+          console.log("短号的屏蔽之"+this.personInfo.ShortTelIsshow)*/
+          this.actions = [{
+            name: "不公开号码",
+            method: this.callNoqx
           }];
         }
         this.sheetVisible = false;
