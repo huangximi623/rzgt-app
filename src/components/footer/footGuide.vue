@@ -30,13 +30,13 @@
             imgPath: require('../../assets/main/home_unchecked@1x.png'),
             newMessages: ''
           },
-          {
+/*          {
             name: 'ERP',
             toPath: '/tab/erp',
             color: '#929292',
             imgPath: require('../../assets/main/erp_unchecked@1x.png'),
             newMessages: ''
-          },
+          },*/
           {
             name: '通讯录',
             toPath: '/tab/contact',
@@ -64,13 +64,13 @@
           /*case 1:
             imgPath = require('../../assets/tab/message_checked@1x.png')
             break*/
-          case 1:
+/*          case 1:
             imgPath = require('../../assets/main/erp_checked@1x.png')
-            break
-          case 2:
+            break*/
+          case 1:
             imgPath = require('../../assets/main/application_checked@1x.png')
             break
-          case 3:
+          case 2:
             imgPath = require('../../assets/main/personal_checked@1x.png')
             break
         }
@@ -115,13 +115,13 @@
             /*case 1:
               imgPath = require('../../assets/tab/message_unchecked@1x.png')
               break*/
-            case 1:
+/*            case 1:
               imgPath = require('../../assets/main/erp_unchecked@1x.png')
-              break
-            case 2:
+              break*/
+            case 1:
               imgPath = require('../../assets/main/application_unchecked@1x.png')
               break
-            case 3:
+            case 2:
               imgPath = require('../../assets/main/personal_unchecked@1x.png')
               break
           }
@@ -131,18 +131,18 @@
       }
     },
     created: function () {
-      if (this.$route.path === '/tab/erp') {
+/*      if (this.$route.path === '/tab/erp') {
         this.navButtons[1].imgPath = require('../../assets/main/erp_checked@1x.png')
         this.navButtons[1].color = '#1e8fe1'
         this.activeIndex = 1
-      } else if (this.$route.path === '/tab/contact') {
-        this.navButtons[2].imgPath = require('../../assets/main/application_checked@1x.png')
+      } else */if (this.$route.path === '/tab/contact') {
+        this.navButtons[1].imgPath = require('../../assets/main/application_checked@1x.png')
+        this.navButtons[1].color = '#1e8fe1'
+        this.activeIndex = 1
+      } else if (this.$route.path === '/tab/personal') {
+        this.navButtons[2].imgPath = require('../../assets/main/personal_checked@1x.png')
         this.navButtons[2].color = '#1e8fe1'
         this.activeIndex = 2
-      } else if (this.$route.path === '/tab/personal') {
-        this.navButtons[3].imgPath = require('../../assets/main/personal_checked@1x.png')
-        this.navButtons[3].color = '#1e8fe1'
-        this.activeIndex = 3
       } else {
         this.navButtons[0].imgPath = require('../../assets/main/home_checked@1x.png')
         this.navButtons[0].color = '#1e8fe1'
@@ -151,18 +151,18 @@
       this.getErpDaiban();
     },
     beforeUpdate(){
-      if (this.$route.path === '/tab/erp') {
+/*      if (this.$route.path === '/tab/erp') {
         this.navButtons[1].imgPath = require('../../assets/main/erp_checked@1x.png')
         this.navButtons[1].color = '#1e8fe1'
         this.activeIndex = 1
-      } else if (this.$route.path === '/tab/contact') {
-        this.navButtons[2].imgPath = require('../../assets/main/application_checked@1x.png')
+      } else */if (this.$route.path === '/tab/contact') {
+        this.navButtons[1].imgPath = require('../../assets/main/application_checked@1x.png')
+        this.navButtons[1].color = '#1e8fe1'
+        this.activeIndex = 1
+      } else if (this.$route.path === '/tab/personal') {
+        this.navButtons[2].imgPath = require('../../assets/main/personal_checked@1x.png')
         this.navButtons[2].color = '#1e8fe1'
         this.activeIndex = 2
-      } else if (this.$route.path === '/tab/personal') {
-        this.navButtons[3].imgPath = require('../../assets/main/personal_checked@1x.png')
-        this.navButtons[3].color = '#1e8fe1'
-        this.activeIndex = 3
       } else {
         this.navButtons[0].imgPath = require('../../assets/main/home_checked@1x.png')
         this.navButtons[0].color = '#1e8fe1'
@@ -199,8 +199,8 @@
   }
 
   #foot-guide ul li {
-/*    width: 33.33333333%;*/
-    width: 25%;
+    width: 33.33333333%;
+/*    width: 25%;*/
     float: left;
     height: 55px;
     text-align: center;

@@ -1,7 +1,8 @@
 <template>
   <div class="erp">
     <header-simple class="list-header">
-      <div class="left-button" slot="left"></div>
+<!--      <div class="left-button" slot="left"></div>-->
+      <div class="left-button" @click="goBack()" slot="left"><i class="fa fa-chevron-left"></i></div>
       <div class="list-title" slot="title">
         {{title}}
       </div>
@@ -13,8 +14,8 @@
       </div>
     </body-content>
   </div>
-</template>
 
+</template>
 <script>
   import HeaderSimple from '@/components/header/header-simple'
   import BodyContent from '@/components/bodyContent/body-content'
@@ -31,6 +32,9 @@
     },
     components: {HeaderSimple, BodyContent, ErpContent},
     methods: {
+      goBack() {
+        this.$router.push({path: '/tab/home'})
+      },
       //获取ERP页面数据
       getErpData() {
         let that = this;
@@ -69,7 +73,7 @@
       //页面初始化
       init() {
         //获取ERP首页数据
-        this.getErpData();
+        // this.getErpData();
       }
     },
     activated() {

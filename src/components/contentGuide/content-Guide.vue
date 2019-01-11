@@ -61,6 +61,12 @@
             label: 'JD',
             newMessages: '0',
           }, {
+            href: '/erp',
+            imgPath: require('../../assets/moduleImg/13.png'),
+            content: 'ERP审批',
+            label: 'ERP',
+            newMessages: '',
+          }, {
             href: '/informationPublish',
             imgPath: require('../../assets/moduleImg/7.png'),
             content: '信息发布',

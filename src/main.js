@@ -119,12 +119,13 @@ document.addEventListener("deviceready", function () {
       if (clickCounts === 1) {
         vm.showToast("再按一次退出程序");
       } else {
-        interfaceService.LoginOut()
+/*        interfaceService.LoginOut()
           .then(function (response) {
             navigator.app.exitApp();
           }, function (error) {
             vm.showAlert("退出登陆失败！");
-          });
+          });*/
+        navigator.app.exitApp();
       }
       setTimeout(function () {
         clickCounts = 0;
@@ -223,14 +224,14 @@ $(function () {
 
 //返回定位
 let routerLocation = function (location) {
-  if (location === '/tab/contact' || location === '/tab/personal' || location === '/tab/erp') {
+  if (location === '/tab/contact' || location === '/tab/personal') {
     router.push({path: '/tab/home'})
-  } else if (location === '/administrativeExamination' || location === '/documents' || location === '/documentRead' || location === '/meetingManager' || location === '/taskManagement' || location === '/receptionManager' || location === '/informationPublish' || location === '/schedule' || location === '/documentCenter') {
+  } else if (location === '/administrativeExamination' || location === '/documents' || location === '/documentRead' || location === '/meetingManager' || location === '/taskManagement' || location === '/receptionManager' || location === '/informationPublish' || location === '/schedule' || location === '/documentCenter'  || location === '/erp') {
     router.push({path: '/tab/home'})
   } else if (location === '/administrativeExaminationDetail') {
     router.push({path: '/administrativeExamination', query: {page: 'administrativeExaminationDetail'}});
   } else if (location === '/salesApproval') {
-    router.push({path: '/tab/erp', query: {page: 'salesApproval'}});
+    router.push({path: '/erp', query: {page: 'salesApproval'}});
   } else if (location === '/salesApprovalDetail') {
     router.push({path: '/salesApproval', query: {page: 'salesApprovalDetail'}});
   } else if (location === '/documentDetail') {

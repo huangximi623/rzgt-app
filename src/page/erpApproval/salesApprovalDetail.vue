@@ -24,10 +24,10 @@
       </div>
       <process-record :history="history"></process-record>
     </body-content>
-    <div v-if="typeFlag == 'todo'">
-      <foot-button :footButton="salesApprovalInfo.caozuo" :buttonTitle="buttonTitle"
-                   :taskId="paramsDetail.instanceId"></foot-button>
-    </div>
+
+    <foot-button :footButton="salesApprovalInfo.caozuo" :buttonTitle="buttonTitle"
+                 :taskId="paramsDetail.instanceId"></foot-button>
+
   </div>
 </template>
 
@@ -50,7 +50,7 @@
         salesApprovalInfo: {
           caozuo: []
         },
-        typeFlag: '',
+        // typeFlag: '',
         history: [],
         paramsDetail: {
           fromId: "",
@@ -76,18 +76,18 @@
         this.$router.push({path: '/salesApproval', query: {page: 'salesApprovalDetail',listflag:this.xqflag}})
       },
       init() {
-        this.paramsDetail.instanceId = this.$route.query.instanceId ? this.$route.query.instanceId : '';//R180418002
-        this.paramsProcess.instanceId = this.$route.query.instanceId ? this.$route.query.instanceId : '';//"R180516001"
-        this.typeFlag = this.$route.query.type ? this.$route.query.type : '';
-        this.paramsDetail.userId=interfaceService.getCookie("UserId");
-        if(this.$route.query.listflag=='YB'){
-          this.paramsDetail.fromId='JKA08'
-        }else{
-          this.paramsDetail.fromId='JKA03'
+        this.paramsDetail.instanceId = this.$route.query.instanceId ? this.$route.query.instanceId : '';
+        this.paramsProcess.instanceId = this.$route.query.instanceId ? this.$route.query.instanceId : '';
+        // this.typeFlag = this.$route.query.type ? this.$route.query.type : '';
+        // this.paramsDetail.userId = interfaceService.getCookie("UserId");
+        if (this.$route.query.type == 'todo') {
+          this.paramsDetail.fromId = 'JKA03'
+        }else {
+          this.paramsDetail.fromId = 'JKA08'
         }
-
         //console.log("本次请求的fromid"+this.paramsDetail.fromId);
       },
+
 
       //获取审批流程和表单详情
       getProcessAndDetails(type) {
@@ -138,8 +138,8 @@
         if (this.$route.query.page !== 'toReadList') {
           this.init();
           this.getProcessAndDetails(this.$route.query.type);
-          this.paramsDetail.userId=interfaceService.getCookie("UserId");
-          this.paramsProcess.userId=interfaceService.getCookie("UserId");
+          this.paramsDetail.userId = interfaceService.getCookie("UserId");
+          this.paramsProcess.userId = interfaceService.getCookie("UserId");
 
         }
       }
