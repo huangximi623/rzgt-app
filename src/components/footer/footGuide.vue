@@ -148,7 +148,7 @@
         this.navButtons[0].color = '#1e8fe1'
         this.activeIndex = 0
       }
-      this.getErpDaiban();
+      // this.getErpDaiban();
     },
     beforeUpdate(){
 /*      if (this.$route.path === '/tab/erp') {
