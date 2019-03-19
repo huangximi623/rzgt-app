@@ -84,6 +84,13 @@
             content: '文档中心',
             label: 'DOC',
             newMessages: '',
+          }, {
+            href: '/examineReceive',
+            imgPath: require('../../assets/moduleImg/14.png'),
+            content: '废钢验收',
+            label: 'EXA',
+            newMessages: '',
+            flag: 'fg'
           }
         ]
       }

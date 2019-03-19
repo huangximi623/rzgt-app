@@ -66,6 +66,12 @@ const versionUpdateInfo = r => require.ensure([], () => r(require('../page/versi
 const erp = r => require.ensure([], () => r(require('../page/erpApproval/erp')), 'erp');
 const salesApproval = r => require.ensure([], () => r(require('../page/erpApproval/salesApproval')), 'salesApproval');
 const salesApprovalDetail = r => require.ensure([], () => r(require('../page/erpApproval/salesApprovalDetail')), 'salesApprovalDetail');
+/*废钢验收*/
+const examineReceive = r => require.ensure([], () => r(require('../page/examineReceive/examineReceive')), 'examineReceive');
+const levelStandard = r => require.ensure([], () => r(require('../page/examineReceive/levelStandard')), 'levelStandard');
+const levelStandardDetail = r => require.ensure([], () => r(require('../page/examineReceive/levelStandardDetail')), 'levelStandardDetail');
+const qualityTest = r => require.ensure([], () => r(require('../page/examineReceive/qualityTest')), 'qualityTest');
+const qualityTestDetail = r => require.ensure([], () => r(require('../page/examineReceive/qualityTestDetail')), 'qualityTestDetail');
 
 Vue.use(Router);
 
@@ -201,6 +207,36 @@ export default new Router({
       path: '/administrativeExaminationDetail',
       name: 'administrativeExaminationDetail',
       component: administrativeExaminationDetail,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/examineReceive',
+      name: 'examineReceive',
+      component: examineReceive,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/qualityTest',
+      name: 'qualityTest',
+      component: qualityTest,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/qualityTestDetail',
+      name: 'qualityTestDetail',
+      component: qualityTestDetail,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/levelStandard',
+      name: 'levelStandard',
+      component: levelStandard,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/levelStandardDetail',
+      name: 'levelStandardDetail',
+      component: levelStandardDetail,
       meta: {keepAlive: true}
     },
     {

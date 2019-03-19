@@ -261,6 +261,19 @@
           });
       },
 
+      //获取废钢验收模块权限
+      getSteelRecAuthority(){
+        let that = this;
+        let userId = interfaceService.getCookie("UserId");
+        interfaceService.getAuthorityFlagApi(userId)
+          .then(function (response) {
+            let res = response.flag;
+            return res;
+          }, function (error) {
+            resturn -1;
+          });
+      },
+
       //取消更新
       cancelUpdate() {
         interfaceService.cancelUpdateFlag = true;
@@ -270,6 +283,11 @@
       }
     },
     activated() {
+      // this.$refs.contentGuide.contentList.pop();
+/*      let resAuth = this.getSteelRecAuthority();
+      if( resAuth === '0'){
+        this.$refs.contentGuide.contentList.pop();
+      }*/
       this.popupVisible = false;
       this.hideIndicator();//隐藏前一个页面的加载提示
       if (this.is_weixin()) {

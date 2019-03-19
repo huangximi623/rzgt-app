@@ -10,6 +10,11 @@ let interfaceData = {
   getSaleTaskDetailApi: '/service/getSaleTaskDetail/',//销售审批详情
   getSaleCommentDetailApi: '/service/getSaleCommentDetail/',//销售审批流程记录
 
+  //废钢验收模块
+  getAuthorityFlagApi: '/service/getAuthorityFlag',//获取权限标识
+  getLevelStandardListApi: '/QueryStander.aspx',//获取判级标准列表 QueryStander.aspx
+  getLevelStandardDetailApi: '/service/getLevelStandardDetail',//获取判级标准明细
+
   //主页数据显示
   getOADaibanApi: '/service/user/getOADaiban/',//行政审批待办数量
   getJDTaskCountApi: '/service/JDManage/getJDTaskCount/',//接待管理待办数量

@@ -1,5 +1,5 @@
 <template>
-  <div id="erpContent">
+  <div id="receiveContent">
     <ul>
       <li v-for="(item,index) in contentList">
         <mt-badge class="message-counts" size="small" color="red" v-if="item.newMessages > 0">{{item.newMessages}}</mt-badge>
@@ -20,15 +20,36 @@
 
 <script>
   export default {
-    name: 'erpContent',
+    name: 'receiveContent',
     data() {
       return {
         contentList: [
           {
-            href: '/salesApproval',
-            imgPath: require('../../assets/moduleImg/12.png'),
-            content: '销售审批',
-            label: 'WF',
+            href: '/levelStandard',
+            imgPath: require('../../assets/moduleImg/21.png'),
+            content: '判级标准',
+            label: 'PJ',
+            newMessages: '0',
+          },
+          {
+            href: '/qualityTest',
+            imgPath: require('../../assets/moduleImg/20.png'),
+            content: '现有质检点',
+            label: 'ZJ',
+            newMessages: '0',
+          },
+          {
+            href: '/验收作业',
+            imgPath: require('../../assets/moduleImg/14.png'),
+            content: 'T4验收作业',
+            label: 'YS',
+            newMessages: '0',
+          },
+          {
+            href: '/稽核验收',
+            imgPath: require('../../assets/moduleImg/22.png'),
+            content: '稽核验收',
+            label: 'YS',
             newMessages: '0',
           }
         ]
@@ -110,7 +131,7 @@
     width: 33.33333333%;
     text-align: center;
     padding: 15px 10px;
-/*    border: 1px solid #eeeeee;*/
+    /*    border: 1px solid #eeeeee;*/
     border-left: none;
     border-top: none;
   }

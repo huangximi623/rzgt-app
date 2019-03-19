@@ -1,4 +1,4 @@
-import {loginApi, loginOutApi, postApiData, postErpApiData, weChatloginApi} from "./getData";
+import {loginApi, loginOutApi, postApiData, postErpApiData, postSteelApiData, weChatloginApi} from "./getData";
 import interfaceData from '../service/interfaceData.js'
 
 let interfaceService = {
@@ -107,7 +107,46 @@ let interfaceService = {
     return postApiData(paramsPost);
   },
 
+  /*
+==========================================
+              废钢验收模块
+==========================================
+*/
+  //获取权限标识
+  queryAuthorityFlag: function (params) {
+    // let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
+    let url = interfaceData.getAuthorityFlagApi;
+    let paramsPost = {
+      url: url,
+      method: 'post',
+      param: JSON.stringify(params)
+    };
+    return postSteelApiData(paramsPost);
+  },
 
+  //判级列表
+  queryLevelStandardList: function (params) {
+    // let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
+    let url = interfaceData.getLevelStandardListApi;
+    let paramsPost = {
+      url: url,
+      method: 'post',
+      param: JSON.stringify(params)
+    };
+    return postSteelApiData(paramsPost);
+  },
+
+  //判级详情
+  queryLevelStandardDetail: function (params) {
+    // let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
+    let url = interfaceData.getLevelStandardDetailApi;
+    let paramsPost = {
+      url: url,
+      method: 'post',
+      param: JSON.stringify(params)
+    };
+    return postSteelApiData(paramsPost);
+  },
   /*
  ==========================================
                 ERP审批模块
