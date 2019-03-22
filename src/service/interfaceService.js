@@ -112,6 +112,7 @@ let interfaceService = {
               废钢验收模块
 ==========================================
 */
+
   //获取权限标识
   queryAuthorityFlag: function (params) {
     // let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
@@ -140,6 +141,54 @@ let interfaceService = {
   queryLevelStandardDetail: function (params) {
     // let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
     let url = interfaceData.getLevelStandardDetailApi;
+    let paramsPost = {
+      url: url,
+      method: 'post',
+      param: JSON.stringify(params)
+    };
+    return postSteelApiData(paramsPost);
+  },
+
+  //质检列表
+  queryQualityTestList: function (params) {
+    // let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
+    let url = interfaceData.getQualityTestListApi;
+    let paramsPost = {
+      url: url,
+      method: 'post',
+      param: JSON.stringify(params)
+    };
+    return postSteelApiData(paramsPost);
+  },
+
+  //质检详情
+  queryQualityTestDetail: function (params) {
+    // let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
+    let url = interfaceData.getQualityTestDetailApi;
+    let paramsPost = {
+      url: url,
+      method: 'post',
+      param: JSON.stringify(params)
+    };
+    return postSteelApiData(paramsPost);
+  },
+
+  //扫描磅单查询信息
+  queryScanWeightNote: function (params) {
+  // let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
+  let url = interfaceData.getWeightNoteInfoApi;
+  let paramsPost = {
+    url: url,
+    method: 'post',
+    param: JSON.stringify(params)
+  };
+  return postSteelApiData(paramsPost);
+},
+
+  //车辆信息详情
+  queryWgtDetail: function (params) {
+    // let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
+    let url = interfaceData.getCarMsgByWgtApi;
     let paramsPost = {
       url: url,
       method: 'post',

@@ -38,18 +38,32 @@
             label: 'ZJ',
             newMessages: '0',
           },
-          {
-            href: '/验收作业',
-            imgPath: require('../../assets/moduleImg/14.png'),
+/*          {
+            href: '/auditAccept',
+            imgPath: require('../../assets/moduleImg/18.png'),
             content: 'T4验收作业',
             label: 'YS',
             newMessages: '0',
+          },*/
+          {
+            href: '/zjQuality',
+            imgPath: require('../../assets/moduleImg/18.png'),
+            content: '质检作业',
+            label: 'ZJ',
+            newMessages: '0',
           },
           {
-            href: '/稽核验收',
+            href: '/jhQuality',
             imgPath: require('../../assets/moduleImg/22.png'),
             content: '稽核验收',
-            label: 'YS',
+            label: 'JH',
+            newMessages: '0',
+          },
+          {
+            href: '/acceptHistory',
+            imgPath: require('../../assets/moduleImg/23.png'),
+            content: '验收历史数据',
+            label: 'HIS',
             newMessages: '0',
           }
         ]

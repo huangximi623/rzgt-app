@@ -34,7 +34,8 @@ import {
   CellSwipe,
   Radio,
   Actionsheet,
-  Badge
+  Badge,
+  Field
 } from 'mint-ui'
 
 Vue.component(Button.name, Button);
@@ -60,6 +61,7 @@ Vue.component(CellSwipe.name, CellSwipe);
 Vue.component(Radio.name, Radio);
 Vue.component(Actionsheet.name, Actionsheet);
 Vue.component(Badge.name, Badge);
+Vue.component(Field.name, Field);
 Vue.config.productionTip = false;
 
 /* router全局守卫 */
@@ -68,6 +70,9 @@ router.beforeEach((to, from, next) => {
     'login', 'home', 'erp', 'contact', 'personal', 'search', 'contactDetails',
     'administrativeExamination', 'administrativeExaminationDetail',
     'salesApproval','salesApprovalDetail',
+    'levelStandard','levelStandardDetail',
+    'qualityTest','qualityTestDetail',
+    'auditAccept',
     'documents', 'documentDetail',
     'documentRead', 'documentReadDetail',
     'meetingManager', 'meetingManagerDetails',
@@ -226,7 +231,10 @@ $(function () {
 let routerLocation = function (location) {
   if (location === '/tab/contact' || location === '/tab/personal') {
     router.push({path: '/tab/home'})
-  } else if (location === '/administrativeExamination' || location === '/documents' || location === '/documentRead' || location === '/meetingManager' || location === '/taskManagement' || location === '/receptionManager' || location === '/informationPublish' || location === '/schedule' || location === '/documentCenter'  || location === '/erp') {
+  } else if (location === '/administrativeExamination' || location === '/documents' || location === '/documentRead' ||
+    location === '/meetingManager' || location === '/taskManagement' || location === '/receptionManager' ||
+    location === '/informationPublish' || location === '/schedule' || location === '/documentCenter'  ||
+    location === '/erp' || location === '/examineReceive') {
     router.push({path: '/tab/home'})
   } else if (location === '/administrativeExaminationDetail') {
     router.push({path: '/administrativeExamination', query: {page: 'administrativeExaminationDetail'}});
@@ -234,6 +242,16 @@ let routerLocation = function (location) {
     router.push({path: '/erp', query: {page: 'salesApproval'}});
   } else if (location === '/salesApprovalDetail') {
     router.push({path: '/salesApproval', query: {page: 'salesApprovalDetail'}});
+  } else if (location === 'levelStandard'){
+    router.push({path: '/examineReceive', query: {page: 'levelStandard'}});
+  } else if (location === '/levelStandardDetail') {
+    router.push({path: '/levelStandard', query: {page: 'levelStandardDetail'}});
+  } else if (location === '/qualityTest') {
+    router.push({path: '/examineReceive', query: {page: 'qualityTest'}});
+  } else if (location === '/qualityTestDetail') {
+    router.push({path: '/qualityTest', query: {page: 'qualityTestDetail'}});
+  } else if (location === '/auditAccept') {
+    router.push({path: '/examineReceive', query: {page: 'auditAccept'}});
   } else if (location === '/documentDetail') {
     router.push({path: '/documents', query: {page: 'documentDetail'}});
   } else if (location === '/documentReadDetail') {

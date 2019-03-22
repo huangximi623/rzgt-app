@@ -72,6 +72,10 @@ const levelStandard = r => require.ensure([], () => r(require('../page/examineRe
 const levelStandardDetail = r => require.ensure([], () => r(require('../page/examineReceive/levelStandardDetail')), 'levelStandardDetail');
 const qualityTest = r => require.ensure([], () => r(require('../page/examineReceive/qualityTest')), 'qualityTest');
 const qualityTestDetail = r => require.ensure([], () => r(require('../page/examineReceive/qualityTestDetail')), 'qualityTestDetail');
+const auditAccept = r => require.ensure([], () => r(require('../page/examineReceive/auditAccept')), 'auditAccept');
+const acceptHistory = r => require.ensure([], () => r(require('../page/examineReceive/acceptHistory')), 'acceptHistory');
+const zjQuality = r => require.ensure([], () => r(require('../page/examineReceive/zjQuality')), 'zjQuality');
+const jhQuality = r => require.ensure([], () => r(require('../page/examineReceive/jhQuality')), 'jhQuality');
 
 Vue.use(Router);
 
@@ -237,6 +241,30 @@ export default new Router({
       path: '/levelStandardDetail',
       name: 'levelStandardDetail',
       component: levelStandardDetail,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/zjQuality',
+      name: 'zjQuality',
+      component: zjQuality,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/jhQuality',
+      name: 'jhQuality',
+      component: jhQuality,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/auditAccept',
+      name: 'auditAccept',
+      component: auditAccept,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/acceptHistory',
+      name: 'acceptHistory',
+      component: acceptHistory,
       meta: {keepAlive: true}
     },
     {

@@ -45,7 +45,7 @@
         this.$router.push({
           path: '/levelStandardDetail',
 /*          query: {type: this.typeFlag, instanceId: this.instanceId}*/
-          query: {code: this.code}
+          query: {InstanceId: this.code}
         })
       }
     }

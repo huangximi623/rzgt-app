@@ -11,9 +11,13 @@ let interfaceData = {
   getSaleCommentDetailApi: '/service/getSaleCommentDetail/',//销售审批流程记录
 
   //废钢验收模块
-  getAuthorityFlagApi: '/service/getAuthorityFlag',//获取权限标识
-  getLevelStandardListApi: '/QueryStander.aspx',//获取判级标准列表 QueryStander.aspx
-  getLevelStandardDetailApi: '/service/getLevelStandardDetail',//获取判级标准明细
+  getAuthorityFlagApi: '/LogCheck.aspx',//获取权限标识
+  getLevelStandardListApi: '/QueryStander.aspx',//获取判级标准列表
+  getLevelStandardDetailApi: '/QueryStander.aspx',//获取判级标准明细
+  getQualityTestListApi: '/QueryQuSite.aspx',//获取质检点列表
+  getQualityTestDetailApi: '/QueryQuSite.aspx',//获取质检点明细
+  getWeightNoteInfoApi: '/QueryWgt.aspx',//根据磅单号查询信息
+  getCarMsgByWgtApi: '/QueryWgt.aspx',//获取车次信息 QueryWgt.aspx
 
   //主页数据显示
   getOADaibanApi: '/service/user/getOADaiban/',//行政审批待办数量

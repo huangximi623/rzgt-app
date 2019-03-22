@@ -65,7 +65,10 @@
         popupVisible: false,
         versionInfo: {},
         pictureList: [],//保存图片
-        swipePicture: []//接口返回的图片信息
+        swipePicture: [],//接口返回的图片信息
+        paramAuth: {//废钢验收模块权限
+          "UserId": ''
+        }
       }
     },
     components: {HeaderSimple, MySwiper, BodyContent, ContentGuide},
@@ -264,13 +267,14 @@
       //获取废钢验收模块权限
       getSteelRecAuthority(){
         let that = this;
-        let userId = interfaceService.getCookie("UserId");
-        interfaceService.getAuthorityFlagApi(userId)
+        that.paramAuth.UserId = interfaceService.getCookie("UserId");
+        interfaceService.queryAuthorityFlag(that.paramAuth)
           .then(function (response) {
-            let res = response.flag;
-            return res;
+            let res = response;
+            interfaceService.setCookie("examineAuth", res, 14);
           }, function (error) {
-            resturn -1;
+            that.hideIndicator();
+            that.showAlert("数据加载失败");
           });
       },
 
@@ -284,8 +288,10 @@
     },
     activated() {
       // this.$refs.contentGuide.contentList.pop();
-/*      let resAuth = this.getSteelRecAuthority();
-      if( resAuth === '0'){
+      this.getSteelRecAuthority();
+      let resAuth = interfaceService.getCookie("examineAuth");
+      // alert(resAuth);
+/*      if( resAuth === '-1'){
         this.$refs.contentGuide.contentList.pop();
       }*/
       this.popupVisible = false;

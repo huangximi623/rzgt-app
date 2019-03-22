@@ -4,14 +4,14 @@
       <div class="qualityTest-list-logo">
         <i class="fa fa-pencil-square-o fa-2x reception-icon"></i>
       </div>
-      <div class="qualityTest-list-header overflow-hidden">{{code}}</div>
+      <div class="qualityTest-list-header overflow-hidden">{{addresscode}}</div>
       <div class="qualityTest-list-content">
         <div>
           <div class="list-item">
-            <div class="item-content">
-              <!--<span class="item-content-t">{{submit}}</span>-->
+<!--            <div class="item-content">
+              &lt;!&ndash;<span class="item-content-t">{{submit}}</span>&ndash;&gt;
               <span class="item-content-c">{{_class}}</span>
-            </div>
+            </div>-->
             <div class="item-content">
               <span class="item-content-c">{{classification}}</span>
               <!--              <span class="item-content-c">{{ngDate}}</span>-->
@@ -30,9 +30,8 @@
 <script>
   export default {
     props: {
-      _class: {type: String},
+      addresscode: {type: String},
       classification: {type: String},
-      code: {type: String}
     },
     data(){
       return{
@@ -41,11 +40,9 @@
     },
     methods: {
       goLand() {
-        // console.log(this.listflag);
         this.$router.push({
           path: '/qualityTestDetail',
-          /*          query: {type: this.typeFlag, instanceId: this.instanceId}*/
-          query: {code: this.code}
+          query: {InstanceId: this.addresscode}
         })
       }
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="qualityTest">
+  <div class="acceptHistory">
     <header-simple class="list-header">
       <div class="left-button" @click="goBack()" slot="left"><i class="fa fa-chevron-left"></i></div>
       <div class="list-title" slot="title">
@@ -8,22 +8,29 @@
       <div class="right-button" slot="right"></div>
     </header-simple>
     <body-content class="body-content">
-      <div v-if="showFlag" class="imgHeight">
+      <mt-cell title="起始日期">
+        <input type="date" v-model="startTime" class="mint-field-core" style="border: 1px solid gray;">
+      </mt-cell>
+      <mt-cell title="截止日期">
+        <input type="date" v-model="endTime" class="mint-field-core" style="border: 1px solid gray;">
+      </mt-cell>
+
+<!--      <div v-if="showFlag" class="imgHeight">
         <img src="../../assets/noData-white.png" style="width: 55%;"/>
       </div>
       <mt-loadmore v-else class="list-selector" :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded"
                    :auto-fill="false" ref="loadmore_doc">
-        <!-- tab-container -->
+        &lt;!&ndash; tab-container &ndash;&gt;
         <mt-tab-container v-model="selected">
           <mt-tab-container-item id="1">
             <qualityTest-list v-for='(item,index) in dealtInfo'
-                                :key="index"
-                                :addresscode='item._ADDRESSCODE'
-                                :classification='item.CLASSIFICATION'>
+                              :key="index"
+                              :addresscode='item._ADDRESSCODE'
+                              :classification='item.CLASSIFICATION'>
             </qualityTest-list>
           </mt-tab-container-item>
         </mt-tab-container>
-      </mt-loadmore>
+      </mt-loadmore>-->
     </body-content>
   </div>
 </template>
@@ -35,14 +42,16 @@
   import interfaceService from '../../service/interfaceService.js'
 
   export default {
-    name: 'qualityTest',
+    name: 'acceptHistory',
     data() {
       return {
-        title: '质检点',
+        title: '验收历史数据',
         selected: '1',
         showFlag: false,
         allLoaded: false,
         dealtInfo: [],
+        startTime: '',
+        endTime: '',
         params: {
           "MethodId": "0",
           "UserId": "",
@@ -122,21 +131,15 @@
       }
     },
     watch: {
-      selected(newval, oldval) {
-        // this.dealtInfo = [];
-        this.allLoaded = false;
-        this.showFlag = false;
-        this.params.From = '0';
-        this.params.Limit = '10';
-        switch (newval) {
-          case '1':
-            this.showIndicator('加载中...');
-            this.getQualityTestList(this.params);
-            break;
-          default:
-            break;
-        }
+      startTime(newval, oldval) {
+        alert(newval);
       },
+      endTime(newval, oldval) {
+        let str1 = startTime;
+        if(newval < str1){
+          alert("截止日期不能小于起始日期！");
+        }
+      }
     },
     /*created() {
       this.selected = '1';

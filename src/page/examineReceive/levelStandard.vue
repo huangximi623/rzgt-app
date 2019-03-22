@@ -46,7 +46,7 @@
         dealtInfo: [],
         params: {
           "MethodId": "0",
-          "UserId": "0",
+          "UserId": "",
           "From": "0",
           "Limit": "10"
         }
@@ -70,7 +70,7 @@
               that.showFlag = true;
             }else{
               //如果请求返回数量小于limit，则默认加载全部，不允许再上拉加载
-              if (response.length < that.params.limit) {
+              if (response.length < that.params.Limit) {
                 that.allLoaded = true;
                 that.showToast("已加载全部！")
               }
@@ -82,10 +82,9 @@
           });
       },
       //加载更多
-      loadmore(type, params) {
+      loadmore(params) {
         let that = this;
 //        this.showIndicator('加载中...');//显示加载提示
-//         interfaceService.queryDocumentList(type, params)
         interfaceService.queryLevelStandardList(params)
           .then(function (response) {
             if (response) {
@@ -93,7 +92,7 @@
               for (let i = 0; i < response.length; i++) {
                 that.dealtInfo.push(response[i])
               }
-              if (response.length < that.params.limit) {
+              if (response.length < that.params.Limit) {
                 that.allLoaded = true;
                 that.showToast("已加载全部！")
               }
@@ -108,10 +107,6 @@
         let self = this;
         this.allLoaded = false;
         this.showFlag = false;
-        this.params = {
-          "from": "0",
-          "limit": "10"
-        };
         setTimeout(() => {
           if (self.selected === '1') {
             self.getLevelStandardList(self.params);
@@ -122,7 +117,7 @@
       //上拉加载更多
       loadBottom() {
         let self = this;
-        this.params.from = (Number(this.params.limit) + Number(this.params.from)).toString();
+        this.params.From = (Number(this.params.Limit) + Number(this.params.From)).toString();
         setTimeout(() => {
           if (self.selected === '1') {
             self.loadmore(self.params);
@@ -136,25 +131,13 @@
         // this.dealtInfo = [];
         this.allLoaded = false;
         this.showFlag = false;
-        this.params = {
-          "MethodId": "0",
-          "UserId": "R028316",
-          "From": "0",
-          "Limit": "10"
-        };
+        this.params.From = '0';
+        this.params.Limit = '10';
         switch (newval) {
           case '1':
             this.showIndicator('加载中...');
             this.getLevelStandardList(this.params);
             break;
-/*          case '2':
-            this.showIndicator('加载中...');
-            this.getDocumentList('已办', this.params);
-            break;
-          case '3':
-            this.showIndicator('加载中...');
-            this.getDocumentList('办结', this.params);
-            break;*/
           default:
             break;
         }
@@ -167,14 +150,11 @@
     activated() {
       if (this.$route.query.page !== 'levelStandardDetail' || this.is_weixin()) {
         this.selected = '1';
-        this.params = {
-          "MethodId": "0",
-          "UserId": "R028316",
-          "From": "0",
-          "Limit": "10"
-        };
+        this.params.From = '0';
+        this.params.Limit = '10';
         this.allLoaded = false;
         this.showFlag = false;
+        this.params.UserId = interfaceService.getCookie("UserId");
 //        this.showIndicator('加载中...');
         this.getLevelStandardList(this.params);
       }
