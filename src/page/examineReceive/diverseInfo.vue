@@ -1,5 +1,5 @@
 <template>
-  <div class="levelStandard">
+  <div class="diverseInfo">
     <header-simple class="list-header">
       <div class="left-button" @click="goBack()" slot="left"><i class="fa fa-chevron-left"></i></div>
       <div class="list-title" slot="title">
@@ -16,12 +16,13 @@
         <!-- tab-container -->
         <mt-tab-container v-model="selected">
           <mt-tab-container-item id="1">
-            <levelStandard-list v-for='(item,index) in dealtInfo'
-                           :key="index"
-                           :code='item.CODE'
-                           :_class='item._CLASS'
-                           :classification='item.CLASSIFICATION'>
-            </levelStandard-list>
+            <acceptHistory-list v-for='(item,index) in dealtInfo'
+                                :key="index"
+                                :wgtlistno='item.磅单号'
+                                :carrierno='item.车号'
+                                :inputtime='item.进厂时间'
+                                :fromdesc='item.厂商'>
+            </acceptHistory-list>
           </mt-tab-container-item>
         </mt-tab-container>
       </mt-loadmore>
@@ -32,37 +33,41 @@
 <script>
   import HeaderSimple from '@/components/header/header-simple'
   import BodyContent from "@/components/bodyContent/body-content"
-  import LevelStandardList from '../../components/workFlow/levelStandard-list.vue'
+  import AcceptHistoryList from '../../components/workFlow/acceptHistory-list.vue'
   import interfaceService from '../../service/interfaceService.js'
 
   export default {
-    name: 'levelStandard',
+    name: 'diverseInfo',
     data() {
       return {
-        title: '判级标准',
+        title: '差异信息查询',
         selected: '1',
         showFlag: false,
         allLoaded: false,
         dealtInfo: [],
-        params: {
+        paramsHistory: {
           "MethodId": "0",
+          "action": "1",
           "UserId": "",
-          "From": "0",
-          "Limit": "10"
+          "startTime": "",
+          "endTime":""
         }
       }
     },
-    components: {HeaderSimple, BodyContent, LevelStandardList},
+    components: {HeaderSimple, BodyContent, AcceptHistoryList},
     methods: {
       goBack() {
-        this.$router.push({path: '/examineReceive'})
+        this.$router.push({path: '/acceptHistoryQuery',query: {page: 'diverseInfo', title: this.title}})
       },
-      //获取判级标准列表
-      getLevelStandardList(params) {
+      init() {
+
+      },
+      //获取验收历史数据列表
+      getAcceptHistoryList(params) {
         let that = this;
         that.dealtInfo = [];
 //        this.showIndicator('加载中...');
-        interfaceService.queryLevelStandardList(params)
+        interfaceService.queryAcceptHistoryList(params)
           .then(function (response) {
             that.hideIndicator();
             that.dealtInfo = response;
@@ -85,7 +90,7 @@
       loadmore(params) {
         let that = this;
 //        this.showIndicator('加载中...');//显示加载提示
-        interfaceService.queryLevelStandardList(params)
+        interfaceService.queryAcceptHistoryList(params)
           .then(function (response) {
             if (response) {
               that.hideIndicator();//隐藏加载提示
@@ -109,7 +114,7 @@
         this.showFlag = false;
         setTimeout(() => {
           if (self.selected === '1') {
-            self.getLevelStandardList(self.params);
+            self.getAcceptHistoryList(self.params);
           }
           self.$refs.loadmore_doc.onTopLoaded();
         }, 1500)
@@ -136,46 +141,34 @@
         switch (newval) {
           case '1':
             this.showIndicator('加载中...');
-            this.getLevelStandardList(this.params);
+            this.getAcceptHistoryList(this.params);
             break;
           default:
             break;
         }
       },
     },
-    /*created() {
-      this.selected = '1';
-      this.getDocumentList('待办', this.params);
-    },*/
     activated() {
-      if (this.$route.query.page !== 'levelStandardDetail') {
+      this.init();
+      if (this.$route.query.page !== 'diverseInfoDetail') {
         this.selected = '1';
-        this.params.From = '0';
-        this.params.Limit = '10';
         this.allLoaded = false;
         this.showFlag = false;
-        this.params.UserId = interfaceService.getCookie("UserId");
-//        this.showIndicator('加载中...');
-        this.getLevelStandardList(this.params);
+        this.paramsHistory.UserId = interfaceService.getCookie("UserId");
+        this.paramsHistory.startTime = this.$route.query.sTime ? this.$route.query.sTime : '';
+        this.paramsHistory.endTime = this.$route.query.eTime ? this.$route.query.eTime : '';
+        this.showIndicator('加载中...');
+        this.getAcceptHistoryList(this.paramsHistory);
       }
     }
   }
 </script>
 <style lang="scss" scoped="">
 
-  .levelStandard {
+  .acceptHistory {
     background: #fff;
-/*    .admin-nav {
-      position: fixed;
-      z-index: 999;
-      top: 45px;
-      height: 45px;
-      box-sizing: border-box;
-      width:100%;
-      border-top: 1px solid #e3e3e3;
-    }*/
     .body-content {
-      height: calc(100% - 90px);
+      height: calc(100% - 45px);
       display: block;
       overflow: auto;
       box-sizing: border-box;
@@ -183,7 +176,7 @@
       padding-bottom: 5px;
       .list-selector {
         width: 100%;
-/*        min-height: calc(100% - 45px);*/
+        /*        min-height: calc(100% - 45px);*/
         background: #fff;
         box-sizing: border-box;
       }

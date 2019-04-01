@@ -7,13 +7,23 @@
       <div class="list-title" slot="title">
         {{title}}
       </div>
-      <!--  <div class="right-button" slot="right"></div>-->
-
-      <div class="right-button" @click="query()"  slot="right" >查询
-      </div>
-
+      <div class="right-button" slot="right"></div>
     </header-simple>
     <body-content class="body-content">
+      <mt-cell >
+        <div >
+          <mt-button   type="primary" @click.native="goTakePhoto()">拍照</mt-button>
+        </div>
+        <div>
+          <mt-button  type="default" @click.native="getPhoto()">照片</mt-button>
+        </div>
+        <div>
+          <mt-button  type="default" @click.native="query()">查询</mt-button>
+        </div>
+        <div >
+          <mt-button   type="danger" @click.native="sign()">扫码</mt-button>
+        </div>
+      </mt-cell >
       <mt-cell :title="'磅单号'">
         <div >
           <input type="text" class="wgttxtjh"  v-model="wgtlistno" >
@@ -88,7 +98,7 @@
       <mt-cell    :title="'备注 '">
         <input type="text" class="wgttxtjh"  v-model="remark" >
       </mt-cell>
-      <mt-cell>
+      <mt-cell >
         <div> <mt-button   type="primary" @click.native="handleClick">判级</mt-button></div>
       </mt-cell>
     </body-content>
@@ -228,7 +238,62 @@
         this.balanceFlag=detailsResp.BALANCEFLAG;//结算状态
 
       },
-
+//扫码识别榜单号
+      sign() {
+        let that = this;
+        cordova.plugins.barcodeScanner.scan(
+          function (result) {
+            console.log(result);
+            let weightId= result.text;
+            if (!weightId) {
+              that.showAlert("未识别出磅单号！");
+            } else {
+              that.wgtlistno = weightId;
+              that.query();
+            }
+          },
+          function (error) {
+            that.showAlert("扫码失败: " + error);
+          },
+          {
+            preferFrontCamera: false, // iOS and Android,优先前置摄像头
+            showFlipCameraButton: false, // iOS and Android 前后摄像头转换按钮
+            showTorchButton: true, // iOS and Android 显示开启手电筒的按钮
+            torchOn: false, // Android, launch with the torch switched on (if available) 默认开启手电筒
+            saveHistory: true,// Android, save scan history (default false)
+            prompt: "请将条码放在扫描框中", // Android 提示信息
+            resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500 多久开始识别
+            formats: "QR_CODE,PDF_417,DATA_MATRIX,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,CODE_93,CODABAR,ITF,RSS14,RSS_EXPANDED,AZTEC,MSI", // default: all but PDF_417 and RSS_EXPANDED
+            orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device 垂直还是水平
+            disableAnimations: false, // iOS
+            disableSuccessBeep: true // iOS
+          }
+        );
+      },
+      goTakePhoto() {
+        // console.log(this.listflag);
+        if(this.wgtlistno){
+          this.$router.push({
+            path: '/takephotos',
+            /*          query: {type: this.typeFlag, instanceId: this.instanceId}*/
+            query: {baodancode: this.wgtlistno,class:"J"}
+          })
+        }else{
+          this.showAlert("磅单号不得为空!");
+        }
+      },
+      getPhoto() {
+        // console.log(this.listflag);
+        if(this.wgtlistno){
+          this.$router.push({
+            path: '/wgtPhoto',
+            /*          query: {type: this.typeFlag, instanceId: this.instanceId}*/
+            query: {InstanceId: this.wgtlistno,class:"J"}
+          })
+        }else{
+          this.showAlert("磅单号不得为空!");
+        }
+      },
       //清空
       clearMsg() {
         this.wgtlistno="";
@@ -287,7 +352,7 @@
         return true;
       },
     },
-    /*activated() {
+    activated() {
       //微信登陆
       if (this.is_weixin()) {
         let that = this;
@@ -312,10 +377,7 @@
         this.init();
         // this.getProcessAndDetails(this.$route.query.type, this.paramsDetail);
       }
-    },*/
-    /*mounted() {
-      this.init();
-    }*/
+    }
   }
 </script>
 

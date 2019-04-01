@@ -67,12 +67,14 @@ Vue.config.productionTip = false;
 /* router全局守卫 */
 router.beforeEach((to, from, next) => {
   const list = [
-    'login', 'home', 'erp', 'contact', 'personal', 'search', 'contactDetails',
+    'login', 'home', 'erp', 'contact', 'personal', 'search', 'contactDetails','examineReceive',
     'administrativeExamination', 'administrativeExaminationDetail',
     'salesApproval','salesApprovalDetail',
     'levelStandard','levelStandardDetail',
     'qualityTest','qualityTestDetail',
-    'auditAccept',
+    'zjQuality','jhQuality',
+    'acceptHistoryQuery','acceptHistory','acceptHistoryDetail',
+    'diverseInfo','diverseInfoDetail',
     'documents', 'documentDetail',
     'documentRead', 'documentReadDetail',
     'meetingManager', 'meetingManagerDetails',
@@ -242,7 +244,7 @@ let routerLocation = function (location) {
     router.push({path: '/erp', query: {page: 'salesApproval'}});
   } else if (location === '/salesApprovalDetail') {
     router.push({path: '/salesApproval', query: {page: 'salesApprovalDetail'}});
-  } else if (location === 'levelStandard'){
+  } else if (location === '/levelStandard'){
     router.push({path: '/examineReceive', query: {page: 'levelStandard'}});
   } else if (location === '/levelStandardDetail') {
     router.push({path: '/levelStandard', query: {page: 'levelStandardDetail'}});
@@ -250,8 +252,20 @@ let routerLocation = function (location) {
     router.push({path: '/examineReceive', query: {page: 'qualityTest'}});
   } else if (location === '/qualityTestDetail') {
     router.push({path: '/qualityTest', query: {page: 'qualityTestDetail'}});
-  } else if (location === '/auditAccept') {
-    router.push({path: '/examineReceive', query: {page: 'auditAccept'}});
+  } else if (location === '/zjQuality') {
+    router.push({path: '/examineReceive', query: {page: 'zjQuality'}});
+  } else if (location === '/jhQuality') {
+    router.push({path: '/examineReceive', query: {page: 'jhQuality'}});
+  } else if (location === '/acceptHistoryQuery') {
+    router.push({path: '/examineReceive', query: {page: 'acceptHistoryQuery'}});
+  } else if (location === '/acceptHistory') {
+    router.push({path: '/acceptHistoryQuery', query: {page: 'acceptHistory'}});
+  } else if (location === '/acceptHistoryDetail') {
+    router.push({path: '/acceptHistory', query: {page: 'acceptHistoryDetail'}});
+  } else if (location === '/diverseInfo') {
+    router.push({path: '/acceptHistoryQuery', query: {page: 'diverseInfo'}});
+  } else if (location === '/diverseInfoDetail') {
+    router.push({path: '/diverseInfo', query: {page: 'diverseInfoDetail'}});
   } else if (location === '/documentDetail') {
     router.push({path: '/documents', query: {page: 'documentDetail'}});
   } else if (location === '/documentReadDetail') {

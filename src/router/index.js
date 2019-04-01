@@ -73,9 +73,15 @@ const levelStandardDetail = r => require.ensure([], () => r(require('../page/exa
 const qualityTest = r => require.ensure([], () => r(require('../page/examineReceive/qualityTest')), 'qualityTest');
 const qualityTestDetail = r => require.ensure([], () => r(require('../page/examineReceive/qualityTestDetail')), 'qualityTestDetail');
 const auditAccept = r => require.ensure([], () => r(require('../page/examineReceive/auditAccept')), 'auditAccept');
+const acceptHistoryQuery = r => require.ensure([], () => r(require('../page/examineReceive/acceptHistoryQuery')), 'acceptHistoryQuery');
 const acceptHistory = r => require.ensure([], () => r(require('../page/examineReceive/acceptHistory')), 'acceptHistory');
+const acceptHistoryDetail = r => require.ensure([], () => r(require('../page/examineReceive/acceptHistoryDetail')), 'acceptHistoryDetail');
+const diverseInfo = r => require.ensure([], () => r(require('../page/examineReceive/diverseInfo')), 'diverseInfo');
+const diverseInfoDetail = r => require.ensure([], () => r(require('../page/examineReceive/diverseInfoDetail')), 'diverseInfoDetail');
 const zjQuality = r => require.ensure([], () => r(require('../page/examineReceive/zjQuality')), 'zjQuality');
 const jhQuality = r => require.ensure([], () => r(require('../page/examineReceive/jhQuality')), 'jhQuality');
+const takephotos = r => require.ensure([], () => r(require('../page/examineReceive/takephotos')), 'takephotos');
+const wgtPhoto = r => require.ensure([], () => r(require('../page/examineReceive/wgtPhoto')), 'wgtPhoto');
 
 Vue.use(Router);
 
@@ -256,15 +262,51 @@ export default new Router({
       meta: {keepAlive: true}
     },
     {
+      path: '/takephotos',
+      name: 'takephotos',
+      component: takephotos,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/wgtPhoto',
+      name: 'wgtPhoto',
+      component: wgtPhoto,
+      meta: {keepAlive: true}
+    },
+    {
       path: '/auditAccept',
       name: 'auditAccept',
       component: auditAccept,
       meta: {keepAlive: true}
     },
     {
+      path: '/acceptHistoryQuery',
+      name: 'acceptHistoryQuery',
+      component: acceptHistoryQuery,
+      meta: {keepAlive: true}
+    },
+    {
       path: '/acceptHistory',
       name: 'acceptHistory',
       component: acceptHistory,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/acceptHistoryDetail',
+      name: 'acceptHistoryDetail',
+      component: acceptHistoryDetail,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/diverseInfo',
+      name: 'diverseInfo',
+      component: diverseInfo,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/diverseInfoDetail',
+      name: 'diverseInfoDetail',
+      component: diverseInfoDetail,
       meta: {keepAlive: true}
     },
     {

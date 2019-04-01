@@ -1,8 +1,8 @@
 <template>
-  <div class="qualityTest-list" @click="goLand()">
+  <div class="qualityTest-list" @click="goDetails()">
     <a class="qualityTest-list-item">
       <div class="qualityTest-list-logo">
-        <i class="fa fa-pencil-square-o fa-2x reception-icon"></i>
+        <i class="fa fa-balance-scale fa-2x reception-icon"></i>
       </div>
       <div class="qualityTest-list-header overflow-hidden">{{addresscode}}</div>
       <div class="qualityTest-list-content">
@@ -39,11 +39,8 @@
       }
     },
     methods: {
-      goLand() {
-        this.$router.push({
-          path: '/qualityTestDetail',
-          query: {InstanceId: this.addresscode}
-        })
+      goDetails() {
+        this.$router.push({path: '/qualityTestDetail', query: {InstanceId: this.addresscode}});
       }
     }
   }

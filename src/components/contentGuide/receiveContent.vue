@@ -8,7 +8,7 @@
           <!--<img src="../../data/img/new.gif">-->
         </div>
 
-        <router-link :to="item.href">
+        <router-link :to="{path:item.href, query:{title:item.content}}">
           <!--<span :class="item.class" :style="item.style"></span>{{item.content}}-->
           <img :src="item.imgPath" class="contentImg"/>
           <span>{{item.content}}</span>
@@ -41,14 +41,14 @@
 /*          {
             href: '/auditAccept',
             imgPath: require('../../assets/moduleImg/18.png'),
-            content: 'T4验收作业',
+            content: '质检验收',
             label: 'YS',
             newMessages: '0',
           },*/
           {
             href: '/zjQuality',
-            imgPath: require('../../assets/moduleImg/18.png'),
-            content: '质检作业',
+            imgPath: require('../../assets/moduleImg/27.png'),
+            content: '质检验收',
             label: 'ZJ',
             newMessages: '0',
           },
@@ -60,10 +60,17 @@
             newMessages: '0',
           },
           {
-            href: '/acceptHistory',
+            href: '/acceptHistoryQuery',
             imgPath: require('../../assets/moduleImg/23.png'),
             content: '验收历史数据',
             label: 'HIS',
+            newMessages: '0',
+          },
+          {
+            href: '/acceptHistoryQuery',
+            imgPath: require('../../assets/moduleImg/26.png'),
+            content: '差异信息查询',
+            label: 'DIS',
             newMessages: '0',
           }
         ]

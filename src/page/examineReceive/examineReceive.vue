@@ -1,7 +1,6 @@
 <template>
   <div class="examineReceive">
     <header-simple class="list-header">
-      <!--      <div class="left-button" slot="left"></div>-->
       <div class="left-button" @click="goBack()" slot="left"><i class="fa fa-chevron-left"></i></div>
       <div class="list-title" slot="title">
         {{title}}
@@ -37,45 +36,9 @@
       goBack() {
         this.$router.push({path: '/tab/home'})
       },
-      //获取ERP页面数据
-/*      getErpData() {
-        let that = this;
-        //获取ERP待办数量
-        that.paramsErpDaiban = {
-          "fromId":"JKA01",
-          "test":"Y",
-          // "userId":"R002019",
-          "userId":interfaceService.getCookie("UserId")
-        };
-        var obj = JSON.stringify(that.paramsErpDaiban);
-        interfaceService.queryErpData('ERP',obj)
-          .then(function (saleResp) {
-            that.hideIndicator();
-            //销售待办数量
-            // for (let i = 0; i < saleResp.length; i++) {
-            // let wfindex = that.getIndex(that.$refs.contentGuide.contentList, wfResp[i].label);
-            that.$refs.contentGuide.contentList[0].newMessages = saleResp.data.value;
-            // }
-          }, function (error) {
-            that.hideIndicator();
-            that.showAlert("数据加载失败");
-          });
-      },*/
-      //获取下标
-/*      getIndex(arr, value) {
-        let index;
-        for (let i = 0; i < arr.length; i++) {
-          if (value === arr[i].label) {
-            index = i;
-            return index;
-          }
-        }
-        return -1;
-      },*/
       //页面初始化
       init() {
-        //获取ERP首页数据
-        // this.getErpData();
+      //
       }
     },
     activated() {

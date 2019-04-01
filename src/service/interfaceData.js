@@ -18,6 +18,11 @@ let interfaceData = {
   getQualityTestDetailApi: '/QueryQuSite.aspx',//获取质检点明细
   getWeightNoteInfoApi: '/QueryWgt.aspx',//根据磅单号查询信息
   getCarMsgByWgtApi: '/QueryWgt.aspx',//获取车次信息 QueryWgt.aspx
+  getAcceptHistoryListApi: '/QueryInfo.aspx',//获取验收历史数据列表
+  getAcceptHistoryDetailApi: '/QueryInfo.aspx',//获取验收历史数据详情
+  getAcceptPictureApi: '/DownLoadPicture.aspx',//获取验收照片
+  // getAcceptPictureApi: '/service/IW/getPictureNews/',
+    // 'QueryPicture.aspx',//获取验收照片
 
   //主页数据显示
   getOADaibanApi: '/service/user/getOADaiban/',//行政审批待办数量

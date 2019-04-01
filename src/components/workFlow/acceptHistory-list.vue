@@ -1,23 +1,25 @@
 <template>
-  <div class="levelStandard-list" @click="goDetails()">
-    <a class="levelStandard-list-item">
-      <div class="levelStandard-list-logo">
-        <i class="fa fa-credit-card fa-2x reception-icon"></i>
+  <div class="acceptHistory-list" @click="goDetails()">
+    <a class="acceptHistory-list-item">
+      <div class="acceptHistory-list-logo">
+        <i class="fa fa-history fa-2x reception-icon"></i>
       </div>
-      <div class="levelStandard-list-header overflow-hidden">{{code}}</div>
-      <div class="levelStandard-list-content">
+      <div class="acceptHistory-list-header overflow-hidden">{{wgtlistno}}</div>
+      <div class="acceptHistory-list-content">
         <div>
           <div class="list-item">
             <div class="item-content">
               <!--<span class="item-content-t">{{submit}}</span>-->
-              <span class="item-content-c">{{_class}}</span>
+              <span class="item-content-c">{{carrierno}}</span>
             </div>
             <div class="item-content">
-              <span class="item-content-c">{{classification}}</span>
-<!--              <span class="item-content-c">{{ngDate}}</span>-->
+              <span class="item-content-c">{{inputtime}}</span>
+            </div>
+            <div class="item-content">
+              <span class="item-content-c">{{fromdesc}}</span>
             </div>
           </div>
-          <div class="levelStandard-list-select">
+          <div class="acceptHistory-list-select">
             <i class="fa fa-chevron-right"></i>
             <!--<img src="../../assets/tab/select.png"/>-->
           </div>
@@ -30,25 +32,31 @@
 <script>
   export default {
     props: {
-      _class: {type: String},
-      classification: {type: String},
-      code: {type: String}
+      wgtlistno: {type: String},
+      carrierno: {type: String},
+      inputtime: {type: String},
+      fromdesc: {type: String}
     },
     data(){
       return{
         /* listflag:'',*/
+        flag: false
       }
     },
     methods: {
       goDetails() {
-        this.$router.push({path: '/levelStandardDetail', query: {InstanceId: this.code}});
+        if (this.$route.path === '/acceptHistory') {
+          this.$router.push({path: '/acceptHistoryDetail', query: {InstanceId: this.wgtlistno}});
+        } else if (this.$route.path === '/diverseInfo') {
+          this.$router.push({path: '/diverseInfoDetail', query: {InstanceId: this.wgtlistno}});
+        }
       }
     }
   }
 </script>
 
 <style lang="scss" scoped="">
-  .levelStandard-list {
+  .acceptHistory-list {
     position: relative;
     background: white;
     /*    margin-top: 10px;
@@ -58,14 +66,14 @@
     border-bottom-right-radius: 25px;
     box-shadow: 0px 0px 4px #D2D2D2;
 
-    .levelStandard-list-header {
+    .acceptHistory-list-header {
       margin-left: 38px;
       height: 40px;
       line-height: 40px;
       border-bottom: 2px dotted #D2D2D2;
       color: #1e8fe1;
     }
-    .levelStandard-list-content {
+    .acceptHistory-list-content {
       padding: 8px;
       .item-content {
         margin: 5px 15px;
@@ -105,7 +113,7 @@
         -moz-box-shadow: -1px 1px 1px #888888; /* 老的 Firefox */
         box-shadow: -1px 1px 1px #888888;
       }
-      .levelStandard-list-select {
+      .acceptHistory-list-select {
         img {
           float: right;
           width: 28px;
@@ -119,7 +127,7 @@
       }
     }
 
-    .levelStandard-list-item {
+    .acceptHistory-list-item {
       display: block;
       &.activated {
         background: #f8f8f8;
@@ -161,7 +169,7 @@
       margin: 0;
     }
 
-    .levelStandard-list-logo {
+    .acceptHistory-list-logo {
       height: 50px;
       width: 50px;
       border-radius: 25px;
@@ -182,7 +190,7 @@
     }
   }
 
-  .levelStandard-list:active {
+  .acceptHistory-list:active {
     background: #E6E6E6;
   }
 </style>

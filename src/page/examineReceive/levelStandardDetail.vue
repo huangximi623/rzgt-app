@@ -63,30 +63,8 @@
       }
     },
     activated() {
-      //微信登陆
-      if (this.is_weixin()) {
-        let that = this;
-        that.showIndicator('加载中...');//显示加载提示;
-        interfaceService.weChatLogin({"LgnType": "WeChat"})
-          .then(function (response) {
-            that.hideIndicator();
-            //微信登陆，code为2时，更新UserId和Token;为1时,使用原有UserId和Token
-            if (response.code === '2') {
-              interfaceService.setCookie("UserId", response.result.UserId.value, (response.result.UserId.maxage) / (60 * 60 * 24));
-              interfaceService.setCookie("Token", response.result.Token.value, (response.result.Token.maxage) / (60 * 60 * 24));
-            }
-            if (that.$route.query.page !== 'toReadList') {
-              that.init();
-              that.getProcessAndDetails(that.$route.query.type, that.paramsDetail);
-            }
-          }, function (error) {
-            that.hideIndicator();
-            that.showAlert("数据加载失败");
-          });
-      } else {
-          this.init();
-          this.getLevelStandardDetails(this.paramsDetail);
-      }
+      this.init();
+      this.getLevelStandardDetails(this.paramsDetail);
     }
   }
 </script>

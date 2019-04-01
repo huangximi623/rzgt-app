@@ -196,6 +196,42 @@ let interfaceService = {
     };
     return postSteelApiData(paramsPost);
   },
+
+  //获取验收历史数据列表
+  queryAcceptHistoryList: function (params) {
+    // let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
+    let url = interfaceData.getAcceptHistoryListApi;
+    let paramsPost = {
+      url: url,
+      method: 'post',
+      param: JSON.stringify(params)
+    };
+    return postSteelApiData(paramsPost);
+  },
+  //获取验收历史数据详情
+  queryAcceptHistoryDetail: function (params) {
+    // let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
+    let url = interfaceData.getAcceptHistoryDetailApi;
+    let paramsPost = {
+      url: url,
+      method: 'post',
+      param: JSON.stringify(params)
+    };
+    return postSteelApiData(paramsPost);
+  },
+
+  //依据磅单号查询图片
+  queryAcceptPicture: function (params) {
+    let url = interfaceData.getAcceptPictureApi;
+    let paramsPost = {
+      url: url,
+      method: 'post',
+      param: JSON.stringify(params)
+    };
+    // return postApiData(paramsPost);
+    return postSteelApiData(paramsPost);
+  },
+
   /*
  ==========================================
                 ERP审批模块

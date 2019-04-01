@@ -7,21 +7,29 @@
       <div class="list-title" slot="title">
         {{title}}
       </div>
-    <!--  <div class="right-button" slot="right"></div>-->
-
-      <div class="right-button" @click="query()"  slot="right" >查询
-
-      </div>
-
+      <div class="right-button" slot="right"></div>
     </header-simple>
     <body-content class="body-content">
-    <mt-cell :title="'磅单号'">
-
+      <!--<div> <mt-button size="large"   type="primary" @click.native="sign()">扫描条码</mt-button></div>-->
+      <mt-cell>
+        <div  >
+          <mt-button   type="primary" @click.native="goTakePhoto()">拍照</mt-button>
+        </div>
+          <div style=" width:25%;">
+          <mt-button  type="primary"  @click.native="getPhoto()">照片</mt-button>
+          </div>
+            <div>
+          <mt-button  type="default" @click.native="query()">查询</mt-button>
+            </div>
+              <div>
+          <mt-button   type="danger" @click.native="sign()">扫码</mt-button>
+        </div>
+      </mt-cell >
+      <mt-cell :title="'磅单号'">
       <div >
         <input type="text" class="wgttxt"  v-model="wgtlistno" >
       </div>
     </mt-cell>
-
     <mt-cell :title="'车号'">
       <div >
         <input type="text" class="wgttxtredonly" v-model="carrierno" readonly="true">
@@ -81,9 +89,9 @@
     </mt-cell>
 
       <mt-cell title="质检点">
-        <select v-model="selected" style="height:40px; width:180px;">
-          <option v-for="item in options" v-bind:value="item.value">
-            {{ item.text }}
+        <select v-model="zjAdress" style="height:40px; width:180px;">
+          <option v-for="item in options" v-bind:value="item._ADDRESSCODE">
+            {{ item._ADDRESSCODE+"-"+item.CLASSIFICATION }}
           </option>
         </select>
       </mt-cell>
@@ -136,6 +144,8 @@
         remark:'',
         state:'',
         balanceFlag:'',
+        zjAdress:'',
+        options: [],
         //请求参数
         paramsDetail: {
           "MethodId": "Q",//方法类型，Q查询，U判级
@@ -153,20 +163,15 @@
           "Cheat": "",//作弊
           "CheatMoney": "",//作弊处罚金额
           "Remark": "",//备注
-          "WgtlistNo": ""//磅单号
+          "WgtlistNo": "",//磅单号
+          "ZjAdress":""//质检点
         },
         params: {
           "MethodId": "0",
-          "UserId": "R028316",
+          "UserId": "",
           "From": "0",
           "Limit": "10"
-        },
-        selected: 'A',
-        options: [
-          { text: 'One', value: 'A',eee:"d" },
-          { text: 'Two', value: 'B',eee:"d" },
-          { text: 'Three', value: 'C',eee:"d" }
-          ]
+        }
 
         }
       },
@@ -174,9 +179,8 @@
     components: {HeaderSimple, BodyContent},
     methods: {
       init() {
-        /*  this.documentInfo = this.$route.query.documentInfo;*/
-        this.paramsDetail.WgtlistNo = this.wgtlistno;
         this.paramsDetail.UserId = interfaceService.getCookie("UserId");
+        this.getQualityTestList(this.params);
       },
       goBack() {
         this.clearMsg();
@@ -252,9 +256,105 @@
         this.remark=detailsResp.REMARK;
         this.state=detailsResp.ZJSTATE;//质检状态
         this.balanceFlag=detailsResp.BALANCEFLAG;//结算状态
+        this.zjAdress=detailsResp.ZJADRESS;//质检点
 
       },
+  //获取质检点列表
+      getQualityTestList(params) {
+        let that = this;
+        that.options = [];
+//        this.showIndicator('加载中...');
+        interfaceService.queryQualityTestList(params)
+          .then(function (response) {
+            that.hideIndicator();
+            that.options = response;
+          }, function (error) {
+            that.hideIndicator();
+            that.showAlert("加载质检点失败");
+          });
+      },
 
+      //扫码识别榜单号
+      sign() {
+        let that = this;
+        cordova.plugins.barcodeScanner.scan(
+          function (result) {
+            console.log(result);
+            let weightId= result.text;
+            if (!weightId) {
+              that.showAlert("未识别出磅单号！");
+            } else {
+              that.wgtlistno = weightId;
+              that.query();
+            }
+          },
+          function (error) {
+            that.showAlert("扫码失败: " + error);
+          },
+          {
+            preferFrontCamera: false, // iOS and Android,优先前置摄像头
+            showFlipCameraButton: false, // iOS and Android 前后摄像头转换按钮
+            showTorchButton: true, // iOS and Android 显示开启手电筒的按钮
+            torchOn: false, // Android, launch with the torch switched on (if available) 默认开启手电筒
+            saveHistory: true,// Android, save scan history (default false)
+            prompt: "请将条码放在扫描框中", // Android 提示信息
+            resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500 多久开始识别
+            formats: "QR_CODE,PDF_417,DATA_MATRIX,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,CODE_93,CODABAR,ITF,RSS14,RSS_EXPANDED,AZTEC,MSI", // default: all but PDF_417 and RSS_EXPANDED
+            orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device 垂直还是水平
+            disableAnimations: false, // iOS
+            disableSuccessBeep: true // iOS
+          }
+        );
+      },
+
+      goTakePhoto() {
+        // console.log(this.listflag);
+        if(this.wgtlistno){
+        this.$router.push({
+          path: '/takephotos',
+          /*          query: {type: this.typeFlag, instanceId: this.instanceId}*/
+          query: {baodancode: this.wgtlistno,class:"Z"}
+        })
+        }else{
+          this.showAlert("磅单号不得为空!");
+        }
+      },
+      getPhoto() {
+        // console.log(this.listflag);
+        if(this.wgtlistno){
+          this.$router.push({
+            path: '/wgtPhoto',
+            /*          query: {type: this.typeFlag, instanceId: this.instanceId}*/
+            query: {InstanceId: this.wgtlistno,class:"Z"}
+          })
+        }else{
+          this.showAlert("磅单号不得为空!");
+        }
+      },
+      //拍照
+      takePhoto() {
+        let that = this;
+        var cameraOptions= {
+          quality : 70,
+          destinationType : Camera.DestinationType.DATA_URL,
+          sourceType : Camera.PictureSourceType.CAMERA,
+          allowEdit : false,
+          encodingType : Camera.EncodingType.JPEG,
+          targetWdith : 100,
+          targetHeight : 100,
+          popoverOptions : CameraPopoverOptions,
+          saveToPhotoAlbum : true
+        };
+        navigator.camera.getPicture(onCameraSuccess, onCameraError, cameraOptions);
+
+        function onCameraSuccess(imageURI){
+          $('#img_pic').attr("src","data:image/jpeg;base64," + imageURI);
+
+        }
+        function onCameraError(message) {
+          alert('Failed because: ' + message);
+        }
+      },
       //清空
       clearMsg() {
         this.wgtlistno="";
@@ -271,6 +371,7 @@
         this.isCj=false;
         this.rejGoods="0";
         this.remark="";
+        this.zjAdress="";
       },
 
       handleClick: function () {
@@ -291,6 +392,8 @@
           this.paramsDetail.Cheat = this.isCheat==true?"Y":"N";
           this.paramsDetail.CheatMoney = "";
           this.paramsDetail.Remark = this.remark;
+          this.paramsDetail.ZjAdress=this.zjAdress;
+
           this.getPjDetails(this.paramsDetail);
           //this.showAlert(this.wgtlistno+"成功");
         }
@@ -411,7 +514,6 @@
       margin-left: 4%;
       float: left;
     }
-
   }
 
 </style>
