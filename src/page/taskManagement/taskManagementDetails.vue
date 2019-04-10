@@ -71,6 +71,7 @@
         </div>
       </header-simple>
       <input placeholder="反馈进度" v-model="feedbackProgress"/>
+      <input placeholder="当期达成率" v-model="currentProcessRate"/>
       <textarea rows="5" placeholder="反馈意见" v-model="feedbackMessage"></textarea>
       <mt-button class="submit-btn" type="primary" size="large" @click="btn_submit()">提交</mt-button>
     </mt-popup>
@@ -96,6 +97,7 @@
         },
         popupVisible: false,
         feedbackProgress: '',
+        currentProcessRate: '',
         feedbackMessage: '',
         paramsFeedback: {
           "detail": "",
@@ -150,6 +152,7 @@
       toFeedback() {
         this.feedbackMessage = '';
         this.feedbackProgress = '';
+        this.currentProcessRate = '';
         this.popupVisible = true;
       },
       btn_submit() {
@@ -174,6 +177,7 @@
               this.paramsFeedback.jobMainGuid = this.taskInfo.jobMainGuid;
               this.paramsFeedback.jobdetailGuid = this.taskInfo.jobdetailGuid;
               this.paramsFeedback.process = this.feedbackProgress;
+              this.paramsFeedback.processRate = this.currentProcessRate;
               this.paramsFeedback.userId = interfaceService.getCookie("Token");
               this.paramsFeedback.userName = this.personInfo[0].name;
               this.getTaskManagementFeedback(this.paramsFeedback);
