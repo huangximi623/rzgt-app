@@ -14,8 +14,11 @@
           <img slot="icon" :src="personInfo[0].picture" :onerror="personImg" width="60" height="auto">
         </mt-cell>
       </div>
-      <div v-if="versionInfo" @click="showPopUp()">
+<!--      <div v-if="versionInfo" @click="showPopUp()">
         <mt-cell title="当前版本" :value="'v'+versionInfo.Version" is-link></mt-cell>
+      </div>-->
+      <div v-if="currentVersion" @click="showPopUp()">
+        <mt-cell title="当前版本" :value="'v'+currentVersion" is-link></mt-cell>
       </div>
       <mt-cell title="在线升级" is-link @click.native="updateToLatest()" v-if="!this.is_weixin()"></mt-cell>
 
@@ -60,6 +63,7 @@
         popupVisible: false,
         personInfo: {},
         versionInfo: {},
+        currentVersion: '',
         versionUpdateInfo: {},
         personImg: 'this.src="' + require('../../assets/main/personal_checked@2x.png') + '"'
       }
@@ -76,12 +80,14 @@
       init() {
         this.popupVisible = false;
         this.personInfo = interfaceService.getPersonInfo();
-        this.versionInfo = interfaceService.getVersion();
+        // this.versionInfo = interfaceService.getVersion();
+        this.versionInfo = this.getCurrentVersion();
+        this.currentVersion = config.currentVersion;
       },
       //退出登陆
       loginOut() {
         let that = this;
-        that.showIndicator("正在退出...");
+        // that.showIndicator("正在退出...");
 /*        interfaceService.LoginOut()
           .then(function (response) {
             that.hideIndicator();
@@ -138,7 +144,22 @@
       cancelUpdate() {
         interfaceService.cancelUpdateFlag = true;
         this.popupVisible = false;
-      }
+        this.getCurrentVersion();
+      },
+      //获取当前版本
+      getCurrentVersion() {
+        let that = this;
+        // that.showIndicator("加载中...");
+        interfaceService.getCurrentVersion(config.currentVersion)
+          .then(function (response) {
+            that.versionInfo = response;
+            interfaceService.setVersion(response);//保存版本信息
+          }, function (error) {
+            that.hideIndicator();
+            // that.showToast("获取最新版本号失败！");
+            that.versionInfo = interfaceService.getVersion();
+          });
+      },
     },
     activated() {
       this.init();

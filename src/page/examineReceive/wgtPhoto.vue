@@ -66,15 +66,11 @@
         let that = this;
         that.picList = [];
         that.showIndicator('加载中...');//显示加载提示;
-        //同时执行多个请求
-        axios.all([
-          interfaceService.queryAcceptPicture(that.paramsPic)//依据磅单号查询图片
-        ])
-          .then(axios.spread(function (PictureResp) {
+        interfaceService.queryAcceptPicture(that.paramsPic)//依据磅单号查询图片
+          .then(function (PictureResp) {
             that.hideIndicator();
-            //图片
             that.picList = PictureResp;
-          }), function (error) {
+          }, function (error) {
             that.hideIndicator();
             that.showAlert("数据加载失败");
           });

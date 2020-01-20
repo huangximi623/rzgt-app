@@ -29,6 +29,8 @@
 <script>
   import HeaderSimple from '@/components/header/header-simple'
   import BodyContent from '@/components/bodyContent/body-content'
+  import interfaceService from '../../service/interfaceService.js'
+  import config from '../../config/config.json'
 
   export default {
     name: "versionUpdateInfo",
@@ -40,9 +42,24 @@
       }
     },
     methods: {
+      //获取当前版本
+      getCurrentVersion() {
+        let that = this;
+        // that.showIndicator("加载中...");
+        interfaceService.getCurrentVersion(config.currentVersion)
+          .then(function (response) {
+            that.versionInfo = response;
+            interfaceService.setVersion(response);//保存版本信息
+          }, function (error) {
+            that.hideIndicator();
+            // that.showToast("获取最新版本号失败！");
+            that.versionInfo = interfaceService.getVersion();
+          });
+      },
       //数据初始化
       init() {
         this.versionInfo = this.$route.query.versionInfo;
+        // this.getCurrentVersion();
       },
       //返回个人信息页面
       goBack() {

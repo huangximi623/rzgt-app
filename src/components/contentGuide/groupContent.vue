@@ -20,57 +20,22 @@
 
 <script>
   export default {
-    name: 'receiveContent',
+    name: 'groupContent',
     data() {
       return {
         contentList: [
           {
-            href: '/levelStandard',
-            imgPath: require('../../assets/moduleImg/21.png'),
-            content: '判级标准',
-            label: 'PJ',
+            href: '/jhApproval',
+            imgPath: require('../../assets/moduleImg/29.png'),
+            content: '京华审批',
+            label: 'JHSP',
             newMessages: '0',
           },
           {
-            href: '/qualityTest',
-            imgPath: require('../../assets/moduleImg/20.png'),
-            content: '现有质检点',
-            label: 'ZJ',
-            newMessages: '0',
-          },
-/*          {
-            href: '/auditAccept',
-            imgPath: require('../../assets/moduleImg/18.png'),
-            content: '质检验收',
-            label: 'YS',
-            newMessages: '0',
-          },*/
-          {
-            href: '/zjQuality',
-            imgPath: require('../../assets/moduleImg/27.png'),
-            content: '质检验收',
-            label: 'ZJ',
-            newMessages: '0',
-          },
-          {
-            href: '/jhQuality',
-            imgPath: require('../../assets/moduleImg/22.png'),
-            content: '稽核验收',
-            label: 'JH',
-            newMessages: '0',
-          },
-          {
-            href: '/acceptHistoryQuery',
-            imgPath: require('../../assets/moduleImg/23.png'),
-            content: '验收历史数据',
-            label: 'HIS',
-            newMessages: '0',
-          },
-          {
-            href: '/acceptHistoryQuery',
-            imgPath: require('../../assets/moduleImg/26.png'),
-            content: '差异信息查询',
-            label: 'DIS',
+            href: '/wkApproval',
+            imgPath: require('../../assets/moduleImg/30.png'),
+            content: '营钢审批',
+            label: 'YGSP',
             newMessages: '0',
           }
         ]

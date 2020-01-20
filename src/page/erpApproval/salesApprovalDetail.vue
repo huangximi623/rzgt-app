@@ -114,7 +114,6 @@
     },
     activated() {
       //微信登陆
-
       if (this.is_weixin()) {
         let that = this;
         that.showIndicator('加载中...');//显示加载提示;

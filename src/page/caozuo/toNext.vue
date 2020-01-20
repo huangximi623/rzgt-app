@@ -155,6 +155,12 @@
                 case '销售审批':
                   that.showAlertAndUrl(response.message, '/salesApproval');
                   break;
+                case '京华审批':
+                  that.showAlertAndUrl(response.message, '/jhApproval');
+                  break;
+                case '营钢审批':
+                  that.showAlertAndUrl(response.message, '/wkApproval');
+                  break;
                 default:
                   break;
               }
@@ -247,6 +253,10 @@
           this.$router.push({path: '/receptionManagerDetails', query: {page: 'toReadList'}})
         } else if (this.buttonTitle === '销售审批') {
           this.$router.push({path: '/salesApprovalDetail', query: {page: 'toReadList'}})
+        } else if (this.buttonTitle === '京华审批') {
+          this.$router.push({path: '/jhApprovalDetail', query: {page: 'toReadList'}})
+        } else if (this.buttonTitle === '营钢审批') {
+          this.$router.push({path: '/wkApprovalDetail', query: {page: 'toReadList'}})
         }
       },
       btn_cancel() {

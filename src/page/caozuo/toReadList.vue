@@ -85,7 +85,8 @@
         searchValue: [],//搜索页面选中的值
         option: [],//用于存放当前节点的person
         options: [],//用于存放所有节点的person(二维数组)
-        value: [] //用于存放选中的person
+        value: [],//用于存放选中的person
+        approvalType: '' //审批类型
       }
     },
     components: {HeaderSimple, BodyContent, CheckList},
@@ -126,7 +127,7 @@
           that.showAlert("请输入要查询的人员信息！")
         } else {
           that.showIndicator("查询中...");
-          interfaceService.queryPersonList({queryValue: searchVal})
+          interfaceService.queryPersonList({type: this.approvalType,queryValue: searchVal})
             .then(function (response) {
               if (response.length === 0) {
                 that.searchVal = '';
@@ -233,13 +234,17 @@
           this.$router.push({path: '/receptionManagerDetails', query: {page: 'toReadList'}})
         } else if (this.$route.query.buttonTitle === '销售审批') {
           this.$router.push({path: '/salesApprovalDetail', query: {page: 'toReadList'}})
+        } else if (this.$route.query.buttonTitle === '京华审批') {
+          this.$router.push({path: '/jhApprovalDetail', query: {page: 'toReadList'}})
+        } else if (this.$route.query.buttonTitle === '营钢审批') {
+          this.$router.push({path: '/wkApprovalDetail', query: {page: 'toReadList'}})
         }
       },
       //获取顶层组织
-      getTopGroup() {
+      getTopGroup(type) {
         let that = this;
         that.showIndicator("加载中...");
-        interfaceService.queryTopOrganization()
+        interfaceService.queryTopOrganization(type)
           .then(function (response) {
             that.hideIndicator();
             that.contactData.push(response);
@@ -266,7 +271,7 @@
         let that = this;
         that.showIndicator("加载中...");
         that.option = [];
-        interfaceService.queryContactList(params)
+        interfaceService.queryContactList(this.approvalType, params)
           .then(function (response) {
             that.hideIndicator();
             if (response.length === 0) {
@@ -309,6 +314,8 @@
       //数据初始化
       init() {
         //清空
+        // alert(this.$route.query.buttonTitle);
+        this.approvalType = this.$route.query.buttonTitle;
         this.contactData = [];
         this.option = [];
         this.options = [];
@@ -316,7 +323,7 @@
         this.searchVal = '';//搜索值
         this.searchShowOrHide = false;
         this.searchPerson = [];
-        this.getTopGroup();
+        this.getTopGroup(this.approvalType);
       }
     },
     activated() {

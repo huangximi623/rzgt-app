@@ -2,6 +2,7 @@ let interfaceData = {
   loginApi: '/SignIn',//登陆
   loginOutApi: '/SignOut',//登出
   versionApi: '/GetVersion',//版本
+  currentVersionApi: '/GetCurrentVersion', //当前版本
 
   //销售审批模块
   getERPDaibanApi: '/service/getERPDaiban/',//销售审批待办数量
@@ -11,16 +12,16 @@ let interfaceData = {
   getSaleCommentDetailApi: '/service/getSaleCommentDetail/',//销售审批流程记录
 
   //废钢验收模块
-  getAuthorityFlagApi: '/LogCheck.aspx',//获取权限标识
-  getLevelStandardListApi: '/QueryStander.aspx',//获取判级标准列表
-  getLevelStandardDetailApi: '/QueryStander.aspx',//获取判级标准明细
-  getQualityTestListApi: '/QueryQuSite.aspx',//获取质检点列表
-  getQualityTestDetailApi: '/QueryQuSite.aspx',//获取质检点明细
-  getWeightNoteInfoApi: '/QueryWgt.aspx',//根据磅单号查询信息
-  getCarMsgByWgtApi: '/QueryWgt.aspx',//获取车次信息 QueryWgt.aspx
-  getAcceptHistoryListApi: '/QueryInfo.aspx',//获取验收历史数据列表
-  getAcceptHistoryDetailApi: '/QueryInfo.aspx',//获取验收历史数据详情
-  getAcceptPictureApi: '/DownLoadPicture.aspx',//获取验收照片
+  // getAuthorityFlagApi: '/LogCheck.aspx',//获取权限标识
+  // getLevelStandardListApi: '/QueryStander.aspx',//获取判级标准列表
+  // getLevelStandardDetailApi: '/QueryStander.aspx',//获取判级标准明细
+  // getQualityTestListApi: '/QueryQuSite.aspx',//获取质检点列表
+  // getQualityTestDetailApi: '/QueryQuSite.aspx',//获取质检点明细
+  // getWeightNoteInfoApi: '/QueryWgt.aspx',//根据磅单号查询信息
+  // getCarMsgByWgtApi: '/QueryWgt.aspx',//获取车次信息 QueryWgt.aspx
+  // getAcceptHistoryListApi: '/QueryInfo.aspx',//获取验收历史数据列表
+  // getAcceptHistoryDetailApi: '/QueryInfo.aspx',//获取验收历史数据详情
+  // getAcceptPictureApi: '/DownLoadPicture.aspx',//获取验收照片
   // getAcceptPictureApi: '/service/IW/getPictureNews/',
     // 'QueryPicture.aspx',//获取验收照片
 
@@ -31,25 +32,65 @@ let interfaceData = {
   getJBTaskCountApi: '/service/JobManage/getJBTaskCount/',//任务管理待办数量
   getFirstPageNewRemarkApi: '/service/DOC/getFirstPageNewRemark/',//文档中心待办
 
+  getJhjtOADaibanApi: '/JHJT/service/user/getOADaiban/',//京华集团行政审批待办数量
+  getWkygOADaibanApi: '/WKYG/service/user/getOADaiban/',//五矿营钢行政审批待办数量
+
+
   getPictureNewsApi:'/service/IW/getPictureNews/',//轮播图获取
 
   //通讯录
   queryABUserApi: '/service/user/queryABUser/',//查询员工
-
   getABGroupUserApi: '/service/user/getABGroupUser/',//通讯录
+
+  //京华集团通讯录
+  queryJhjtABUserApi: '/JHJT/service/user/queryABUser/',//查询员工
+  getJhjtABGroupUserApi: '/JHJT/service/user/getABGroupUser/',//通讯录
+
+  //五矿营钢通讯录
+  queryWkygABUserApi: '/WKYG/service/user/queryABUser/',//查询员工
+  getWkygABGroupUserApi: '/WKYG/service/user/getABGroupUser/',//通讯录
+
   //组织结构
   getTopGroupApi: '/service/user/getTopGroup/',//顶层组织
-  getGroupAndUserApi: '/service/user/getGroupAndUser',//子组织
+  getGroupAndUserApi: '/service/user/getGroupAndUser/',//子组织
+
+  //京华集团组织结构
+  getJhjtTopGroupApi: '/JHJT/service/user/getTopGroup/',//顶层组织
+  getJhjtGroupAndUserApi: '/JHJT/service/user/getGroupAndUser/',//子组织
+
+  //五矿营钢组织结构
+  getWkygTopGroupApi: '/WKYG/service/user/getTopGroup/',//顶层组织
+  getWkygGroupAndUserApi: '/WKYG/service/user/getGroupAndUser',//子组织
 
   //行政审批列表
   getWFTasksDBApi: '/service/WF/getWFTasksDB/',//待办
   getWFTasksYBApi: '/service/WF/getWFTasksYB/',//已办
   getWFTasksBJApi: '/service/WF/getWFTasksBJ/',//办结
+
+  //京华集团行政审批列表
+  getJhjtWFTasksDBApi: '/JHJT/service/WF/getWFTasksDB/',//待办
+  getJhjtWFTasksYBApi: '/JHJT/service/WF/getWFTasksYB/',//已办
+  getJhjtWFTasksBJApi: '/JHJT/service/WF/getWFTasksBJ/',//办结
+
+  //五矿营钢行政审批列表
+  getWkygWFTasksDBApi: '/WKYG/service/WF/getWFTasksDB/',//待办
+  getWkygWFTasksYBApi: '/WKYG/service/WF/getWFTasksYB/',//已办
+  getWkygWFTasksBJApi: '/WKYG/service/WF/getWFTasksBJ/',//办结
+
   //行政审批详情
   getWFBJTaskDetailApi: '/service/WF/getBJTaskDetail/',//办结表单详情
   getWFTaskDetailApi: '/service/WF/getTaskDetail/',//表单详情
   getWFDataGJTaskListApi: '/service/WF/getDataGJTaskList/',//审批流程
 
+  //京华集团行政审批详情
+  getJhjtWFBJTaskDetailApi: '/JHJT/service/WF/getBJTaskDetail/',//办结表单详情
+  getJhjtWFTaskDetailApi: '/JHJT/service/WF/getTaskDetail/',//表单详情
+  getJhjtWFDataGJTaskListApi: '/JHJT/service/WF/getDataGJTaskList/',//审批流程
+
+  //五矿营钢行政审批详情
+  getWkygWFBJTaskDetailApi: '/WKYG/service/WF/getBJTaskDetail/',//办结表单详情
+  getWkygWFTaskDetailApi: '/WKYG/service/WF/getTaskDetail/',//表单详情
+  getWkygWFDataGJTaskListApi: '/WKYG/service/WF/getDataGJTaskList/',//审批流程
 
   //公文审批
   getCWCRTasksDBApi: '/service/CWCR/getWFTasksDB/',//待办
@@ -125,10 +166,13 @@ let interfaceData = {
   getMeetingCaoZuoApi: '/service/Meeting/caozuo', //会议管理
   getJDMangeCaoZuoApi: '/service/JDManage/caozuo', //接待管理
   getERPCaoZuoApi: '/service/ERP/caozuo', //销售审批
+  getJhjtCaoZuoApi: '/JHJT/service/WF/caozuo', //京华审批
+  getWkygCaoZuoApi: '/WKYG/service/WF/caozuo', //营钢审批
 
   //附件获取
-  getAttachmentAllUrlsApi: '/service/CWCR/getAttachmentAllUrls'
-
+  getAttachmentAllUrlsApi: '/service/CWCR/getAttachmentAllUrls',
+  getJhjtAttachmentAllUrlsApi: '/JHJT/service/CWCR/getAttachmentAllUrls',
+  getWkygAttachmentAllUrlsApi: '/WKYG/service/CWCR/getAttachmentAllUrls'
 };
 
 export default interfaceData;

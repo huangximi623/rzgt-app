@@ -10,6 +10,9 @@
     "cordova-open": {
       "PACKAGE_NAME": "com.rizhaosteel.mobileApp"
     },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.rizhaosteel.mobileApp"
+    },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "com.rizhaosteel.mobileApp"
     },
@@ -17,6 +20,9 @@
       "PACKAGE_NAME": "com.rizhaosteel.mobileApp"
     },
     "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "com.rizhaosteel.mobileApp"
+    },
+    "cordova-plugin-image-picker": {
       "PACKAGE_NAME": "com.rizhaosteel.mobileApp"
     },
     "cordova-plugin-inappbrowser": {

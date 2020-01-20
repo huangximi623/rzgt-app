@@ -165,7 +165,7 @@
 </script>
 <style lang="scss" scoped="">
 
-  .acceptHistory {
+  .diverseInfo {
     background: #fff;
     .body-content {
       height: calc(100% - 45px);

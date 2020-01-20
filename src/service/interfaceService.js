@@ -1,4 +1,4 @@
-import {loginApi, loginOutApi, postApiData, postErpApiData, postSteelApiData, weChatloginApi} from "./getData";
+import {loginApi, loginOutApi, postApiData, postVersionApiData, postErpApiData, postSteelApiData, weChatloginApi} from "./getData";
 import interfaceData from '../service/interfaceData.js'
 
 let interfaceService = {
@@ -53,6 +53,16 @@ let interfaceService = {
   getLatestVersion: function () {
     return loginOutApi(interfaceData.versionApi);
   },
+  //获取当前版本
+  getCurrentVersion: function (version) {
+    let url = interfaceData.currentVersionApi + '/' + version;
+    let paramsPost = {
+      url: url,
+      method: 'get',
+      param: ''
+    };
+    return postVersionApiData(paramsPost);
+  },
   setVersion: function (val) {
     interfaceService.versionInfo = val;
   },
@@ -74,6 +84,12 @@ let interfaceService = {
         break;
       case 'JB':
         apiName = interfaceData.getJBTaskCountApi;
+        break;
+      case 'JHJT':
+        apiName = interfaceData.getJhjtOADaibanApi;
+        break;
+      case 'WKYG':
+        apiName = interfaceData.getWkygOADaibanApi;
         break;
       default:
         break;
@@ -114,7 +130,7 @@ let interfaceService = {
 */
 
   //获取权限标识
-  queryAuthorityFlag: function (params) {
+/*  queryAuthorityFlag: function (params) {
     // let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
     let url = interfaceData.getAuthorityFlagApi;
     let paramsPost = {
@@ -230,7 +246,7 @@ let interfaceService = {
     };
     // return postApiData(paramsPost);
     return postSteelApiData(paramsPost);
-  },
+  },*/
 
   /*
  ==========================================
@@ -350,6 +366,116 @@ let interfaceService = {
     } else {
       // url = interfaceData.getWFTaskDetailApi + window.localStorage.getItem("Token")?window.localStorage.getItem("Token"):this.getCookie("Token") + '?taskId=' + params.taskId + '&' + 'limit=NaN';
       url = interfaceData.getWFTaskDetailApi + this.getCookie("Token") + '/' + params.taskId;
+    }
+    let paramsPost = {
+      url: url,
+      method: 'get',
+      param: ''
+    };
+    return postApiData(paramsPost);
+  },
+
+  /*
+==========================================
+               京华集团行政审批模块
+==========================================
+*/
+  //京华集团行政审批列表
+  queryJhApprovalList: function (type, params) {
+    let apiName = '';
+    switch (type) {
+      case '待办':
+        apiName = interfaceData.getJhjtWFTasksDBApi;
+        break;
+      case '已办':
+        apiName = interfaceData.getJhjtWFTasksYBApi;
+        break;
+      case '办结':
+        apiName = interfaceData.getJhjtWFTasksBJApi;
+        break;
+      default:
+        break;
+    }
+    let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
+    let paramsPost = {
+      url: url,
+      method: 'get',
+      param: ''
+    };
+    return postApiData(paramsPost);
+  },
+  //京华集团行政审批流程
+  queryJhApprovalProcess: function (params) {
+    let url = interfaceData.getJhjtWFDataGJTaskListApi + this.getCookie("Token") + '/' + params.processId;
+    let paramsPost = {
+      url: url,
+      method: 'get',
+      param: ''
+    };
+    return postApiData(paramsPost);
+  },
+  //京华集团行政审批详情
+  queryJhApprovalDetails: function (type, params) {
+    let url = '';
+    if (type === 'over') {
+      url = interfaceData.getJhjtWFBJTaskDetailApi + this.getCookie("Token") + '/' + params.processId;
+    } else {
+      url = interfaceData.getJhjtWFTaskDetailApi + this.getCookie("Token") + '/' + params.taskId;
+    }
+    let paramsPost = {
+      url: url,
+      method: 'get',
+      param: ''
+    };
+    return postApiData(paramsPost);
+  },
+
+  /*
+==========================================
+             五矿营钢行政审批模块
+==========================================
+*/
+  //五矿营钢行政审批列表
+  queryWkApprovalList: function (type, params) {
+    let apiName = '';
+    switch (type) {
+      case '待办':
+        apiName = interfaceData.getWkygWFTasksDBApi;
+        break;
+      case '已办':
+        apiName = interfaceData.getWkygWFTasksYBApi;
+        break;
+      case '办结':
+        apiName = interfaceData.getWkygWFTasksBJApi;
+        break;
+      default:
+        break;
+    }
+    let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&' + 'limit=' + params.limit;
+    let paramsPost = {
+      url: url,
+      method: 'get',
+      param: ''
+    };
+    return postApiData(paramsPost);
+  },
+  //五矿营钢行政审批流程
+  queryWkApprovalProcess: function (params) {
+    let url = interfaceData.getWkygWFDataGJTaskListApi + this.getCookie("Token") + '/' + params.processId;
+    let paramsPost = {
+      url: url,
+      method: 'get',
+      param: ''
+    };
+    return postApiData(paramsPost);
+  },
+  //五矿营钢行政审批详情
+  queryWkApprovalDetails: function (type, params) {
+    let url = '';
+    if (type === 'over') {
+      url = interfaceData.getWkygWFBJTaskDetailApi + this.getCookie("Token") + '/' + params.processId;
+    } else {
+      url = interfaceData.getWkygWFTaskDetailApi + this.getCookie("Token") + '/' + params.taskId;
     }
     let paramsPost = {
       url: url,
@@ -679,9 +805,20 @@ let interfaceService = {
   */
   personInfo: '',
   //获取通讯录列表
-  queryContactList: function (params) {
+  queryContactList: function (type, params) {
     // let url = interfaceData.getABGroupUserApi + window.localStorage.getItem("Token")?window.localStorage.getItem("Token"):this.getCookie("Token") + '?groupLabel=' + params.groupLabel;
-    let url = interfaceData.getABGroupUserApi + this.getCookie("Token") + '/' + params.groupLabel;
+    let url;
+
+    if(type === '行政审批') {
+      url = interfaceData.getABGroupUserApi + this.getCookie("Token") + '/' + params.groupLabel;
+    } else if(type === '京华审批') {
+      url = interfaceData.getJhjtABGroupUserApi + this.getCookie("Token") + '/' + params.groupLabel;
+    } else if(type === '营钢审批') {
+      url = interfaceData.getWkygABGroupUserApi + this.getCookie("Token") + '/' + params.groupLabel;
+    } else if(type === '公文审批') {
+      url = interfaceData.getABGroupUserApi + this.getCookie("Token") + '/' + params.groupLabel;
+    }
+
     let paramsPost = {
       url: url,
       method: 'get',
@@ -692,6 +829,17 @@ let interfaceService = {
   //查询员工
   queryPersonList: function (params) {
     let url = interfaceData.queryABUserApi + this.getCookie("Token") + '/' + encodeURIComponent(params.queryValue);
+
+    if(params.type === '行政审批') {
+      url = interfaceData.queryABUserApi + this.getCookie("Token") + '/' + encodeURIComponent(params.queryValue);
+    } else if(params.type === '京华审批') {
+      url = interfaceData.queryJhjtABUserApi + this.getCookie("Token") + '/' + encodeURIComponent(params.queryValue);
+    } else if(params.type === '营钢审批') {
+      url = interfaceData.queryWkygABUserApi + this.getCookie("Token") + '/' + encodeURIComponent(params.queryValue);
+    } else if(params.type === '公文审批') {
+      url = interfaceData.queryABUserApi + this.getCookie("Token") + '/' + encodeURIComponent(params.queryValue);
+    }
+
     let paramsPost = {
       url: url,
       method: 'get',
@@ -712,8 +860,18 @@ let interfaceService = {
   ==========================================
   */
   //获取顶层组织
-  queryTopOrganization: function (params) {
-    let url = interfaceData.getTopGroupApi + this.getCookie("Token") + '?limit=NaN';
+  queryTopOrganization: function (type) {
+    let url;
+    if(type === '行政审批') {
+      url = interfaceData.getTopGroupApi + this.getCookie("Token") + '?limit=NaN';
+    } else if(type === '京华审批') {
+      url = interfaceData.getJhjtTopGroupApi + this.getCookie("Token") + '?limit=NaN';
+    } else if(type === '营钢审批') {
+      url = interfaceData.getWkygTopGroupApi + this.getCookie("Token") + '?limit=NaN';
+    } else if(type === '公文审批') {
+      url = interfaceData.getTopGroupApi + this.getCookie("Token") + '?limit=NaN';
+    }
+
     let paramsPost = {
       url: url,
       method: 'get',
@@ -853,6 +1011,12 @@ let interfaceService = {
       case '销售审批':
         url = interfaceData.getERPCaoZuoApi;
         break;
+      case '京华审批':
+      url = interfaceData.getJhjtCaoZuoApi;
+      break;
+      case '营钢审批':
+        url = interfaceData.getWkygCaoZuoApi;
+        break;
       default:
         break;
     }
@@ -874,8 +1038,17 @@ let interfaceService = {
                  附件预览和下载
   ==========================================
   */
-  queryAttachments: function (params) {
-    let url = interfaceData.getAttachmentAllUrlsApi;
+  queryAttachments: function (type, params) {
+    let url;
+
+    if(type === '京华审批') {
+      url = interfaceData.getJhjtAttachmentAllUrlsApi;
+    } else if (type === '营钢审批'){
+      url = interfaceData.getWkygAttachmentAllUrlsApi;
+    } else {
+      url = interfaceData.getAttachmentAllUrlsApi;
+    }
+
     let paramsPost = {
       url: url,
       method: 'post',

@@ -8,21 +8,42 @@
       <div class="right-button" slot="right"></div>
     </header-simple>
 
-    <body-content class="body-content">
+<!--    <body-content class="body-content">
       <div class="person-info" v-if="personInfo&&personInfo.detail">
         <mt-cell :title="personInfo.name" class="person-name">
-          <!--<span>icon 是图片</span>-->
+          &lt;!&ndash;<span>icon 是图片</span>&ndash;&gt;
           <img v-if="personInfo.picture" slot="icon" :src="personInfo.picture" :onerror="personImg" width="60" height="auto">
           <img v-else slot="icon" src="../../assets/main/personal_checked@2x.png" width="60" height="60">
           <a class="call-number" @click="showActionSheet()"
-             v-if="(personInfo.DirectTelIsshow==0|| personInfo.ShortTelIsshow==0) && personInfo.label!=UserId">
+             v-if="personInfo.DirectTelIsshow=='0'|| personInfo.ShortTelIsshow=='0'">
             <i class="fa fa-phone fa-2x call-up"></i>
           </a>
-          <!--长号，和小号的屏蔽flag都是1,的情况下 v-if判断的值是两个假相与，就没有必要显示拨号的图标了-->
+          &lt;!&ndash;长号，和小号的屏蔽flag都是1,的情况下 v-if判断的值是两个假相与，就没有必要显示拨号的图标了&ndash;&gt;
         </mt-cell>
       </div>
       <mt-cell v-for="(item,index) in personInfo.detail" :key="index" :title="item.key" :value="item.value"></mt-cell>
+    </body-content>-->
+
+    <body-content class="body-content">
+      <div class="person-info" v-if="personInfo&&personInfo.detail">
+        <mt-cell class="person-name">
+          <!--<span>icon 是图片</span>-->
+          <img v-if="personInfo.picture" slot="icon" :src="personInfo.picture" :onerror="personImg" width="60%" height="auto">
+          <img v-else slot="icon" src="../../assets/main/personal_checked@2x.png" width="60%" height="auto">
+          <!--          <img v-if="personInfo.picture" slot="icon" :src="personInfo.picture" :onerror="personImg" width="60" height="60">-->
+          <!--长号，和小号的屏蔽flag都是1,的情况下 v-if判断的值是两个假相与，就没有必要显示拨号的图标了-->
+        </mt-cell>
+      </div>
+      <mt-cell title="拨号">
+        <!--长号，和小号的屏蔽flag都是1,的情况下 v-if判断的值是两个假相与，就没有必要显示拨号的图标了-->
+        <a class="call-number" @click="showActionSheet()"
+           v-if="(personInfo.DirectTelIsshow==0 || personInfo.ShortTelIsshow==0) && personInfo.label != UserId">
+          <i class="fa fa-phone fa-2x call-up"></i>
+        </a>
+      </mt-cell>
+      <mt-cell v-for="(item,index) in personInfo.detail" :key="index" :title="item.key" :value="item.value"></mt-cell>
     </body-content>
+
     <mt-actionsheet
       :actions="actions"
       v-model="sheetVisible">
@@ -127,6 +148,7 @@
     .person-info {
       .person-name {
         min-height: 100px;
+        text-align: center;
         .call-up {
           margin-right: 20px;
           margin-left: 20px;

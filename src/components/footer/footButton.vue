@@ -88,6 +88,12 @@
             case '销售审批':
               that.showAlertAndUrl(response.message, '/salesApproval');
               break;
+            case '京华审批':
+              that.showAlertAndUrl(response.message, '/jhApproval');
+              break;
+            case '营钢审批':
+              that.showAlertAndUrl(response.message, '/wkApproval');
+              break;
             default:
               break;
           }

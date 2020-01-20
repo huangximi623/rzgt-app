@@ -170,6 +170,10 @@
           this.$router.push({path: '/receptionManagerDetails', query: {page: 'toReadList'}})
         } else if (this.$route.query.buttonTitle === '销售审批') {
           this.$router.push({path: '/salesApprovalDetail', query: {page: 'toReadList'}});
+        } else if (this.$route.query.buttonTitle === '京华审批') {
+          this.$router.push({path: '/jhApprovalDetail', query: {page: 'toReadList'}});
+        } else if (this.$route.query.buttonTitle === '营钢审批') {
+          this.$router.push({path: '/wkApprovalDetail', query: {page: 'toReadList'}});
         }
       },
       //数据初始化

@@ -50,7 +50,8 @@
         title: [],//存放当前节点所有父组织名称
         paramsContacts: {
           "groupLabel": ""
-        }
+        },
+        type: '行政审批'
       }
     },
     computed: mapState(['g_contact','g_title']),
@@ -60,7 +61,7 @@
       getContact(params, groupName) {
         let that = this;
         that.showIndicator("加载中...");
-        interfaceService.queryContactList(params)
+        interfaceService.queryContactList(this.type, params)
           .then(function (response) {
             that.hideIndicator();
             if (response.length === 0) {

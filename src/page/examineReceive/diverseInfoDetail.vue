@@ -10,16 +10,20 @@
       <div class="right-button" slot="right"></div>
     </header-simple>
     <body-content class="body-content">
-      <!--<mt-cell v-for="(item,index) in diverseInfo" :key="index" :title="item.key" :value="item.value"></mt-cell>-->
-      <!--图片区-->
-      <div class="procedureRecord">
-        <span><label class="margin-left-5">图片区</label></span>
-      </div>
-      <photo-swiper ref="photoRef"></photo-swiper>
+      <!--<photo-swiper ref="photoRef"></photo-swiper>-->
       <div class="detailRecord">
         <span><label class="margin-left-5">详情区</label></span>
       </div>
       <mt-cell v-for="(item,index) in diverseInfo" :key="index" :title="item.key" :value="item.value"></mt-cell>
+      <!--图片区-->
+      <div class="procedureRecord">
+        <span><label class="margin-left-5">图片区</label></span>
+      </div>
+      <div>
+        <li  v-for="img of swipePic">
+          <img style="width:100%; height: 100%;" :src="img.picUrl" >
+        </li>
+      </div>
     </body-content>
 
   </div>

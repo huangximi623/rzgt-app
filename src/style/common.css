@@ -188,7 +188,8 @@ body {
 }
 
 .detailRecord {
-  margin-top: 250px;
+  /*margin-top: 250px;*/
+  margin-top: 0px;
   background-color: #E6E6E6;
   line-height: 45px;
   min-height: inherit;

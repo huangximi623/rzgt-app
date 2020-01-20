@@ -8,7 +8,7 @@
       <div class="attachment-name">{{item.attachmentName + ' 附件大小:' + (item.attachmentSize/(1024)).toFixed(2)}}(Kb)
       </div>
       <div>
-        <div class="attachment-download"
+        <div class="attachment-download" v-if="allowDownOrView(item.attachmentType) == false"
              @click="downloadOrPreview(item.attachmentUrl,item.attachmentName,'down',item.attachmentSize)">下载
         </div>
         <div class="attachment-preview" v-if="allowDownOrView(item.attachmentType)"
@@ -21,7 +21,7 @@
       <div class="attachment-name">{{item.attachmentName + ' 附件大小:' + (item.attachmentSize/(1024)).toFixed(2)}}(Kb)
       </div>
       <div v-if="detailsPage == '信息发布中心'">
-        <div v-if="siteListId != 'I000'" class="attachment-download"
+        <div v-if="siteListId != 'I000' && allowDownOrView(item.attachmentType) == false" class="attachment-download"
              @click="downloadOrPreview(item.attachmentUrl,item.attachmentName,'down',item.attachmentSize)">下载
         </div>
         <div class="attachment-preview" v-if="allowDownOrView(item.attachmentType)"
@@ -29,7 +29,7 @@
         </div>
       </div>
       <div v-else>
-        <div class="attachment-download"
+        <div class="attachment-download" v-if="allowDownOrView(item.attachmentType) == false"
              @click="downloadOrPreview(item.attachmentUrl,item.attachmentName,'down',item.attachmentSize)">下载
         </div>
         <div class="attachment-preview" v-if="allowDownOrView(item.attachmentType)"
@@ -59,7 +59,7 @@
           "userId": "",
           "type": ""
         },
-        allowType: ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf'] //允许下载或预览的类型
+        allowType: ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf','jpg','png','jpeg','gif','txt','wps'] //允许下载或预览的类型
       }
     },
     methods: {
@@ -69,6 +69,7 @@
         this.paramsAttachments.attachmentUrl = attachmentUrl;
         this.paramsAttachments.filename = filename;
         this.paramsAttachments.userId = interfaceService.getCookie("Token");
+        // this.paramsAttachments.userId = interfaceService.getCookie("UserId");
         this.paramsAttachments.type = type;
         let operationType = (type === 'down' ? '下载' : '预览');//操作类型
         //判断文件是否超过2M,是则提示在Wi-Fi环境下进行，否则，直接下载或预览
@@ -95,7 +96,7 @@
       getAttachmentUrl(params, type, filename) {
         let that = this;
         that.showIndicator("加载中...");
-        interfaceService.queryAttachments(params).then(function (response) {
+        interfaceService.queryAttachments(this.detailsPage, params).then(function (response) {
           that.hideIndicator();
           //code等于0则转换成功，进行下载或预览，否则提示用户错误信息
           if (response.code === '0') {

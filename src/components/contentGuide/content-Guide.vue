@@ -60,13 +60,13 @@
             content: '接待管理',
             label: 'JD',
             newMessages: '0',
-          }, {
+          }, /*{
             href: '/erp',
             imgPath: require('../../assets/moduleImg/13.png'),
             content: 'ERP审批',
             label: 'ERP',
             newMessages: '',
-          }, {
+          },*/ {
             href: '/informationPublish',
             imgPath: require('../../assets/moduleImg/7.png'),
             content: '信息发布',
@@ -85,12 +85,11 @@
             label: 'DOC',
             newMessages: '',
           }, {
-            href: '/examineReceive',
-            imgPath: require('../../assets/moduleImg/14.png'),
-            content: '废钢验收',
-            label: 'EXA',
+            href: '/group',
+            imgPath: require('../../assets/moduleImg/28.png'),
+            content: '集团审批',
+            label: 'JTWF',
             newMessages: '',
-            flag: 'fg'
           }
         ]
       }

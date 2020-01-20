@@ -81,7 +81,11 @@
       <mt-cell :title="'是否密封件 '">
         <mt-switch  v-model="isMfj" ></mt-switch>
       </mt-cell>
-
+      <mt-cell :title="'密封件个数'">
+        <div >
+          <input type="text" class="wgttxtjh"  v-model="jhMfjNum" >
+        </div>
+      </mt-cell>
       <mt-cell :title="'密封件罚款额'">
         <div >
           <input type="text" class="wgttxtjh"  v-model="mfj" >
@@ -133,6 +137,7 @@
         remark:'',
         state:'',
         balanceFlag:'',
+        jhMfjNum:'',
         //请求参数
         paramsDetail: {
           "MethodId": "Q",//方法类型，Q查询，U判级
@@ -150,7 +155,8 @@
           "Cheat": "",//作弊
           "CheatMoney": "",//作弊处罚金额
           "Remark": "",//备注
-          "WgtlistNo": ""//磅单号
+          "WgtlistNo": "",//磅单号
+          "JhMfjNum":"" //密封件个数
         }
       }
     },
@@ -236,6 +242,7 @@
         this.remark=detailsResp.JHREMARK;
         this.state=detailsResp.JHSTATE;//质检状态
         this.balanceFlag=detailsResp.BALANCEFLAG;//结算状态
+        this.jhMfjNum=detailsResp.JHMFJNUM;//
 
       },
 //扫码识别榜单号
@@ -307,6 +314,7 @@
         this.deductionpiece="0";
         this.isMfj=false;
         this.mfj="";
+        this.jhMfjNum="";
         this.cheat="";
         this.isCheat=false;
         this.remark="";
@@ -330,6 +338,7 @@
           this.paramsDetail.Cheat = this.isCheat==true?"Y":"N";
           this.paramsDetail.CheatMoney = this.cheat;
           this.paramsDetail.Remark = this.remark;
+          this.paramsDetail.JhMfjNum = this.jhMfjNum;
           this.getPjDetails(this.paramsDetail);
           //this.showAlert(this.wgtlistno+"成功");
         }
@@ -353,29 +362,12 @@
       },
     },
     activated() {
-      //微信登陆
-      if (this.is_weixin()) {
-        let that = this;
-        that.showIndicator('加载中...');//显示加载提示;
-        interfaceService.weChatLogin({"LgnType": "WeChat"})
-          .then(function (response) {
-            that.hideIndicator();
-            //微信登陆，code为2时，更新UserId和Token;为1时,使用原有UserId和Token
-            if (response.code === '2') {
-              interfaceService.setCookie("UserId", response.result.UserId.value, (response.result.UserId.maxage) / (60 * 60 * 24));
-              interfaceService.setCookie("Token", response.result.Token.value, (response.result.Token.maxage) / (60 * 60 * 24));
-            }
-            if (that.$route.query.page !== 'toReadList') {
-              that.init();
-              that.getProcessAndDetails(that.$route.query.type, that.paramsDetail);
-            }
-          }, function (error) {
-            that.hideIndicator();
-            that.showAlert("数据加载失败");
-          });
-      } else {
+      let auth = interfaceService.getCookie("examineAuth");
+      if( auth === '2' || auth === '3'){
         this.init();
-        // this.getProcessAndDetails(this.$route.query.type, this.paramsDetail);
+      } else {
+        this.showAlert("无操作权限！");
+        this.goBack();
       }
     }
   }

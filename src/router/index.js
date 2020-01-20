@@ -66,22 +66,12 @@ const versionUpdateInfo = r => require.ensure([], () => r(require('../page/versi
 const erp = r => require.ensure([], () => r(require('../page/erpApproval/erp')), 'erp');
 const salesApproval = r => require.ensure([], () => r(require('../page/erpApproval/salesApproval')), 'salesApproval');
 const salesApprovalDetail = r => require.ensure([], () => r(require('../page/erpApproval/salesApprovalDetail')), 'salesApprovalDetail');
-/*废钢验收*/
-const examineReceive = r => require.ensure([], () => r(require('../page/examineReceive/examineReceive')), 'examineReceive');
-const levelStandard = r => require.ensure([], () => r(require('../page/examineReceive/levelStandard')), 'levelStandard');
-const levelStandardDetail = r => require.ensure([], () => r(require('../page/examineReceive/levelStandardDetail')), 'levelStandardDetail');
-const qualityTest = r => require.ensure([], () => r(require('../page/examineReceive/qualityTest')), 'qualityTest');
-const qualityTestDetail = r => require.ensure([], () => r(require('../page/examineReceive/qualityTestDetail')), 'qualityTestDetail');
-const auditAccept = r => require.ensure([], () => r(require('../page/examineReceive/auditAccept')), 'auditAccept');
-const acceptHistoryQuery = r => require.ensure([], () => r(require('../page/examineReceive/acceptHistoryQuery')), 'acceptHistoryQuery');
-const acceptHistory = r => require.ensure([], () => r(require('../page/examineReceive/acceptHistory')), 'acceptHistory');
-const acceptHistoryDetail = r => require.ensure([], () => r(require('../page/examineReceive/acceptHistoryDetail')), 'acceptHistoryDetail');
-const diverseInfo = r => require.ensure([], () => r(require('../page/examineReceive/diverseInfo')), 'diverseInfo');
-const diverseInfoDetail = r => require.ensure([], () => r(require('../page/examineReceive/diverseInfoDetail')), 'diverseInfoDetail');
-const zjQuality = r => require.ensure([], () => r(require('../page/examineReceive/zjQuality')), 'zjQuality');
-const jhQuality = r => require.ensure([], () => r(require('../page/examineReceive/jhQuality')), 'jhQuality');
-const takephotos = r => require.ensure([], () => r(require('../page/examineReceive/takephotos')), 'takephotos');
-const wgtPhoto = r => require.ensure([], () => r(require('../page/examineReceive/wgtPhoto')), 'wgtPhoto');
+//集团审批
+const group= r => require.ensure([], () => r(require('../page/groupApproval/group')), 'group');
+const jhApproval = r => require.ensure([], () => r(require('../page/groupApproval/jhApproval')), 'jhApproval');
+const jhApprovalDetail = r => require.ensure([], () => r(require('../page/groupApproval/jhApprovalDetail')), 'jhApprovalDetail');
+const wkApproval = r => require.ensure([], () => r(require('../page/groupApproval/wkApproval')), 'wkApproval');
+const wkApprovalDetail = r => require.ensure([], () => r(require('../page/groupApproval/wkApprovalDetail')), 'wkApprovalDetail');
 
 Vue.use(Router);
 
@@ -220,96 +210,6 @@ export default new Router({
       meta: {keepAlive: true}
     },
     {
-      path: '/examineReceive',
-      name: 'examineReceive',
-      component: examineReceive,
-      meta: {keepAlive: true}
-    },
-    {
-      path: '/qualityTest',
-      name: 'qualityTest',
-      component: qualityTest,
-      meta: {keepAlive: true}
-    },
-    {
-      path: '/qualityTestDetail',
-      name: 'qualityTestDetail',
-      component: qualityTestDetail,
-      meta: {keepAlive: true}
-    },
-    {
-      path: '/levelStandard',
-      name: 'levelStandard',
-      component: levelStandard,
-      meta: {keepAlive: true}
-    },
-    {
-      path: '/levelStandardDetail',
-      name: 'levelStandardDetail',
-      component: levelStandardDetail,
-      meta: {keepAlive: true}
-    },
-    {
-      path: '/zjQuality',
-      name: 'zjQuality',
-      component: zjQuality,
-      meta: {keepAlive: true}
-    },
-    {
-      path: '/jhQuality',
-      name: 'jhQuality',
-      component: jhQuality,
-      meta: {keepAlive: true}
-    },
-    {
-      path: '/takephotos',
-      name: 'takephotos',
-      component: takephotos,
-      meta: {keepAlive: true}
-    },
-    {
-      path: '/wgtPhoto',
-      name: 'wgtPhoto',
-      component: wgtPhoto,
-      meta: {keepAlive: true}
-    },
-    {
-      path: '/auditAccept',
-      name: 'auditAccept',
-      component: auditAccept,
-      meta: {keepAlive: true}
-    },
-    {
-      path: '/acceptHistoryQuery',
-      name: 'acceptHistoryQuery',
-      component: acceptHistoryQuery,
-      meta: {keepAlive: true}
-    },
-    {
-      path: '/acceptHistory',
-      name: 'acceptHistory',
-      component: acceptHistory,
-      meta: {keepAlive: true}
-    },
-    {
-      path: '/acceptHistoryDetail',
-      name: 'acceptHistoryDetail',
-      component: acceptHistoryDetail,
-      meta: {keepAlive: true}
-    },
-    {
-      path: '/diverseInfo',
-      name: 'diverseInfo',
-      component: diverseInfo,
-      meta: {keepAlive: true}
-    },
-    {
-      path: '/diverseInfoDetail',
-      name: 'diverseInfoDetail',
-      component: diverseInfoDetail,
-      meta: {keepAlive: true}
-    },
-    {
       path: '/erp',
       name: 'erp',
       component: erp,
@@ -327,6 +227,37 @@ export default new Router({
       component: salesApprovalDetail,
       meta: {keepAlive: true}
     },
+    {
+      path: '/group',
+      name: 'group',
+      component: group,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/jhApproval',
+      name: 'jhApproval',
+      component: jhApproval,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/jhApprovalDetail',
+      name: 'jhApprovalDetail',
+      component: jhApprovalDetail,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/wkApproval',
+      name: 'wkApproval',
+      component: wkApproval,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/wkApprovalDetail',
+      name: 'wkApprovalDetail',
+      component: wkApprovalDetail,
+      meta: {keepAlive: true}
+    },
+
     {
       path: '/doNext',
       name: 'toNext',
@@ -490,12 +421,6 @@ export default new Router({
           component: home/*,
           meta: {keepAlive: true}*/
         },
-/*        {
-          path: 'erp',
-          name: 'erp',
-          component: erp/!*,
-          meta: {keepAlive: true}*!/
-        },*/
         {
           path: 'contact',
           name: 'contact',

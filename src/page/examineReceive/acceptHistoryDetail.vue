@@ -10,15 +10,20 @@
       <div class="right-button" slot="right"></div>
     </header-simple>
     <body-content class="body-content">
-      <!--图片区-->
-      <div class="procedureRecord">
-        <span><label class="margin-left-5">图片区</label></span>
-      </div>
-      <photo-swiper ref="photoRef"></photo-swiper>
+      <!--<photo-swiper ref="photoRef"></photo-swiper>-->
       <div class="detailRecord">
         <span><label class="margin-left-5">详情区</label></span>
       </div>
       <mt-cell v-for="(item,index) in acceptHistoryInfo" :key="index" :title="item.key" :value="item.value"></mt-cell>
+      <!--图片区-->
+      <div class="procedureRecord">
+        <span><label class="margin-left-5">图片区</label></span>
+      </div>
+      <div>
+        <li  v-for="img of swipePic">
+          <img style="width:100%; height: 100%;" :src="img.picUrl" >
+        </li>
+      </div>
     </body-content>
 
   </div>
@@ -71,7 +76,7 @@
         let url = encodeURI(picture.picUrl);
         let targetPath;
         targetPath = cordova.file.dataDirectory;
-        alert(targetPath);
+        // alert(targetPath);
         let fileURL = encodeURI(targetPath + picture.docId + '.jpg');
         let trustHosts = true;
         let options = {};
@@ -112,14 +117,14 @@
             //图片
             that.swipePic = PictureResp;
             //判断是客户端访问还是pc端或微信访问
-            if (!that.is_pc() && !that.is_weixin()) { //客户端访问
+/*            if (!that.is_pc() && !that.is_weixin()) { //客户端访问
               that.picList = [];//清空picList
-              for (let i = 0; i < that.swipePic.length; i++) {
-                that.getPhotoSwipePicture(that.swipePic[i], that.picList);
-              }
-            } else { //微信或pc端访问
-              that.$refs.photoRef.photoList = that.swipePic;
+            for (let i = 0; i < that.swipePic.length; i++) {
+              that.getPhotoSwipePicture(that.swipePic[i], that.picList);
             }
+          } else { //微信或pc端访问
+          that.$refs.photoRef.photoList = that.swipePic;
+          }*/
           }), function (error) {
             that.hideIndicator();
             that.showAlert("数据加载失败");

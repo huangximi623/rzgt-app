@@ -74,11 +74,11 @@
       </mt-cell>-->
 
       <mt-cell title="日期">
-        <input type="date" class="mint-field-core" maxlength="10" size="15" style="border: 1px solid gray;">
+        <input type="date" class="mint-field-core" maxlength="10" size="15" style="border: 1px solid gray;background: white;">
       </mt-cell>
 
       <mt-cell title="选择">
-        <select v-model="selected" style="height:40px; width:180px;">
+        <select v-model="selected" style="height:40px; width:180px; background: white;font-size: 18px;">
           <option v-for="item in optList">{{ item }}</option>
         </select>
       </mt-cell>

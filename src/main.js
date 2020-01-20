@@ -67,7 +67,9 @@ Vue.config.productionTip = false;
 /* router全局守卫 */
 router.beforeEach((to, from, next) => {
   const list = [
-    'login', 'home', 'erp', 'contact', 'personal', 'search', 'contactDetails','examineReceive',
+    'login', 'home', 'erp', 'contact', 'personal', 'search', 'contactDetails','examineReceive', 'group',
+    'jhApproval','jhApprovalDetail',
+    'wkApproval','wkApprovalDetail',
     'administrativeExamination', 'administrativeExaminationDetail',
     'salesApproval','salesApprovalDetail',
     'levelStandard','levelStandardDetail',
@@ -236,10 +238,18 @@ let routerLocation = function (location) {
   } else if (location === '/administrativeExamination' || location === '/documents' || location === '/documentRead' ||
     location === '/meetingManager' || location === '/taskManagement' || location === '/receptionManager' ||
     location === '/informationPublish' || location === '/schedule' || location === '/documentCenter'  ||
-    location === '/erp' || location === '/examineReceive') {
+    location === '/erp' || location === '/examineReceive' || location === '/group') {
     router.push({path: '/tab/home'})
   } else if (location === '/administrativeExaminationDetail') {
     router.push({path: '/administrativeExamination', query: {page: 'administrativeExaminationDetail'}});
+  } else if (location === '/jhApprovalDetail') {
+    router.push({path: '/jhApproval', query: {page: 'jhApprovalDetail'}});
+  } else if (location === '/wkApprovalDetail') {
+    router.push({path: '/wkApproval', query: {page: 'wkApprovalDetail'}});
+  } else if (location === '/jhApproval') {
+    router.push({path: '/group', query: {page: 'jhApproval'}});
+  } else if (location === '/wkApproval') {
+    router.push({path: '/group', query: {page: 'wkApproval'}});
   } else if (location === '/salesApproval') {
     router.push({path: '/erp', query: {page: 'salesApproval'}});
   } else if (location === '/salesApprovalDetail') {
@@ -312,6 +322,10 @@ let routerLocation = function (location) {
       router.push({path: '/receptionManagerDetails', query: {page: 'toReadList'}})
     } else if (router.currentRoute.query.buttonTitle === '销售审批') {
       router.push({path: '/salesApprovalDetail', query: {page: 'toReadList'}})
+    } else if (router.currentRoute.query.buttonTitle === '京华审批') {
+      router.push({path: '/jhApprovalDetail', query: {page: 'toReadList'}})
+    } else if (router.currentRoute.query.buttonTitle === '营钢审批') {
+      router.push({path: '/wkApprovalDetail', query: {page: 'toReadList'}})
     }
   } else if (location === '/toNextList' || location === '/toReadList') {
     if (router.currentRoute.query.buttonTitle === '行政审批') {
@@ -324,6 +338,10 @@ let routerLocation = function (location) {
       router.push({path: '/receptionManagerDetails', query: {page: 'toReadList'}})
     } else if (router.currentRoute.query.buttonTitle === '销售审批') {
       router.push({path: '/salesApprovalDetail', query: {page: 'toReadList'}})
+    } else if (router.currentRoute.query.buttonTitle === '京华审批') {
+      router.push({path: '/jhApprovalDetail', query: {page: 'toReadList'}})
+    } else if (router.currentRoute.query.buttonTitle === '营钢审批') {
+      router.push({path: '/wkApprovalDetail', query: {page: 'toReadList'}})
     }
   } else if (location === '/informationPublishDetails') {
     if (router.currentRoute.query.page === 'home') {

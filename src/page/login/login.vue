@@ -168,6 +168,19 @@
             // that.showAlert("获取最新版本号失败！");
           });
       },
+      //获取当前版本
+      getCurrentVersion() {
+        let that = this;
+        // that.showIndicator("加载中...");
+        interfaceService.getCurrentVersion(config.currentVersion)
+          .then(function (response) {
+            that.versionInfo = response;
+            interfaceService.setVersion(response);//保存版本信息
+          }, function (error) {
+            that.hideIndicator();
+            // that.showToast("获取最新版本号失败！");
+          });
+      },
       //获取登陆信息
       getLoginInfo(loginParams) {
         let that = this;
@@ -227,6 +240,7 @@
       cancelUpdate() {
         interfaceService.cancelUpdateFlag = true;
         this.popupVisible = false;
+        this.getCurrentVersion();
       }
     },
     watch: {
@@ -254,7 +268,7 @@
       },
     },
     activated() {
-      this.popupVisible = false;
+      // this.popupVisible = false;
       this.getLatestVersion();//获取版本信息
       if (!this.$route.query.loginDesc) {
         //登陆错误提示重置

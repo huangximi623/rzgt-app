@@ -128,14 +128,14 @@
             that.versionInfo = response;
             interfaceService.setVersion(response);//保存版本信息
             //如果有更新，提示用户更新
-            if ((response.Version > config.currentVersion) && !interfaceService.cancelUpdateFlag && !that.is_weixin() && !that.is_pc()) {
+/*            if ((response.Version > config.currentVersion) && !interfaceService.cancelUpdateFlag && !that.is_weixin() && !that.is_pc()) {
               that.hideIndicator();
               that.popupVisible = true;
               // that.updateAlert(response.UpdateInfo, response.AndroidDownUrl, response.IOSDownUrl);
-            } else {
+            } else {*/
               //获取首页数据
               that.getAllData();
-            }
+            // }
           }, function (error) {
             that.hideIndicator();
             // that.showToast("获取最新版本号失败！");
@@ -148,6 +148,8 @@
         //同时执行多个请求
         axios.all([
           interfaceService.queryHomeData('WFandCWCR'),//获取行政审批、公文审批、公文阅知待办数量
+          interfaceService.queryHomeData('JHJT'),//获取京华集团行政审批
+          interfaceService.queryHomeData('WKYG'),//获取五矿营钢行政审批
           interfaceService.queryHomeData('JD'),//获取接待管理待办数量
           interfaceService.queryHomeData('Meeting'),//获取会议管理待办数量
           interfaceService.queryHomeData('JB'),//获取任务管理待办数量
@@ -155,13 +157,19 @@
           interfaceService.queryFirstPageNewRemark(),//获取文档中心是否有新信息的标志
           interfaceService.queryPictureNews(),//获取轮播图
           interfaceService.queryPersonList({queryValue: interfaceService.getCookie("UserId")})//查询登陆人信息并保存
+
         ])
-          .then(axios.spread(function (wfResp, jdResp, meetResp, jbResp, IWResp, DOCResp, PictureResp, personResp) {
+          .then(axios.spread(function (wfResp, jhResp, wkResp, jdResp, meetResp, jbResp, IWResp, DOCResp, PictureResp, personResp) {
+          // .then(axios.spread(function (wfResp, IWResp, DOCResp, PictureResp, personResp) {
             that.hideIndicator();
             //行政审批、公文管理、公文阅知
             for (let i = 0; i < wfResp.length; i++) {
               let wfindex = that.getIndex(that.$refs.contentGuide.contentList, wfResp[i].label);
               that.$refs.contentGuide.contentList[wfindex].newMessages = wfResp[i].count;
+/*              if(wfResp[i].label === 'GWYZ'){
+                let wfindex = that.getIndex(that.$refs.contentGuide.contentList, wfResp[i].label);
+                that.$refs.contentGuide.contentList[wfindex].newMessages = wfResp[i].count;
+              }*/
             }
             //接待管理
             let jdindex = that.getIndex(that.$refs.contentGuide.contentList, 'JD');
@@ -205,6 +213,11 @@
 
             //保存用户信息
             interfaceService.setPersonInfo(personResp);
+
+            //后增集团待办审批数量
+            let jtwfindex = that.getIndex(that.$refs.contentGuide.contentList, "JTWF");
+            that.$refs.contentGuide.contentList[jtwfindex].newMessages = jhResp[0].count + wkResp[0].count;
+
           }), function (error) {
             that.hideIndicator();
             that.showAlert("数据加载失败");
@@ -288,8 +301,8 @@
     },
     activated() {
       // this.$refs.contentGuide.contentList.pop();
-      this.getSteelRecAuthority();
-      let resAuth = interfaceService.getCookie("examineAuth");
+      // this.getSteelRecAuthority();
+      // let resAuth = interfaceService.getCookie("examineAuth");
       // alert(resAuth);
 /*      if( resAuth === '-1'){
         this.$refs.contentGuide.contentList.pop();
@@ -307,13 +320,15 @@
               interfaceService.setCookie("UserId", response.result.UserId.value, (response.result.UserId.maxage) / (60 * 60 * 24));
               interfaceService.setCookie("Token", response.result.Token.value, (response.result.Token.maxage) / (60 * 60 * 24));
             }
-            that.getLatestVersion();
+            // that.getLatestVersion();
+            that.getAllData();
           }, function (error) {
             that.hideIndicator();
             that.showAlert("数据加载失败");
           });
       } else {
-        this.getLatestVersion();
+        // this.getLatestVersion();
+        this.getAllData();
       }
     }
   }
@@ -331,6 +346,7 @@
       box-sizing: border-box;
       .content-guide {
         margin-top: 200px;
+        /*margin-top: 0px;*/
       }
     }
     .version-pop {

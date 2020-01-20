@@ -15,78 +15,78 @@
         <div  >
           <mt-button   type="primary" @click.native="goTakePhoto()">拍照</mt-button>
         </div>
-          <div style=" width:25%;">
+        <div style=" width:25%;">
           <mt-button  type="primary"  @click.native="getPhoto()">照片</mt-button>
-          </div>
-            <div>
+        </div>
+        <div>
           <mt-button  type="default" @click.native="query()">查询</mt-button>
-            </div>
-              <div>
+        </div>
+        <div>
           <mt-button   type="danger" @click.native="sign()">扫码</mt-button>
         </div>
       </mt-cell >
       <mt-cell :title="'磅单号'">
-      <div >
-        <input type="text" class="wgttxt"  v-model="wgtlistno" >
-      </div>
-    </mt-cell>
-    <mt-cell :title="'车号'">
-      <div >
-        <input type="text" class="wgttxtredonly" v-model="carrierno" readonly="true">
-      </div>
-    </mt-cell>
+        <div >
+          <input type="text" class="wgttxt"  v-model="wgtlistno" >
+        </div>
+      </mt-cell>
+      <mt-cell :title="'车号'">
+        <div >
+          <input type="text" class="wgttxtredonly" v-model="carrierno" readonly="true">
+        </div>
+      </mt-cell>
 
-    <mt-cell :title="'厂商'">
-      <div >
-        <input type="text" class="wgttxtredonly" v-model="fromdesc" readonly="true">
-      </div>
-    </mt-cell>
+      <mt-cell :title="'厂商'">
+        <div >
+          <input type="text" class="wgttxtredonly" v-model="fromdesc" readonly="true">
+        </div>
+      </mt-cell>
 
-    <mt-cell :title="'品名'">
-      <div >
-        <input type="text" class="wgttxtredonly"  v-model="mtrlname" readonly="true">
-      </div>
-    </mt-cell>
+      <mt-cell :title="'品名'">
+        <div >
+          <input type="text" class="wgttxtredonly"  v-model="mtrlname" readonly="true">
+        </div>
+      </mt-cell>
 
-    <mt-cell :title="'等级'">
-      <div >
-        <input type="text" class="wgttxt" v-model="judge" >
-      </div>
-    </mt-cell>
+      <mt-cell :title="'等级'">
+        <div >
+          <input type="text" class="wgttxt" v-model="judge" >
+        </div>
+      </mt-cell>
 
-    <mt-cell :title="'等级比例'">
-      <div >
-        <input type="text" class="wgttxt"  v-model="judgebl" >
-      </div>
-    </mt-cell>
+      <mt-cell :title="'等级比例'">
+        <div >
+          <input type="text" class="wgttxt"  v-model="judgebl" >
+        </div>
+      </mt-cell>
 
-    <mt-cell :title="'扣水'">
-      <div >
-        <input type="text" class="wgttxt"  v-model="deductionwater" >
-      </div>
-    </mt-cell>
+      <mt-cell :title="'扣水'">
+        <div >
+          <input type="text" class="wgttxt"  v-model="deductionwater" >
+        </div>
+      </mt-cell>
 
-    <mt-cell :title="'扣杂'">
-      <div >
-        <input type="text" class="wgttxt"  v-model="deductionimpurity" >
-      </div>
-    </mt-cell>
+      <mt-cell :title="'扣杂'">
+        <div >
+          <input type="text" class="wgttxt"  v-model="deductionimpurity" >
+        </div>
+      </mt-cell>
 
-    <mt-cell :title="'扣块'">
-      <div >
-        <input type="text" class="wgttxt"  v-model="deductionpiece" >
-      </div>
-    </mt-cell>
+      <mt-cell :title="'扣块'">
+        <div >
+          <input type="text" class="wgttxt"  v-model="deductionpiece" >
+        </div>
+      </mt-cell>
 
-    <mt-cell :title="'退货选择'">
-      <div >
-        <select  v-model="rejGoods" style="height:40px; width:180px;" >
-          <option value ="0" >0-正常收货</option>
-          <option value ="1">1-部分退货</option>
-          <option value="2" >2-全部退货</option>
-        </select>
-      </div>
-    </mt-cell>
+      <mt-cell :title="'退货选择'">
+        <div >
+          <select  v-model="rejGoods" style="height:40px; width:180px;" >
+            <option value ="0" >0-正常收货</option>
+            <option value ="1">1-部分退货</option>
+            <option value="2" >2-全部退货</option>
+          </select>
+        </div>
+      </mt-cell>
 
       <mt-cell title="质检点">
         <select v-model="zjAdress" style="height:40px; width:180px;">
@@ -96,21 +96,21 @@
         </select>
       </mt-cell>
 
-  <mt-cell :title="'拆解标记 '">
-      <mt-switch  v-model="isCj" ></mt-switch>
-    </mt-cell>
-    <mt-cell :title="'是否密封件 '">
-      <mt-switch  v-model="isMfj" ></mt-switch>
-    </mt-cell>
-    <mt-cell :title="'是否作弊 '">
-      <mt-switch  v-model="isCheat" ></mt-switch>
-    </mt-cell>
-    <mt-cell    :title="'备注 '">
-      <input type="text" class="wgttxt"  v-model="remark" >
-    </mt-cell>
-    <mt-cell>
-      <div> <mt-button   type="primary" @click.native="handleClick">判级</mt-button></div>
-    </mt-cell>
+      <mt-cell :title="'拆解标记 '">
+        <mt-switch  v-model="isCj" ></mt-switch>
+      </mt-cell>
+      <mt-cell :title="'是否密封件 '">
+        <mt-switch  v-model="isMfj" ></mt-switch>
+      </mt-cell>
+      <mt-cell :title="'是否疑似作弊 '">
+        <mt-switch  v-model="isCheat" ></mt-switch>
+      </mt-cell>
+      <mt-cell    :title="'备注 '">
+        <input type="text" class="wgttxt"  v-model="remark" >
+      </mt-cell>
+      <mt-cell>
+        <div> <mt-button   type="primary" @click.native="handleClick">判级</mt-button></div>
+      </mt-cell>
     </body-content>
   </div>
 </template>
@@ -173,8 +173,8 @@
           "Limit": "10"
         }
 
-        }
-      },
+      }
+    },
 
     components: {HeaderSimple, BodyContent},
     methods: {
@@ -259,7 +259,7 @@
         this.zjAdress=detailsResp.ZJADRESS;//质检点
 
       },
-  //获取质检点列表
+      //获取质检点列表
       getQualityTestList(params) {
         let that = this;
         that.options = [];
@@ -310,11 +310,11 @@
       goTakePhoto() {
         // console.log(this.listflag);
         if(this.wgtlistno){
-        this.$router.push({
-          path: '/takephotos',
-          /*          query: {type: this.typeFlag, instanceId: this.instanceId}*/
-          query: {baodancode: this.wgtlistno,class:"Z"}
-        })
+          this.$router.push({
+            path: '/takephotos',
+            /*          query: {type: this.typeFlag, instanceId: this.instanceId}*/
+            query: {baodancode: this.wgtlistno,class:"Z"}
+          })
         }else{
           this.showAlert("磅单号不得为空!");
         }
@@ -417,38 +417,18 @@
           this.showAlert("退货状态不得为空！");
           return false;
         }
-         return true;
+        return true;
       },
     },
     activated() {
-      //微信登陆
-      if (this.is_weixin()) {
-        let that = this;
-        that.showIndicator('加载中...');//显示加载提示;
-        interfaceService.weChatLogin({"LgnType": "WeChat"})
-          .then(function (response) {
-            that.hideIndicator();
-            //微信登陆，code为2时，更新UserId和Token;为1时,使用原有UserId和Token
-            if (response.code === '2') {
-              interfaceService.setCookie("UserId", response.result.UserId.value, (response.result.UserId.maxage) / (60 * 60 * 24));
-              interfaceService.setCookie("Token", response.result.Token.value, (response.result.Token.maxage) / (60 * 60 * 24));
-            }
-            if (that.$route.query.page !== 'toReadList') {
-              that.init();
-              that.getProcessAndDetails(that.$route.query.type, that.paramsDetail);
-            }
-          }, function (error) {
-            that.hideIndicator();
-            that.showAlert("数据加载失败");
-          });
-      } else {
-            this.init();
-           // this.getProcessAndDetails(this.$route.query.type, this.paramsDetail);
+      let auth = interfaceService.getCookie("examineAuth");
+      if( auth === '1' || auth === '3'){
+        this.init();
+      }else {
+        this.showAlert("无操作权限！");
+        this.goBack();
       }
-    },
-    /*mounted() {
-      this.init();
-    }*/
+    }
   }
 </script>
 
