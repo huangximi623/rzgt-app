@@ -27,7 +27,7 @@
     "cordova-plugin-themeablebrowser": "^0.2.17",
     "cordova-plugin-x-socialsharing": "^5.2.1",
     "ionic-plugin-keyboard": "^2.2.1",
-    "jquery": "^3.2.1",
+    "jquery": "^3.5.0",
     "lib-flexible": "^0.3.2",
     "mint-ui": "^2.2.13",
     "phonegap-plugin-barcodescanner": "^7.0.2",
