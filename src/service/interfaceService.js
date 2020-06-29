@@ -738,7 +738,7 @@ let interfaceService = {
       default:
         break;
     }
-    let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&limit=' + params.limit;
+    let url = apiName + this.getCookie("Token") + '?from=' + params.from + '&limit=' + params.limit + '&state=' + params.state;
     let paramsPost = {
       url: url,
       method: 'get',

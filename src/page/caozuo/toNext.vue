@@ -71,7 +71,7 @@
     <div v-else class="caozuo">
       <mt-button type="primary" size="large" class="caozuo-btn" plain @click.native="toNext(buttonTitle,params)">流转
       </mt-button>
-    </div>>
+    </div>
 
   </div>
 </template>

@@ -17,7 +17,8 @@
         <div class="task-list-footer">
           <div class="item-footer">
             <div class="item-footer-t" v-if="createDate">{{createDate}}</div>
-            <div class="item-footer-t" v-if="pubDate">{{pubDate}}</div>
+<!--            <div class="item-footer-t" v-if="pubDate">{{pubDate}}</div>-->
+            <div class="item-footer-t" v-if="completeDate">{{completeDate}}</div>
             <div class="item-footer-c">{{process}}</div>
           </div>
         </div>
@@ -39,6 +40,7 @@
       finishTime: {type: String},
       createDate: {type: String},
       pubDate: {type: String},
+      completeDate: {type: String},
       jobName: {type: String},
       jobNum: {type: String},
       typeFlag: {type: String}

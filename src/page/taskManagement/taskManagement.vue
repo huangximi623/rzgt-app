@@ -8,24 +8,22 @@
       <div class="right-button" slot="right">
       </div>
     </header-simple>
-    <div class="admin-nav">
+
+    <div class="admin-nav-main">
       <mt-navbar v-model="selected">
         <mt-tab-item id="1">我的任务</mt-tab-item>
         <mt-tab-item id="2">我发起的</mt-tab-item>
         <mt-tab-item id="3">关注的</mt-tab-item>
       </mt-navbar>
     </div>
-
-    <div class="admin-nav-main">
-      <mt-navbar v-model="confirm" v-if="selected==2">
+    <div class="admin-nav">
+      <mt-navbar v-model="state">
         <mt-tab-item id="4">进行中</mt-tab-item>
         <mt-tab-item id="5">已完成</mt-tab-item>
-        <mt-tab-item id="6">已终止</mt-tab-item>
       </mt-navbar>
     </div>
 
-<!--    <body-content class="body-content">-->
-    <body-content :class="{'body-content1':(selected==1),'body-content2':(selected!=1)}">
+    <body-content class="body-content">
       <div v-if="showFlag" class="imgHeight">
         <img src="../../assets/noData-white.png" style="width: 55%;"/>
       </div>
@@ -42,6 +40,7 @@
                          :finishTime='item.finishTime'
                          :createDate='item.createDate'
                          :pubDate='item.pubDate'
+                         :completeDate='item.completeDate'
                          :jobName='item.jobName'
                          :jobNum='item.jobNum'
                          :typeFlag="'todo'">
@@ -50,64 +49,8 @@
           </mt-tab-container-item>
 
           <mt-tab-container-item id="2">
-            <mt-tab-container v-model="confirm">
-              <!--待确认-->
-              <mt-tab-container-item id="4">
-                <div id="progressing">
-                  <meeting-list v-for='(item,index) in meetingInfo'
-                                :key="index"
-                                :taskId='item.taskId'
-                                :endtime='item.endtime'
-                                :starttime='item.starttime'
-                                :meetingStatues='item.meetingStatues'
-                                :rowguid='item.rowguid'
-                                :processId='item.processId'
-                                :meetingroomname='item.meetingroomname'
-                                :meetmotif='item.meetmotif'
-                                :exp3='item.exp3'
-                                :type="'4'">
-                  </meeting-list>
-                </div>
-              </mt-tab-container-item>
-              <!--已确认-->
-              <mt-tab-container-item id="5">
-                <div id="completed">
-                  <meeting-list v-for='(item,index) in meetingInfo'
-                                :key="index"
-                                :taskId='item.taskId'
-                                :endtime='item.endtime'
-                                :starttime='item.starttime'
-                                :meetingStatues='item.meetingStatues'
-                                :rowguid='item.rowguid'
-                                :processId='item.processId'
-                                :meetingroomname='item.meetingroomname'
-                                :meetmotif='item.meetmotif'
-                                :exp3='item.exp3'
-                                :type="'5'">
-                  </meeting-list>
-                </div>
-              </mt-tab-container-item>
 
-              <mt-tab-container-item id="6">
-                <div id="terminated">
-                  <meeting-list v-for='(item,index) in meetingInfo'
-                                :key="index"
-                                :taskId='item.taskId'
-                                :endtime='item.endtime'
-                                :starttime='item.starttime'
-                                :meetingStatues='item.meetingStatues'
-                                :rowguid='item.rowguid'
-                                :processId='item.processId'
-                                :meetingroomname='item.meetingroomname'
-                                :meetmotif='item.meetmotif'
-                                :exp3='item.exp3'
-                                :type="'5'">
-                  </meeting-list>
-                </div>
-              </mt-tab-container-item>
-            </mt-tab-container>
-
-<!--            <div id="myStart">
+            <div id="myStart">
               <task-list v-for='(item,index) in personInfo'
                          :key="index"
                          :process='item.process'
@@ -115,15 +58,16 @@
                          :finishTime='item.finishTime'
                          :createDate='item.createDate'
                          :pubDate='item.pubDate'
+                         :completeDate='item.completeDate'
                          :jobName='item.jobName'
                          :jobNum='item.jobNum'
                          :typeFlag="'done'">
               </task-list>
-            </div>-->
+            </div>
           </mt-tab-container-item>
 
           <mt-tab-container-item id="3">
-            <div id="focus">
+            <div id="myfocus">
               <task-list v-for='(item,index) in personInfo'
                          :key="index"
                          :process='item.process'
@@ -131,9 +75,10 @@
                          :finishTime='item.finishTime'
                          :createDate='item.createDate'
                          :pubDate='item.pubDate'
+                         :completeDate='item.completeDate'
                          :jobName='item.jobName'
                          :jobNum='item.jobNum'
-                         :typeFlag="'over'">
+                         :typeFlag="'done'">
               </task-list>
             </div>
           </mt-tab-container-item>
@@ -155,12 +100,15 @@
       return {
         title: '任务管理',
         selected: '1',
+        state: '4',
+        selected_is: false,
+        state_is: false,
         showFlag: false,
         allLoaded: false,
         personInfo: [],
         params: {
           "from": "0",
-          "limit": "10"
+          "limit": "10",
         }
       }
     },
@@ -222,7 +170,8 @@
         this.showFlag = false;
         this.params = {
           "from": "0",
-          "limit": "10"
+          "limit": "10",
+          "state": this.state
         };
         setTimeout(() => {
           if (self.selected === '1') {
@@ -256,31 +205,47 @@
         // this.personInfo = [];
         this.allLoaded = false;
         this.showFlag = false;
+        this.state = '4';
         this.params = {
           "from": "0",
-          "limit": "10"
+          "limit": "10",
+          "state": this.state
+        };
+        if(!this.state_is){
+          switch (newval) {
+            case '1':
+              this.showIndicator('加载中...');
+              this.getTaskManagementList('我的任务', this.params);
+              break;
+            case '2':
+              this.showIndicator('加载中...');
+              this.getTaskManagementList('我发起的', this.params);
+              break;
+            case '3':
+              this.showIndicator('加载中...');
+              this.getTaskManagementList('关注的', this.params);
+              break;
+            default:
+              break;
+          }
+        }
+      },
+      state(newval, oldval) {
+        this.meetingInfo = [];
+        this.allLoaded = false;
+        this.showFlag = false;
+        if(newval === '5'){
+          this.state_is = true;
+        }else{
+          this.state_is = false;
+        }
+        this.params = {
+          "from": "0",
+          "limit": "10",
+          "state": this.state
         };
 
-        if (newval === '1') {
-          this.showIndicator('加载中...');
-          this.getMeetingList('我的任务', this.params);
-        } else if (newval === '2') {
-          if (this.confirm === '4') {
-            this.showIndicator('加载中...');
-            this.getMeetingList('进行中', this.params);
-          } else if (this.confirm === '5') {
-            this.showIndicator('加载中...');
-            this.getMeetingList('已完成', this.params);
-          }else if (this.confirm === '6') {
-            this.showIndicator('加载中...');
-            this.getMeetingList('已终止', this.params);
-          }
-        } else if (newval === '3') {
-          this.showIndicator('加载中...');
-          this.getMeetingList('关注的', this.params);
-        }
-
-/*        switch (newval) {
+        switch (this.selected) {
           case '1':
             this.showIndicator('加载中...');
             this.getTaskManagementList('我的任务', this.params);
@@ -295,45 +260,22 @@
             break;
           default:
             break;
-        }*/
-      },
-      confirm(newval, oldval) {
-        this.meetingInfo = [];
-        this.allLoaded = false;
-        this.showFlag = false;
-        this.params = {
-          "from": "0",
-          "limit": "10"
-        };
-        switch (newval) {
-          case '4':
-            this.showIndicator('加载中...');
-            this.getMeetingList('进行中', this.params);
-            break;
-          case '5':
-            this.showIndicator('加载中...');
-            this.getMeetingList('已完成', this.params);
-            break;
-          case '6':
-            this.showIndicator('加载中...');
-            this.getMeetingList('已终止', this.params);
-            break;
-          default:
-            break;
         }
       }
     },
     activated() {
       if (this.$route.query.page !== 'taskManagementDetail' || this.is_weixin()) {
         this.selected = '1';
+        this.state = '4';
         this.params = {
           "from": "0",
-          "limit": "10"
+          "limit": "10",
+          "state": this.state
         };
         this.allLoaded = false;
         this.showFlag = false;
         this.showIndicator('加载中...');
-        this.getTaskManagementList('我的任务', this.params)
+        this.getTaskManagementList('我的任务', this.params);
       }
     }
   }
@@ -343,11 +285,12 @@
   .taskManagement {
     background: #fff;
     .body-content {
-      height: calc(100% - 90px);
+      height: calc(100% - 135px);
       display: block;
       overflow: auto;
       box-sizing: border-box;
       margin-top: 45px;
+      margin-bottom: 45px;
       padding-bottom: 5px;
       .list-selector {
         width: 100%;
@@ -376,6 +319,9 @@
       width: 100%;
       top: 45px;
       z-index: 999;
+      height: 45px;
+      box-sizing: border-box;
+      border-top: 1px solid #e3e3e3;
     }
 
     .person-info {

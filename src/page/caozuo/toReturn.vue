@@ -83,6 +83,7 @@
         this.params.taskId = this.$route.query.taskId ? this.$route.query.taskId : '';
         this.params.instanceId = this.$route.query.taskId ? this.$route.query.taskId : '';
         // this.params.userId = interfaceService.getCookie("Token");
+        this.selectNext = this.nextTran[0].transName;
 
         if(this.buttonTitle === '销售审批'){
           this.params.userId = interfaceService.getCookie("UserId");
@@ -104,6 +105,9 @@
       //回退
       toReturn(type, params) {
         let that = this;
+        if(this.selectNext === ''){
+          alert("下一环节不能为空！");
+        }
         if (!this.comments) {
           this.showAlert("审批意见不能为空！")
         } else {
