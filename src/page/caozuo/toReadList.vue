@@ -238,6 +238,8 @@
           this.$router.push({path: '/jhApprovalDetail', query: {page: 'toReadList'}})
         } else if (this.$route.query.buttonTitle === '营钢审批') {
           this.$router.push({path: '/wkApprovalDetail', query: {page: 'toReadList'}})
+        } else if (this.$route.query.buttonTitle === '招采签核') {
+          this.$router.push({path: '/publicBiddingDetail', query: {page: 'toReadList'}})
         }
       },
       //获取顶层组织

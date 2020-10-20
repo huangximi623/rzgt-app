@@ -93,6 +93,7 @@
         nextTran: [],
         doNext: [],
         comments: '', //审批意见
+        currentTran: '',
         toTransferListUser: [],//下一步审批人
         selectedPerson: [],
         params: {
@@ -118,6 +119,12 @@
       //流转
       toNext(type, params) {
         let that = this;
+
+        if(that.currentTran === 'SQR' && this.buttonTitle === '接待管理'){
+          this.showAlert("需填写接待成果，请在PC端完成提交！");
+          return;
+        }
+
         that.params.nextUser = [];
         that.params.nextOrg = [];
         if (!this.comments) {
@@ -160,6 +167,9 @@
                   break;
                 case '营钢审批':
                   that.showAlertAndUrl(response.message, '/wkApproval');
+                  break;
+                case '招采签核':
+                  that.showAlertAndUrl(response.message, '/publicBidding');
                   break;
                 default:
                   break;
@@ -213,6 +223,7 @@
 
           this.buttonTitle = this.$route.query.buttonTitle ? this.$route.query.buttonTitle : '流转';
           this.nextTran = this.$route.query.buttonInfo ? this.$route.query.buttonInfo : '';
+          this.currentTran = this.$route.query.currentTran;
           this.selectNext = this.nextTran[0].transitionName;
           this.getShowTransfer();
 
@@ -257,6 +268,8 @@
           this.$router.push({path: '/jhApprovalDetail', query: {page: 'toReadList'}})
         } else if (this.buttonTitle === '营钢审批') {
           this.$router.push({path: '/wkApprovalDetail', query: {page: 'toReadList'}})
+        } else if (this.buttonTitle === '招采签核') {
+          this.$router.push({path: '/publicBiddingDetail', query: {page: 'toReadList'}})
         }
       },
       btn_cancel() {

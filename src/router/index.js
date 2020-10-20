@@ -66,6 +66,9 @@ const versionUpdateInfo = r => require.ensure([], () => r(require('../page/versi
 const erp = r => require.ensure([], () => r(require('../page/erpApproval/erp')), 'erp');
 const salesApproval = r => require.ensure([], () => r(require('../page/erpApproval/salesApproval')), 'salesApproval');
 const salesApprovalDetail = r => require.ensure([], () => r(require('../page/erpApproval/salesApprovalDetail')), 'salesApprovalDetail');
+const publicBidding = r => require.ensure([], () => r(require('../page/erpApproval/publicBidding')), 'publicBidding');
+const publicBiddingDetail = r => require.ensure([], () => r(require('../page/erpApproval/publicBiddingDetail')), 'publicBiddingDetail');
+
 //集团审批
 const group= r => require.ensure([], () => r(require('../page/groupApproval/group')), 'group');
 const jhApproval = r => require.ensure([], () => r(require('../page/groupApproval/jhApproval')), 'jhApproval');
@@ -225,6 +228,18 @@ export default new Router({
       path: '/salesApprovalDetail',
       name: 'salesApprovalDetail',
       component: salesApprovalDetail,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/publicBidding',
+      name: 'publicBidding',
+      component: publicBidding,
+      meta: {keepAlive: true}
+    },
+    {
+      path: '/publicBiddingDetail',
+      name: 'publicBiddingDetail',
+      component: publicBiddingDetail,
       meta: {keepAlive: true}
     },
     {

@@ -1,5 +1,5 @@
 <template>
-  <div id="receiveContent">
+  <div id="groupContent">
     <ul>
       <li v-for="(item,index) in contentList">
         <mt-badge class="message-counts" size="small" color="red" v-if="item.newMessages > 0">{{item.newMessages}}</mt-badge>

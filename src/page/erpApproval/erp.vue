@@ -21,12 +21,13 @@
   import BodyContent from '@/components/bodyContent/body-content'
   import ErpContent from '@/components/contentGuide/erpContent'
   import interfaceService from '../../service/interfaceService.js'
+  import axios from 'axios'
 
   export default {
     name: 'erp',
     data() {
       return {
-        title: 'ERP',
+        title: 'ERP审批',
         paramsErpDaiban:{}
       }
     },
@@ -36,24 +37,20 @@
         this.$router.push({path: '/tab/home'})
       },
       //获取ERP页面数据
-      getErpData() {
+      getERPData() {
         let that = this;
-        //获取ERP待办数量
-        that.paramsErpDaiban = {
-          "fromId":"JKA01",
-          "test":"Y",
-          // "userId":"R002019",
-          "userId":interfaceService.getCookie("UserId")
-        };
-        var obj = JSON.stringify(that.paramsErpDaiban);
-        interfaceService.queryErpData('ERP',obj)
-        .then(function (saleResp) {
+        //一次性获取ERP待办总数、招采待办、客户退款、需求提报待办数量
+        interfaceService.queryErpData('ERP').then(function (resp) {
           that.hideIndicator();
-          //销售待办数量
-          // for (let i = 0; i < saleResp.length; i++) {
-            // let wfindex = that.getIndex(that.$refs.contentGuide.contentList, wfResp[i].label);
-            that.$refs.contentGuide.contentList[0].newMessages = saleResp.data.value;
-          // }
+          let mqeindex = that.getIndex(that.$refs.contentGuide.contentList, "MQE");
+          that.$refs.contentGuide.contentList[mqeindex].newMessages = resp[1].count;
+
+          let saindex = that.getIndex(that.$refs.contentGuide.contentList, "SA");
+          that.$refs.contentGuide.contentList[saindex].newMessages = resp[2].count;
+
+          let urindex = that.getIndex(that.$refs.contentGuide.contentList, "UR");
+          that.$refs.contentGuide.contentList[urindex].newMessages = resp[3].count;
+
         }, function (error) {
           that.hideIndicator();
           that.showAlert("数据加载失败");
@@ -73,7 +70,7 @@
       //页面初始化
       init() {
         //获取ERP首页数据
-        // this.getErpData();
+        this.getERPData();
       }
     },
     activated() {

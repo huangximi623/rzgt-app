@@ -76,7 +76,9 @@
       margin: 10px;
       .workflow-list-header {
         margin-left: 15px;
-        height: 40px;
+        margin-right: 15px;
+/*        height: 40px;*/
+        height: 100%;
         line-height: 40px;
         border-bottom: 2px dotted #D2D2D2;
         color: #1e8fe1;

@@ -117,22 +117,25 @@
       padding: 12px;
       .item-content {
         margin: 5px 20px;
-        height: 30px;
-        line-height: 30px;
+        height: 35px;
+        /*line-height: 30px;*/
         position: relative;
         /*width: 90%;*/
         .item-content-t {
           /*display: inline-block;*/
           height: 30px;
-          width: 60%;
+          /*width: 60%;*/
+          width: 70%;
           color: #333333;
           position: absolute;
           left: 5%;
           text-align: left;
+          word-break:break-all;
         }
         .item-content-c {
           /*display: inline-block;*/
-          width: 35%;
+          /*width: 35%;*/
+          width: 30%;
           color: #999999;
           position: absolute;
           text-align: right;

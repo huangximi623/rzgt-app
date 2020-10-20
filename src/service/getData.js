@@ -68,7 +68,7 @@ export const postSteelApiData = (params) => {
 //获取ERP数据
 export const postErpApiData = (params) => {
   return fetch({
-    url: config.erpApiURL,
+    url: config.apiURL,
     method: 'POST',
     withCredentials: true,
     headers: {

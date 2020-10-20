@@ -76,6 +76,9 @@ let interfaceService = {
       case 'WFandCWCR':
         apiName = interfaceData.getOADaibanApi;
         break;
+      case 'CM':
+        apiName = interfaceData.getCMTaskCountApi;
+        break;
       case 'JD':
         apiName = interfaceData.getJDTaskCountApi;
         break;
@@ -254,22 +257,78 @@ let interfaceService = {
  ==========================================
  */
   //销售审批待办数量
-  queryErpData: function (type,params) {
+  queryErpData: function (type) {
     let apiName = '';
     switch (type) {
       case 'ERP':
         apiName = interfaceData.getERPDaibanApi;
         break;
+/*      case 'MQE':
+        apiName = interfaceData.getERPDaibanApi;
+        break;
+      case 'UR':
+        apiName = interfaceData.getERPDaibanApi;
+        break;*/
       default:
         break;
     }
-    let url = apiName;
+    let url = apiName + this.getCookie("Token");
     let paramsPost = {
       url: url,
-      method: 'post',
-      param: params
+      method: 'get',
+      param: ''
     };
-    return postErpApiData(paramsPost);
+    return postApiData(paramsPost);
+  },
+
+  //ERP审批列表
+  queryERPList: function (type, dataValue, params) {
+    let apiName = '';
+    switch (type) {
+      case '待办':
+        apiName = interfaceData.getERPDbListApi;
+        break;
+      case '已办':
+        apiName = interfaceData.getERPYbListApi;
+        break;
+      case '办结':
+        apiName = interfaceData.getERPBjListApi;
+        break;
+      default:
+        break;
+    }
+    let url = apiName + this.getCookie("Token") +  '/' + dataValue +'?from=' + params.from + '&' + 'limit=' + params.limit;
+    let paramsPost = {
+      url: url,
+      method: 'get',
+      param: ''
+    };
+    return postApiData(paramsPost);
+  },
+  //ERP审批流程
+  queryERPProcess: function (params) {
+    let url = interfaceData.getERPCommentDetailApi + this.getCookie("Token") + '/' + params.processId;
+    let paramsPost = {
+      url: url,
+      method: 'get',
+      param: ''
+    };
+    return postApiData(paramsPost);
+  },
+  //ERP审批详情
+  queryERPDetails: function (type, params) {
+    let url = '';
+    if (type === 'over') {
+      url = interfaceData.getERPDetailApi + this.getCookie("Token") + '/' + params.processId;
+    } else {
+      url = interfaceData.getERPDetailApi + this.getCookie("Token") + '/' + params.taskId;
+    }
+    let paramsPost = {
+      url: url,
+      method: 'get',
+      param: ''
+    };
+    return postApiData(paramsPost);
   },
 
   querySalesList: function (type, params) {
@@ -817,6 +876,8 @@ let interfaceService = {
       url = interfaceData.getWkygABGroupUserApi + this.getCookie("Token") + '/' + params.groupLabel;
     } else if(type === '公文审批') {
       url = interfaceData.getABGroupUserApi + this.getCookie("Token") + '/' + params.groupLabel;
+    } else if(type === '招采签核') {
+      url = interfaceData.getABGroupUserApi + this.getCookie("Token") + '/' + params.groupLabel;
     }
 
     let paramsPost = {
@@ -837,6 +898,8 @@ let interfaceService = {
     } else if(params.type === '营钢审批') {
       url = interfaceData.queryWkygABUserApi + this.getCookie("Token") + '/' + encodeURIComponent(params.queryValue);
     } else if(params.type === '公文审批') {
+      url = interfaceData.queryABUserApi + this.getCookie("Token") + '/' + encodeURIComponent(params.queryValue);
+    } else if(params.type === '招采签核') {
       url = interfaceData.queryABUserApi + this.getCookie("Token") + '/' + encodeURIComponent(params.queryValue);
     }
 
@@ -869,6 +932,8 @@ let interfaceService = {
     } else if(type === '营钢审批') {
       url = interfaceData.getWkygTopGroupApi + this.getCookie("Token") + '?limit=NaN';
     } else if(type === '公文审批') {
+      url = interfaceData.getTopGroupApi + this.getCookie("Token") + '?limit=NaN';
+    } else if(type === '招采签核') {
       url = interfaceData.getTopGroupApi + this.getCookie("Token") + '?limit=NaN';
     }
 
@@ -1008,14 +1073,17 @@ let interfaceService = {
       case '接待管理':
         url = interfaceData.getJDMangeCaoZuoApi;
         break;
-      case '销售审批':
-        url = interfaceData.getERPCaoZuoApi;
-        break;
+      // case '销售审批':
+      //   url = interfaceData.getERPCaoZuoApi;
+      //   break;
       case '京华审批':
       url = interfaceData.getJhjtCaoZuoApi;
       break;
       case '营钢审批':
         url = interfaceData.getWkygCaoZuoApi;
+        break;
+      case '招采签核':
+        url = interfaceData.getERPCaoZuoApi;
         break;
       default:
         break;

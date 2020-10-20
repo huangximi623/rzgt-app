@@ -25,12 +25,26 @@
       return {
         contentList: [
           {
-            href: '/salesApproval',
-            imgPath: require('../../assets/moduleImg/12.png'),
-            content: '销售审批',
-            label: 'WF',
+            href: '/publicBidding',
+            imgPath: require('../../assets/moduleImg/35.png'),
+            content: '招采签核',
+            label: 'MQE',
             newMessages: '0',
-          }
+          }/*,
+          {
+            href: '/erp',
+            imgPath: require('../../assets/moduleImg/34.png'),
+            content: '客户退款',
+            label: 'SA',
+            newMessages: '0',
+          },
+          {
+            href: '/erp',
+            imgPath: require('../../assets/moduleImg/37.png'),
+            content: '需求提报',
+            label: 'UR',
+            newMessages: '0',
+          }*/
         ]
       }
     }

@@ -1,9 +1,9 @@
 {
-  "baseURL": "https://moa.rizhaosteel.com:8092",
+  "baseURL": "http://10.5.99.69:8010/rgMobileOA",
   "apiURL": "/GetOaData",
   "erpApiURL": "/GetErpData",
   "steelApiURL": "/GetSteelData",
-  "currentVersion":"2.5.5",
+  "currentVersion":"2.5.7",
   "requestTimeOut": 300000,
   "method": "get"
 }

@@ -60,13 +60,7 @@
             content: '接待管理',
             label: 'JD',
             newMessages: '0',
-          }, /*{
-            href: '/erp',
-            imgPath: require('../../assets/moduleImg/13.png'),
-            content: 'ERP审批',
-            label: 'ERP',
-            newMessages: '',
-          },*/ {
+          },  {
             href: '/informationPublish',
             imgPath: require('../../assets/moduleImg/7.png'),
             content: '信息发布',
@@ -76,7 +70,7 @@
             href: '/schedule',
             imgPath: require('../../assets/moduleImg/8.png'),
             content: '日程管理',
-            label: '',
+            label: 'CM',
             newMessages: '0',
           }, {
             href: '/documentCenter',
@@ -90,6 +84,12 @@
             content: '集团审批',
             label: 'JTWF',
             newMessages: '',
+          },{
+            href: '/erp',
+            imgPath: require('../../assets/moduleImg/32.png'),
+            content: 'ERP审批',
+            label: 'ERP',
+            newMessages: '0',
           }
         ]
       }

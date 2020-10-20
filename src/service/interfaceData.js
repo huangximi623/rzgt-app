@@ -5,28 +5,30 @@ let interfaceData = {
   currentVersionApi: '/GetCurrentVersion', //当前版本
 
   //销售审批模块
-  getERPDaibanApi: '/service/getERPDaiban/',//销售审批待办数量
-  getSaleDbListApi: '/service/getSaleDbList/',//销售审批待办列表
-  getSaleYbListApi: '/service/getSaleYbList/',//销售审批已办列表
-  getSaleTaskDetailApi: '/service/getSaleTaskDetail/',//销售审批详情
-  getSaleCommentDetailApi: '/service/getSaleCommentDetail/',//销售审批流程记录
+  getERPDaibanApi: '/service/user/getERPDaiban/',//销售审批待办数量
+  getERPDbListApi: '/service/WF/getERPDbList/',//销售审批待办列表
+  getERPYbListApi: '/service/WF/getERPYbList/',//销售审批已办列表
+  getERPBjListApi: '/service/WF/getERPBjList/',//销售审批已办列表
+  getERPDetailApi: '/service/WF/getERPTaskDetail/',//销售审批详情
+  getERPCommentDetailApi: '/service/WF/getERPCommentDetail/',//销售审批流程记录
 
-  //废钢验收模块
-  // getAuthorityFlagApi: '/LogCheck.aspx',//获取权限标识
-  // getLevelStandardListApi: '/QueryStander.aspx',//获取判级标准列表
-  // getLevelStandardDetailApi: '/QueryStander.aspx',//获取判级标准明细
-  // getQualityTestListApi: '/QueryQuSite.aspx',//获取质检点列表
-  // getQualityTestDetailApi: '/QueryQuSite.aspx',//获取质检点明细
-  // getWeightNoteInfoApi: '/QueryWgt.aspx',//根据磅单号查询信息
-  // getCarMsgByWgtApi: '/QueryWgt.aspx',//获取车次信息 QueryWgt.aspx
-  // getAcceptHistoryListApi: '/QueryInfo.aspx',//获取验收历史数据列表
-  // getAcceptHistoryDetailApi: '/QueryInfo.aspx',//获取验收历史数据详情
-  // getAcceptPictureApi: '/DownLoadPicture.aspx',//获取验收照片
-  // getAcceptPictureApi: '/service/IW/getPictureNews/',
-    // 'QueryPicture.aspx',//获取验收照片
+/*  废钢验收模块
+  getAuthorityFlagApi: '/LogCheck.aspx',//获取权限标识
+  getLevelStandardListApi: '/QueryStander.aspx',//获取判级标准列表
+  getLevelStandardDetailApi: '/QueryStander.aspx',//获取判级标准明细
+  getQualityTestListApi: '/QueryQuSite.aspx',//获取质检点列表
+  getQualityTestDetailApi: '/QueryQuSite.aspx',//获取质检点明细
+  getWeightNoteInfoApi: '/QueryWgt.aspx',//根据磅单号查询信息
+  getCarMsgByWgtApi: '/QueryWgt.aspx',//获取车次信息 QueryWgt.aspx
+  getAcceptHistoryListApi: '/QueryInfo.aspx',//获取验收历史数据列表
+  getAcceptHistoryDetailApi: '/QueryInfo.aspx',//获取验收历史数据详情
+  getAcceptPictureApi: '/DownLoadPicture.aspx',//获取验收照片
+  getAcceptPictureApi: '/service/IW/getPictureNews/',
+    'QueryPicture.aspx',//获取验收照片*/
 
   //主页数据显示
   getOADaibanApi: '/service/user/getOADaiban/',//行政审批待办数量
+  getCMTaskCountApi: '/service/CM/getCMTaskCount/',//日程管理待办数量
   getJDTaskCountApi: '/service/JDManage/getJDTaskCount/',//接待管理待办数量
   getMeetingTaskCountApi: '/service/Meeting/getMeetingTaskCount/',//会议管理待办数量
   getJBTaskCountApi: '/service/JobManage/getJBTaskCount/',//任务管理待办数量
@@ -165,7 +167,7 @@ let interfaceData = {
   getCWCRCaoZuoApi: '/service/CWCR/caozuo', //公文审批
   getMeetingCaoZuoApi: '/service/Meeting/caozuo', //会议管理
   getJDMangeCaoZuoApi: '/service/JDManage/caozuo', //接待管理
-  getERPCaoZuoApi: '/service/ERP/caozuo', //销售审批
+  getERPCaoZuoApi: '/service/WF/caozuo', //ERP审批
   getJhjtCaoZuoApi: '/JHJT/service/WF/caozuo', //京华审批
   getWkygCaoZuoApi: '/WKYG/service/WF/caozuo', //营钢审批
 

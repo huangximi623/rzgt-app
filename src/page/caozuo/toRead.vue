@@ -97,6 +97,8 @@
           this.$router.push({path: '/jhApprovalDetail', query: {page: 'toReadList'}})
         } else if (this.buttonTitle === '营钢审批') {
           this.$router.push({path: '/wkygApprovalDetail', query: {page: 'toReadList'}})
+        } else if (this.buttonTitle === '招采签核') {
+          this.$router.push({path: '/publicBiddingDetail', query: {page: 'toReadList'}})
         }
       },
       getCaoZuo(type, params) {
@@ -134,6 +136,9 @@
                   break;
                 case '营钢审批':
                   that.showAlertAndUrl(response.message, '/wkApproval');
+                  break;
+                case '招采签核':
+                  that.showAlertAndUrl(response.message, '/publicBidding');
                   break;
                 default:
                   break;

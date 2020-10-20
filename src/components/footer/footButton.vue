@@ -15,7 +15,7 @@
           </div>
 
           <router-link v-else
-                       :to="{path: '/'+button.label, query:{buttonTitle: buttonTitle,deleteAll:'deleteAll',buttonInfo:button.nextTran,caozuo:button.label,taskId:taskId,fileGuid:fileGuid,receiveGuid:receiveGuid}}">
+                       :to="{path: '/'+button.label, query:{buttonTitle: buttonTitle,deleteAll:'deleteAll',buttonInfo:button.nextTran,currentTran:button.currentTran,caozuo:button.label,taskId:taskId,fileGuid:fileGuid,receiveGuid:receiveGuid}}">
             <span>{{ button.name }}</span>
           </router-link>
         </li>
@@ -93,6 +93,9 @@
               break;
             case '营钢审批':
               that.showAlertAndUrl(response.message, '/wkApproval');
+              break;
+            case '招采签核':
+              that.showAlertAndUrl(response.message, '/publicBidding');
               break;
             default:
               break;

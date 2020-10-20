@@ -148,18 +148,20 @@
         //同时执行多个请求
         axios.all([
           interfaceService.queryHomeData('WFandCWCR'),//获取行政审批、公文审批、公文阅知待办数量
+          interfaceService.queryHomeData('CM'),//获取日程管理待办数量
           interfaceService.queryHomeData('JHJT'),//获取京华集团行政审批
           interfaceService.queryHomeData('WKYG'),//获取五矿营钢行政审批
           interfaceService.queryHomeData('JD'),//获取接待管理待办数量
           interfaceService.queryHomeData('Meeting'),//获取会议管理待办数量
           interfaceService.queryHomeData('JB'),//获取任务管理待办数量
           interfaceService.queryNewsChanelList('IW'),//获取信息发布中心是否有新信息的标志
+          interfaceService.queryErpData('ERP'),//获取ERP待办数量
           interfaceService.queryFirstPageNewRemark(),//获取文档中心是否有新信息的标志
           interfaceService.queryPictureNews(),//获取轮播图
           interfaceService.queryPersonList({queryValue: interfaceService.getCookie("UserId")})//查询登陆人信息并保存
 
         ])
-          .then(axios.spread(function (wfResp, jhResp, wkResp, jdResp, meetResp, jbResp, IWResp, DOCResp, PictureResp, personResp) {
+          .then(axios.spread(function (wfResp, cmResp, jhResp, wkResp, jdResp, meetResp, jbResp, IWResp, ERPResp, DOCResp, PictureResp, personResp) {
           // .then(axios.spread(function (wfResp, IWResp, DOCResp, PictureResp, personResp) {
             that.hideIndicator();
             //行政审批、公文管理、公文阅知
@@ -170,6 +172,11 @@
                 let wfindex = that.getIndex(that.$refs.contentGuide.contentList, wfResp[i].label);
                 that.$refs.contentGuide.contentList[wfindex].newMessages = wfResp[i].count;
               }*/
+            }
+            //日程管理
+            for (let i = 0; i < cmResp.length; i++) {
+              let cmindex = that.getIndex(that.$refs.contentGuide.contentList, cmResp[i].label);
+              that.$refs.contentGuide.contentList[cmindex].newMessages = cmResp[i].taskCount;
             }
             //接待管理
             let jdindex = that.getIndex(that.$refs.contentGuide.contentList, 'JD');
@@ -188,6 +195,9 @@
                 that.$refs.contentGuide.contentList[IWindex].newMessages = 'new';
               }
             }
+            //ERP
+            let ERPindex = that.getIndex(that.$refs.contentGuide.contentList, 'ERP');
+            that.$refs.contentGuide.contentList[ERPindex].newMessages = ERPResp[0].count;
             //文档中心
             let DOCindex = that.getIndex(that.$refs.contentGuide.contentList, 'DOC');
             that.$refs.contentGuide.contentList[DOCindex].newMessages = '';

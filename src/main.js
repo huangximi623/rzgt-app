@@ -326,6 +326,8 @@ let routerLocation = function (location) {
       router.push({path: '/jhApprovalDetail', query: {page: 'toReadList'}})
     } else if (router.currentRoute.query.buttonTitle === '营钢审批') {
       router.push({path: '/wkApprovalDetail', query: {page: 'toReadList'}})
+    } else if (router.currentRoute.query.buttonTitle === '招采签核') {
+      router.push({path: '/publicBiddingDetail', query: {page: 'toReadList'}})
     }
   } else if (location === '/toNextList' || location === '/toReadList') {
     if (router.currentRoute.query.buttonTitle === '行政审批') {
@@ -342,6 +344,8 @@ let routerLocation = function (location) {
       router.push({path: '/jhApprovalDetail', query: {page: 'toReadList'}})
     } else if (router.currentRoute.query.buttonTitle === '营钢审批') {
       router.push({path: '/wkApprovalDetail', query: {page: 'toReadList'}})
+    } else if (router.currentRoute.query.buttonTitle === '招采签核') {
+      router.push({path: '/publicBiddingDetail', query: {page: 'toReadList'}})
     }
   } else if (location === '/informationPublishDetails') {
     if (router.currentRoute.query.page === 'home') {
