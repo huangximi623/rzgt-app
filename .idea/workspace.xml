@@ -2,29 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d7c9edd6-8f16-45ce-a14b-972107525953" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/config.xml" afterPath="$PROJECT_DIR$/config.xml" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/src/components/contentGuide/content-Guide.vue" afterPath="$PROJECT_DIR$/src/components/contentGuide/content-Guide.vue" />
-      <change beforePath="$PROJECT_DIR$/src/components/contentGuide/erpContent.vue" afterPath="$PROJECT_DIR$/src/components/contentGuide/erpContent.vue" />
-      <change beforePath="$PROJECT_DIR$/src/components/contentGuide/groupContent.vue" afterPath="$PROJECT_DIR$/src/components/contentGuide/groupContent.vue" />
-      <change beforePath="$PROJECT_DIR$/src/components/footer/footButton.vue" afterPath="$PROJECT_DIR$/src/components/footer/footButton.vue" />
-      <change beforePath="$PROJECT_DIR$/src/components/workFlow/reception-list.vue" afterPath="$PROJECT_DIR$/src/components/workFlow/reception-list.vue" />
       <change beforePath="$PROJECT_DIR$/src/config/config.json" afterPath="$PROJECT_DIR$/src/config/config.json" />
-      <change beforePath="$PROJECT_DIR$/src/main.js" afterPath="$PROJECT_DIR$/src/main.js" />
-      <change beforePath="$PROJECT_DIR$/src/page/caozuo/toNext.vue" afterPath="$PROJECT_DIR$/src/page/caozuo/toNext.vue" />
-      <change beforePath="$PROJECT_DIR$/src/page/caozuo/toNextList.vue" afterPath="$PROJECT_DIR$/src/page/caozuo/toNextList.vue" />
-      <change beforePath="$PROJECT_DIR$/src/page/caozuo/toRead.vue" afterPath="$PROJECT_DIR$/src/page/caozuo/toRead.vue" />
-      <change beforePath="$PROJECT_DIR$/src/page/caozuo/toReadList.vue" afterPath="$PROJECT_DIR$/src/page/caozuo/toReadList.vue" />
-      <change beforePath="$PROJECT_DIR$/src/page/caozuo/toReturn.vue" afterPath="$PROJECT_DIR$/src/page/caozuo/toReturn.vue" />
-      <change beforePath="$PROJECT_DIR$/src/page/erpApproval/erp.vue" afterPath="$PROJECT_DIR$/src/page/erpApproval/erp.vue" />
-      <change beforePath="$PROJECT_DIR$/src/page/schedule/scheduleDetails.vue" afterPath="$PROJECT_DIR$/src/page/schedule/scheduleDetails.vue" />
-      <change beforePath="$PROJECT_DIR$/src/page/tab/home.vue" afterPath="$PROJECT_DIR$/src/page/tab/home.vue" />
-      <change beforePath="$PROJECT_DIR$/src/page/taskManagement/taskManagementDetails.vue" afterPath="$PROJECT_DIR$/src/page/taskManagement/taskManagementDetails.vue" />
-      <change beforePath="$PROJECT_DIR$/src/router/index.js" afterPath="$PROJECT_DIR$/src/router/index.js" />
-      <change beforePath="$PROJECT_DIR$/src/service/getData.js" afterPath="$PROJECT_DIR$/src/service/getData.js" />
-      <change beforePath="$PROJECT_DIR$/src/service/interfaceData.js" afterPath="$PROJECT_DIR$/src/service/interfaceData.js" />
-      <change beforePath="$PROJECT_DIR$/src/service/interfaceService.js" afterPath="$PROJECT_DIR$/src/service/interfaceService.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -264,8 +243,8 @@
         <option value="$PROJECT_DIR$/src/page/caozuo/toReturn.vue" />
         <option value="$PROJECT_DIR$/src/page/caozuo/toNext.vue" />
         <option value="$PROJECT_DIR$/src/components/contentGuide/erpContent.vue" />
-        <option value="$PROJECT_DIR$/src/config/config.json" />
         <option value="$PROJECT_DIR$/src/router/index.js" />
+        <option value="$PROJECT_DIR$/src/config/config.json" />
       </list>
     </option>
   </component>
@@ -618,12 +597,12 @@
       <workItem from="1601103255077" duration="14907000" />
       <workItem from="1601251171968" duration="13598000" />
       <workItem from="1602203870487" duration="37862000" />
-      <workItem from="1602837100070" duration="3895000" />
+      <workItem from="1602837100070" duration="4141000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1712193000" />
+    <option name="totallyTimeSpent" value="1712439000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
