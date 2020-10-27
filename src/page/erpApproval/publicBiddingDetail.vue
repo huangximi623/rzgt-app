@@ -16,12 +16,14 @@
         <span><label class="margin-left-5">表单详情区</label></span>
       </div>
       <mt-cell v-for="(item,index) in administrativeInfo.detail" :key="index" :title="item.key"
-               :value="item.value.replace(/<br>/g,'')"></mt-cell>
+                :value="item.value.replace(/<br>/g,'')"></mt-cell>
+
       <div v-if="administrativeInfo.detailZB" :class="administrativeInfo.detailZB.length>0?'detailZB':''">
         <mt-cell v-for="(item,index) in administrativeInfo.detailZB" :key="index"
                  :title="item.key"
                  :value="item.value"></mt-cell>
       </div>
+
       <process-record :history="history"></process-record>
       <!--附件区-->
       <attachments-area :attachmentsInfo="administrativeInfo" :detailsPage="'行政审批'"></attachments-area>
