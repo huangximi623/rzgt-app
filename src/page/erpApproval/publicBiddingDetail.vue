@@ -15,8 +15,8 @@
       <div class="procedureRecord" v-if="administrativeInfo.detail">
         <span><label class="margin-left-5">表单详情区</label></span>
       </div>
-      <mt-cell v-for="(item,index) in administrativeInfo.detail" :key="index" :title="item.key"
-                :value="item.value.replace(/<br>/g,'')"></mt-cell>
+      <mt-cell class="wrapper"   v-for="(item,index) in administrativeInfo.detail" :key="index" :title="item.key"
+                :value="item.value.replace(/<br>/g,'\r\n')"></mt-cell>
 
       <div v-if="administrativeInfo.detailZB" :class="administrativeInfo.detailZB.length>0?'detailZB':''">
         <mt-cell v-for="(item,index) in administrativeInfo.detailZB" :key="index"
@@ -142,6 +142,9 @@
 
     .noFootButton-heigth {
       height: calc(100% - 45px);
+    }
+	 .wrapper{
+      white-space: pre-line;
     }
   }
 
